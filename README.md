@@ -8,7 +8,7 @@ Magazine and ebook layouts, an expanded visual editing studio, automation interf
 
 Papeleria turns a folder of text, data, and images into a slide deck, an illustrated comic, or a printable document. Write a YAML or JSON manifest, edit it in a local browser, and build a folder of static files that can be opened offline or copied to a web host.
 
-**Documentation edition:** 0.1.0 · schema 1 · 30 September 2026. The implementation is a release candidate. Platform acceptance and redistribution checks remain open; see [Installation](docs/INSTALLATION.md#requirements-and-platform-status) and [Licensing](docs/LICENSING.md#release-status-and-native-dependencies).
+**Documentation edition:** 0.1.0 · schema 1 · 30 September 2026. The implementation is a public preview. Platform acceptance and redistribution checks remain open; see [Installation](docs/INSTALLATION.md#requirements-and-platform-status) and [Licensing](docs/LICENSING.md#release-status-and-native-dependencies).
 
 [Repository](https://github.com/JeremiahJRRoss/papeleria) · [Main branch](https://github.com/JeremiahJRRoss/papeleria/tree/main) · [Releases](https://github.com/JeremiahJRRoss/papeleria/releases) · [Issues](https://github.com/JeremiahJRRoss/papeleria/issues)
 
@@ -84,3 +84,5 @@ All npm development commands run in the repository root. The [architecture docum
 Papeleria's own software is licensed under [Apache License 2.0](LICENSE). Third-party components and your authored content have separate terms; see [Licensing](docs/LICENSING.md).
 
 The development record, with the decisions, specifications, acceptance matrix, release status and session blueprints behind this code, is kept in a separate repository, Dev_Papeleria, which is not public.
+
+No warranty implied. 
