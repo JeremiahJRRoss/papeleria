@@ -1,0 +1,8 @@
+{
+  "id": "chart-single",
+  "type": "line",
+  "x": "week",
+  "y": "hours",
+  "summary": "Fourteen hours were logged in the week of 7 September.",
+  "locale": "en"
+}

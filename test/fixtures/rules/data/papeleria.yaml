@@ -1,0 +1,43 @@
+# R13 fixture (M1.7): data a chart or table cannot use, each problem where the
+# author fixes it: a CSV record at its line, a manifest field at its value.
+schema: 1
+template: deck
+title: Data problems
+
+slides:
+  - layout: chart
+    title: A column the file lacks
+    table:
+      data: assets/data/hours.csv
+      columns:
+        - phase
+        - {field: Hours, label: Hours spent}
+
+  - layout: chart
+    title: A header-only table
+    table: {data: assets/data/header-only.csv}
+
+  - layout: chart
+    title: A header-only chart
+    chart: {type: bar, data: assets/data/header-only.csv, x: phase, y: hours, summary: Nothing to draw.}
+
+  - layout: chart
+    title: A misspelled x
+    chart: {type: bar, data: assets/data/hours.csv, x: Phase, y: hours, summary: The x column is misspelled.}
+
+  - layout: chart
+    title: A blank y cell
+    chart: {type: bar, data: assets/data/gaps.csv, x: phase, y: hours, summary: One row has no hours.}
+
+  - layout: chart
+    title: Uneven rows
+    table: {data: assets/data/uneven.csv}
+
+  - layout: chart
+    title: The same uneven rows
+    table: {data: assets/data/uneven.csv}
+
+  # IC03: a date is a valid YYYY-MM-DD calendar date; 2026 has no 29 February.
+  - layout: chart
+    title: A date not in the calendar
+    chart: {type: line, data: assets/data/dates.csv, x: day, y: hours, summary: Hours by day.}

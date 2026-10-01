@@ -1,0 +1,9 @@
+id,note,hours
+1,"first line
+second line",3
+2,plain,4
+3,"a ""quoted"" word, with a comma",5
+4,"three
+line
+cell",6
+5,last,7

@@ -1,0 +1,9 @@
+{
+  "id": "chart-semanas",
+  "type": "line",
+  "x": "week",
+  "y": "hours",
+  "series": "phase",
+  "summary": "Las horas de revisión subieron cada mes y las de construcción bajaron.",
+  "locale": "es"
+}

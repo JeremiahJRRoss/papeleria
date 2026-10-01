@@ -1,0 +1,11 @@
+# W5C (M5.4): a one-slide English deck, for the singular stacked-view status
+# (`all_shown_one`, D130) in test/browser/localization.test.ts.
+schema: 1
+template: deck
+title: One idea, held still.
+language: en
+status: draft
+slides:
+  - layout: statement
+    title: One idea, held still.
+    lead: Nothing else on the screen.

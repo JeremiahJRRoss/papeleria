@@ -1,0 +1,1 @@
+Spanish examples retain the repository’s format vocabulary. Translation review by a competent reviewer is required before publication. Language attributes, switch labels, errors, availability language, and layout expansion must be checked. Links to English-only resources are labeled in the Spanish example.

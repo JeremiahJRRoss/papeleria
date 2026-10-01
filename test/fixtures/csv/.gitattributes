@@ -1,0 +1,2 @@
+# Fixture bytes are part of the test: never convert line endings.
+* -text

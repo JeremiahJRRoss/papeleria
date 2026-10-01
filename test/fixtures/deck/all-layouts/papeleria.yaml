@@ -1,0 +1,120 @@
+# Every deck layout at least once: the deck renderer's fixture (M1.5).
+# test/unit/deck-render.test.ts resolves it with a picture generated at test
+# time (assets/images/photo.png) and compares each slide with
+# test/fixtures/deck/layouts/. Some values carry markup characters on purpose.
+schema: 1
+template: deck
+title: |-
+  Every layout\
+  on one deck
+language: en
+status: review
+register: 'Fixture <deck> & "quotes"'
+edition: Edition 1 / 2026-09-23
+logo: {src: assets/images/logos/client.svg, alt: Client & partner logo}
+credits:
+  - {role: Author, name: Ross.moda studio}
+  - {role: Review, name: 'A. Reader <reader@example.com>'}
+
+slides:
+  - layout: cover
+    title: |-
+      Every layout,\
+      one deck.
+    lead: A fixture for the *renderer*
+    notes: assets/text/cover-notes.md
+
+  - layout: statement
+    title: A statement.
+    lead: One line of lead.
+    footer: Own footer
+    notes: Inline notes with **emphasis** and a [source](https://example.com/source).
+
+  - layout: two
+    title: Two columns
+    lead: The second column comes from a file.
+    columns:
+      - heading: Left
+        text: |-
+          First line\
+          second line
+      - heading: Right
+        text: assets/text/right.md
+    notes: One line of notes.
+
+  - layout: three
+    title: Three columns
+    columns:
+      - heading: One
+        text: Alpha.
+      - heading: Two
+        text: Beta.
+      - heading: Three
+        text: Gamma.
+
+  - layout: four
+    title: Four columns
+    columns:
+      - heading: A
+        text: First.
+      - heading: B
+        text: Second.
+      - heading: C
+        text: Third.
+      - heading: D
+        text: Fourth.
+
+  - layout: chart
+    title: Where the hours went.
+    chart:
+      type: bar
+      data: assets/data/hours.csv
+      x: phase
+      y: hours
+      summary: Review took the most hours and delivery the fewest.
+      show_table: true
+      caption: Hours by *phase*.
+      source: 'Source: studio time sheets'
+
+  - layout: chart
+    title: The same hours as a table.
+    table:
+      data: assets/data/hours.csv
+      columns:
+        - phase
+        - {field: hours, label: Hours spent}
+        - note
+      caption: Every phase, with its note.
+      source: Sample data.
+
+  - layout: image
+    title: A picture.
+    image:
+      src: assets/images/photo.png
+      alt: A gradient with a checker pattern.
+      caption: Generated at test time.
+      credit: Papeleria test suite
+      rights: Generated; no rights reserved
+      focal_point: [30, 40]
+
+  - layout: attributes
+    title: Attributes
+    items:
+      - {label: Considered, text: One clear thought.}
+      - {label: Practical, text: 'A <specific> next step.'}
+
+  - layout: palette
+    title: A palette
+    swatches:
+      - {name: Process cyan, value: '#32BCE9'}
+      - {name: Short form, value: '#fff', use: page ground}
+
+  - layout: type
+    title: Type
+
+  - layout: wordmark
+    title: The wordmark
+
+  - layout: closing
+    title: Closing.
+    lead: No notes on this slide, so no aside.

@@ -1,0 +1,24 @@
+# Core findings (M1.7): each error the core reports is listed once, although
+# the pass-through rule modules hand the same findings on again (D145, D66).
+schema: 1
+template: deck
+title: Core findings
+colour: red
+
+slides:
+  - layout: two
+    title: One column on a two slide
+    columns:
+      - {heading: Only, text: One}
+
+  - layout: chart
+    title: A chart without a summary
+    chart: {type: bar, data: assets/data/missing.csv, x: a, y: b}
+
+  - layout: image
+    title: A picture without alt
+    image: {src: assets/images/missing.png}
+
+  - layout: statement
+    title: Notes from a missing file
+    notes: assets/text/missing.md

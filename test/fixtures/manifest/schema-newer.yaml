@@ -1,0 +1,7 @@
+schema: 2
+template: deck
+title: Craft with care.
+unknown_future_field: true
+slides:
+  - layout: statement
+    title: One idea.

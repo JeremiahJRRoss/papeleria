@@ -1,0 +1,7 @@
+# A minimal deck, the positive case for every loader check.
+schema: 1
+template: deck
+title: Craft with care.
+slides:
+  - layout: statement
+    title: One idea.

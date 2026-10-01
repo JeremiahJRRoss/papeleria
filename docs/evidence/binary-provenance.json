@@ -1,0 +1,81 @@
+{
+  "$comment": "B9 of the code provenance review (docs/CODE_PROVENANCE_REVIEW_2026-09-28.md, section 5.3; D144): every image, font, video, audio or archive file under the application root that git tracks, or would commit, has exactly one entry here, saying which script generated it or which upstream, version and licence it came from. An entry names its files by a pattern ('*' within one folder, '**' across folders) and states how many it covers. test/unit/binary-provenance.test.ts fails on a file no entry covers, a file two entries cover and an entry whose count differs, so a new binary is explained here before it lands. Checked at 0.1.0's release candidate (W5D): 118 files.",
+  "extensions": ["png", "jpg", "jpeg", "gif", "webp", "avif", "svg", "ico", "bmp", "tif", "tiff", "woff", "woff2", "ttf", "otf", "eot", "mp4", "webm", "mov", "m4v", "mp3", "wav", "ogg", "flac", "pdf", "zip", "gz", "tgz", "tar", "7z"],
+  "entries": [
+    {
+      "pattern": "theme/fonts/inter-*.woff2",
+      "count": 2,
+      "source": "Inter 4.001 (git-66647c0bb), a variable font subset to Latin and Latin Extended, which arrived with the design kit's theme; upstream https://github.com/rsms/inter. SIL Open Font License 1.1, text in theme/fonts/Inter-OFL.txt; the binaries embed 'Copyright 2016 The Inter Project Authors'. Who made the subsets, and from which release file, is not recorded: the release owner's item (NOTICE.md; review P04, Appendix D)"
+    },
+    {
+      "pattern": "theme/fonts/poppins-*.woff2",
+      "count": 6,
+      "source": "Poppins 4.004 Regular, Medium and SemiBold, each subset to Latin and Latin Extended, which arrived with the design kit's theme; upstream https://github.com/itfoundry/Poppins. SIL Open Font License 1.1, text in theme/fonts/Poppins-OFL.txt, whose copyright line matches the embedded one. Subset provenance is not recorded: the release owner's item (NOTICE.md; review Appendix D)"
+    },
+    {
+      "pattern": "theme/marks/papeleria-favicon.svg",
+      "count": 1,
+      "source": "The public Papeleria favicon, part of the theme's identity defaults, which arrived with the design kit; allowed in output by D05 and to be replaced in a public fork (DECISIONS, brand-file contract)"
+    },
+    {
+      "pattern": "templates/comic/sample/assets/images/pages/*.png",
+      "count": 8,
+      "source": "The sample comic's eight placeholder pages, drawn by scripts/gen-sample-comic.mjs from the sample's own manifest (D102): no third-party imagery"
+    },
+    {
+      "pattern": "examples/sample-comic/assets/images/pages/*.png",
+      "count": 8,
+      "source": "Byte-identical copies of templates/comic/sample/'s pages (D119), from scripts/gen-sample-comic.mjs (D102)"
+    },
+    {
+      "pattern": "test/golden/baselines/brand-overview/**/*.png",
+      "count": 14,
+      "source": "Captures of Papeleria's own built brand-overview deck, made in CI's Chromium by test/browser/golden/brand-overview.visual.test.ts (D70); awaiting the design maintainer's review (REVIEW_PENDING.md there)"
+    },
+    {
+      "pattern": "test/golden/motion/*.png",
+      "count": 12,
+      "source": "A screenshot series of Papeleria's own comic reader with and without reduced motion, made by test/browser/motion.test.ts (D118): evidence for A14, not an oracle"
+    },
+    {
+      "pattern": "test/fixtures/svg/*.svg",
+      "count": 40,
+      "source": "SVG profile fixtures written for this project (D154), and W5E's four holding non-CSS whitespace in each value grammar (W5R-22): no third-party drawing (review P08)"
+    },
+    {
+      "pattern": "test/fixtures/charts/positive/*/expected.svg",
+      "count": 10,
+      "source": "Snapshots of Papeleria's own chart module's output (W1B, D44, D48), accepted as expected drawings"
+    },
+    {
+      "pattern": "test/fixtures/brand/**/*.svg",
+      "count": 3,
+      "source": "Brand-check fixtures written for this project (W0, M0.3): an invented stand-in for an owner mark, which says so in its own description, and a plain image; no real owner asset"
+    },
+    {
+      "pattern": "test/fixtures/comic/**/*.svg",
+      "count": 3,
+      "source": "Placeholder comic pages written for the reader and rule tests (W4)"
+    },
+    {
+      "pattern": "test/fixtures/deck/**/*.svg",
+      "count": 1,
+      "source": "A placeholder client logo written for the deck renderer's tests (W2A)"
+    },
+    {
+      "pattern": "test/fixtures/document/**/*.svg",
+      "count": 1,
+      "source": "A placeholder client logo written for the document renderer's tests (W3B)"
+    },
+    {
+      "pattern": "test/fixtures/localization/**/*.svg",
+      "count": 10,
+      "source": "Placeholder pages and pictures drawn for A12's EN/ES rendering matrix, one set per language (W5C, D133; test/fixtures/localization/README.md): plain shapes written for this project, no third-party drawing"
+    },
+    {
+      "pattern": "test/fixtures/rules/**/*.svg",
+      "count": 3,
+      "source": "A placeholder logo and marks written for the rule tests (W2A)"
+    }
+  ]
+}

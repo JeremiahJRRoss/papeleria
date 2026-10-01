@@ -1,0 +1,104 @@
+<!doctype html>
+<!--
+  DEP05 spike (M4.1): the vendored page-turn engine behind Papeleria's adapter,
+  templates/comic/client/engine-adapter.ts. Not a published page and not the
+  reader: test/browser/spike/page-flip.test.ts assembles this folder when it
+  runs, with spike.js (one classic script: the engine's pinned bytes, then
+  the adapter and spike-entry.ts bundled by esbuild) and the eight pages of
+  examples/sample-comic as images/. The panel buttons sit on
+  the manifest's boxes, and each button's label is a span that covers it, so
+  a press on a panel lands on a child of the button: the case the engine
+  alone would take for a page turn. `?manual` leaves the book unenhanced for a
+  test to start with its own options.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEP05 spike: the page-turn engine behind the adapter</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    :root { --paper: #fcfcfa; --ink: #1d1d1a; --register: 40px; --bar: 48px; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body { background: var(--paper); color: var(--ink); font: 16px/1.5 system-ui, sans-serif; }
+    .spike-register { height: var(--register); margin: 0; padding: 0 16px; display: flex; align-items: center; font-size: 1rem; font-weight: 600; }
+    .spike-stage { padding: 0 16px; }
+    /* Without JavaScript the pages stack at full width, as the reader's no-JS form does (UX §06). */
+    .spike-page { position: relative; margin: 0 auto 16px; max-width: 800px; }
+    .spike-page img { display: block; width: 100%; height: auto; }
+    .spike-panel { position: absolute; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
+    .spike-panel:hover, .spike-panel:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .spike-panel-label { position: absolute; inset: 0; overflow: hidden; color: transparent; }
+    .spike-bar { height: var(--bar); padding: 0 16px; display: flex; gap: 12px; align-items: center; }
+    .spike-bar button { min-height: 44px; }
+    .spike-bar p { margin: 0; }
+    /* Enhanced: a stage of a definite size, which the adapter's block fills and the engine fits the book into. */
+    .js body { height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+    .js .spike-stage { flex: 1 1 auto; min-height: 0; padding: 0; position: relative; }
+    .js .spike-page { margin: 0; max-width: none; }
+    .js .spike-page img { height: 100%; }
+  </style>
+  <script src="spike.js" defer></script>
+</head>
+<body>
+  <h1 class="spike-register">The ferry · Web Comics · DEP05 spike</h1>
+  <main class="spike-stage" id="stage">
+    <figure class="spike-page" id="page-1" data-page="1">
+      <img src="images/01.png" alt="A harbor at dawn, seen from the ferry pier." width="1600" height="2200">
+      <button type="button" class="spike-panel" data-panel="1-1" style="left: 4%; top: 4%; width: 56%; height: 28%"><span class="spike-panel-label">Narration: The ferry was late again.</span></button>
+      <button type="button" class="spike-panel" data-panel="1-2" style="left: 64%; top: 4%; width: 32%; height: 28%"><span class="spike-panel-label">A gull on a bollard. Sound: a distant horn.</span></button>
+      <button type="button" class="spike-panel" data-panel="1-3" style="left: 4%; top: 36%; width: 92%; height: 26%"><span class="spike-panel-label">Wide shot of the harbor. Two figures wait at the ticket booth.</span></button>
+      <button type="button" class="spike-panel" data-panel="1-4" style="left: 4%; top: 66%; width: 44%; height: 30%"><span class="spike-panel-label">Speech: Is it always like this?</span></button>
+      <button type="button" class="spike-panel" data-panel="1-5" style="left: 52%; top: 66%; width: 44%; height: 30%"><span class="spike-panel-label">The ferry appears through the fog.</span></button>
+    </figure>
+    <figure class="spike-page" id="page-2" data-page="2">
+      <img src="images/02.png" alt="The ferry docks; passengers file aboard." width="1600" height="2200">
+      <button type="button" class="spike-panel" data-panel="2-1" style="left: 4%; top: 4%; width: 92%; height: 44%"><span class="spike-panel-label">Page 2, panel 1: The ferry docks; passengers file aboard.</span></button>
+      <button type="button" class="spike-panel" data-panel="2-2" style="left: 4%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 2, panel 2: a closer view.</span></button>
+      <button type="button" class="spike-panel" data-panel="2-3" style="left: 52%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 2, panel 3: the next beat.</span></button>
+    </figure>
+    <figure class="spike-page" id="page-3" data-page="3">
+      <img src="images/03.png" alt="On deck; the town shrinks behind the wake." width="1600" height="2200">
+      <button type="button" class="spike-panel" data-panel="3-1" style="left: 4%; top: 4%; width: 92%; height: 44%"><span class="spike-panel-label">Page 3, panel 1: On deck; the town shrinks behind the wake.</span></button>
+      <button type="button" class="spike-panel" data-panel="3-2" style="left: 4%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 3, panel 2: a closer view.</span></button>
+      <button type="button" class="spike-panel" data-panel="3-3" style="left: 52%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 3, panel 3: the next beat.</span></button>
+    </figure>
+    <figure class="spike-page" id="page-4" data-page="4">
+      <img src="images/04.png" alt="A conversation at the rail." width="1600" height="2200">
+      <button type="button" class="spike-panel" data-panel="4-1" style="left: 4%; top: 4%; width: 92%; height: 44%"><span class="spike-panel-label">Page 4, panel 1: A conversation at the rail.</span></button>
+      <button type="button" class="spike-panel" data-panel="4-2" style="left: 4%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 4, panel 2: a closer view.</span></button>
+      <button type="button" class="spike-panel" data-panel="4-3" style="left: 52%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 4, panel 3: the next beat.</span></button>
+    </figure>
+    <figure class="spike-page" id="page-5" data-page="5">
+      <img src="images/05.png" alt="The far shore; a lighthouse in the fog." width="1600" height="2200">
+      <button type="button" class="spike-panel" data-panel="5-1" style="left: 4%; top: 4%; width: 92%; height: 44%"><span class="spike-panel-label">Page 5, panel 1: The far shore; a lighthouse in the fog.</span></button>
+      <button type="button" class="spike-panel" data-panel="5-2" style="left: 4%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 5, panel 2: a closer view.</span></button>
+      <button type="button" class="spike-panel" data-panel="5-3" style="left: 52%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 5, panel 3: the next beat.</span></button>
+    </figure>
+    <figure class="spike-page" id="page-6" data-page="6">
+      <img src="images/06.png" alt="The crossing at midday." width="1600" height="2200">
+      <button type="button" class="spike-panel" data-panel="6-1" style="left: 4%; top: 4%; width: 92%; height: 44%"><span class="spike-panel-label">Page 6, panel 1: The crossing at midday.</span></button>
+      <button type="button" class="spike-panel" data-panel="6-2" style="left: 4%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 6, panel 2: a closer view.</span></button>
+      <button type="button" class="spike-panel" data-panel="6-3" style="left: 52%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 6, panel 3: the next beat.</span></button>
+    </figure>
+    <figure class="spike-page" id="page-7" data-page="7">
+      <img src="images/07.png" alt="Arrival; the same two figures, ashore." width="1600" height="2200">
+      <button type="button" class="spike-panel" data-panel="7-1" style="left: 4%; top: 4%; width: 92%; height: 44%"><span class="spike-panel-label">Page 7, panel 1: Arrival; the same two figures, ashore.</span></button>
+      <button type="button" class="spike-panel" data-panel="7-2" style="left: 4%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 7, panel 2: a closer view.</span></button>
+      <button type="button" class="spike-panel" data-panel="7-3" style="left: 52%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 7, panel 3: the next beat.</span></button>
+    </figure>
+    <figure class="spike-page" id="page-8" data-page="8">
+      <img src="images/08.png" alt="The ferry leaves; the pier is empty." width="1600" height="2200">
+      <button type="button" class="spike-panel" data-panel="8-1" style="left: 4%; top: 4%; width: 92%; height: 44%"><span class="spike-panel-label">Page 8, panel 1: The ferry leaves; the pier is empty.</span></button>
+      <button type="button" class="spike-panel" data-panel="8-2" style="left: 4%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 8, panel 2: a closer view.</span></button>
+      <button type="button" class="spike-panel" data-panel="8-3" style="left: 52%; top: 52%; width: 44%; height: 44%"><span class="spike-panel-label">Page 8, panel 3: the next beat.</span></button>
+    </figure>
+  </main>
+  <nav class="spike-bar" aria-label="Pages">
+    <button type="button" id="previous">Previous</button>
+    <p id="status" role="status">All pages are available without JavaScript.</p>
+    <button type="button" id="next">Next</button>
+  </nav>
+</body>
+</html>

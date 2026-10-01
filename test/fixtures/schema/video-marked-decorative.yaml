@@ -1,0 +1,7 @@
+schema: 1
+template: document
+title: Fixture.
+sections:
+  - heading: Hours
+    blocks:
+      - video: {src: assets/video/loop.mp4, poster: assets/images/poster.png, alt: A loop., decorative: true}

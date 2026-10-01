@@ -1,0 +1,24 @@
+{
+  "$comment": "B7, tier 1 (docs/CODE_PROVENANCE_REVIEW_2026-09-28.md §5.3; D144): the disposition of every run of 50 tokens or more that Papeleria's own code shares with an installed package, as scripts/similarity-scan.mjs reports it. An entry covers the regions it names, by their identity (the first 16 hexadecimal digits of the SHA-256 of the shared tokens, which the scan prints), between its own file and a corpus path starting with its prefix. A new region, even between the same two files, has no entry and fails the scan until someone decides it: replaced by an import, declared and attributed, or a false positive, with the reason. A named region the scan no longer finds fails it too. The run behind these entries is recorded in docs/evidence/provenance-2026-09-28.md.",
+  "dispositions": [
+    {
+      "own": "src/core/charts.ts",
+      "corpus": "node_modules/d3-time-format/",
+      "regions": [
+        "5d6df9b8cbc1801b",
+        "a4a29b770e81f505",
+        "7053ff5fcdc18118",
+        "20cfc41caa8481e4"
+      ],
+      "disposition": "declared: the en-US and es-ES locale definitions D41 copies from d3-time-format 4.1.0 (ISC) with d3-format 3.1.2's, named in charts.ts and compared with the installed files by a test; THIRD_PARTY.md section 2 lists both copies with the ISC notice and their licence files (issue 002 F2, closed by W5B)"
+    },
+    {
+      "own": "src/core/markdown.ts",
+      "corpus": "node_modules/markdown-it-footnote/",
+      "regions": [
+        "0a348ecf7b6f20f6"
+      ],
+      "disposition": "declared and attributed: D164(e)'s linear footnote_tail adapts markdown-it-footnote 4.0.0's rule (MIT); the shared closing lines emit the plugin's own tokens, the comment above footnoteTail names the source, version and licence, and THIRD_PARTY.md section 2 lists it with its licence file (D144)"
+    }
+  ]
+}

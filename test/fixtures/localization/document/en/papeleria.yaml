@@ -1,0 +1,46 @@
+# W5C (M5.4): the English document of the localization matrix. Two logical
+# sheets; a note and a warning; text with an external link; a table from a CSV
+# with a blank cell; a bar chart with four-digit values and a line chart over
+# July dates (D41's number and date forms). No `doc_type`, so the localized
+# `doc_type_default` renders; the tests add one for the override. Its author
+# text holds no control-string value of either language as a whole word, which
+# test/integration/localization.test.ts checks first.
+schema: 1
+template: document
+title: Autumn hours ran long.
+language: en
+status: draft
+metadata:
+  - { label: Audience, value: Studio leads }
+  - { label: Period, value: July 2026 }
+credits:
+  - { role: Author, name: Rosa Marín }
+footer: Studio records
+sections:
+  - heading: Summary
+    blocks:
+      - text: assets/text/summary.md
+      - note: { text: "Figures are rounded to the hour." }
+      - note: { text: "Two weeks are still open.", tone: warning }
+  - heading: Hours by team
+    blocks:
+      - chart:
+          type: bar
+          data: assets/data/team-hours.csv
+          x: team
+          y: hours
+          summary: Design logged the most hours, over two thousand.
+          source: Studio timesheets
+      - table:
+          data: assets/data/team-remarks.csv
+          caption: Remarks by team, one left blank.
+  - heading: Hours by week
+    new_page: true
+    blocks:
+      - chart:
+          type: line
+          data: assets/data/weekly.csv
+          x: week
+          y: hours
+          summary: Weekly hours rose through July.
+source_note: "Basis: sample timesheets made for the tests."

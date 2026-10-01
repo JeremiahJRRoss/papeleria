@@ -1,0 +1,268 @@
+# The brand overview deck: the kit's sixteen slides rebuilt from files, and the
+# input to the A4 golden test. Baseline: reference/decks/brand-overview.html.
+# A backslash at the end of a line inside a |- block is a Markdown hard break,
+# placed exactly where the kit breaks its own lines (D55).
+schema: 1
+template: deck
+title: |-
+  Craft with care.\
+  Build for the long view.
+language: en
+status: review
+register: Brand overview / Review edition
+edition: Version 1.1.0 / 2026-09-05
+
+slides:
+  - layout: cover
+    title: |-
+      Craft with care.\
+      Build for the long view.
+    lead: Papeleria templates
+    notes: assets/text/01-notes.md
+
+  - layout: two
+    title: |-
+      Two sources.\
+      Two different needs.
+    lead: Do not turn a prototype into a commercial claim.
+    columns:
+      - heading: The live presence
+        text: |-
+          Personal professional introduction\
+          Customer experience and service design\
+          Data foundations and operating practices
+      - heading: The studio prototype
+        text: |-
+          English / Spanish publishing intent\
+          Comics, sketchbook, essays, updates\
+          Sample records—not a published portfolio
+    footer: Observed / S01–S04
+    notes: assets/text/02-notes.md
+
+  - layout: three
+    title: |-
+      One system.\
+      Three templates.
+    lead: "Proposed architecture: Papeleria / deck, comic, document."
+    columns:
+      - heading: Deck
+        text: |-
+          A wide canvas.\
+          Twelve layouts.\
+          One slide per printed page.
+      - heading: Comic
+        text: |-
+          Art on paper.\
+          Panels with transcripts.\
+          A page turn.
+      - heading: Document
+        text: |-
+          An A4 sheet.\
+          Sections and blocks.\
+          Prints as it reads.
+    footer: Proposed / Papeleria PRD draft 0.4
+    notes: assets/text/03-notes.md
+
+  - layout: statement
+    title: |-
+      Care should be visible\
+      in the work.
+    lead: |-
+      A considered label. A clear handoff.\
+      A source you can inspect. A record you can continue.
+    footer: Proposed brand principle
+    notes: assets/text/04-notes.md
+
+  - layout: attributes
+    title: |-
+      Attributes must change\
+      what we make.
+    lead: Five working attributes—not five decorative adjectives.
+    items:
+      - label: Considered
+        text: One clear thought.
+      - label: Practical
+        text: A specific next step.
+      - label: Curious
+        text: Questions with context.
+      - label: Durable
+        text: Portable, editable source.
+      - label: Accountable
+        text: Evidence and limits.
+    footer: Proposed / Project Design Profile
+    notes: assets/text/05-notes.md
+
+  - layout: palette
+    title: |-
+      Take the color from the mark.\
+      Separate the meanings.
+    lead: Four process colors form the section system.
+    swatches:
+      - name: Process cyan
+        value: "#32BCE9"
+      - name: Process magenta
+        value: "#EB3A96"
+      - name: Process yellow
+        value: "#F5EE2F"
+      - name: Process key
+        value: "#050708"
+      - name: Paper
+        value: "#FCFCFA"
+      - name: Ink
+        value: "#1D1D1A"
+    footer: Adopted / RM-D10, superseding RM-D04
+    notes: assets/text/06-notes.md
+
+  - layout: type
+    title: |-
+      Let typography do\
+      the first work.
+    lead: Self-hosted faces keep this edition portable.
+    footer: Adopted / RM-D10, superseding RM-D04
+    notes: assets/text/07-notes.md
+
+  - layout: wordmark
+    title: |-
+      A typographic wordmark.\
+      Your own mark goes here.
+    lead: Papeleria ships no logo. The register shows the wordmark text; a deck can add its own logo file.
+    footer: Adapted / source mark not included
+    notes: assets/text/08-notes.md
+
+  - layout: three
+    title: |-
+      The record should\
+      outlast the meeting.
+    lead: Professional documents share a durable information structure.
+    columns:
+      - heading: Context
+        text: |-
+          Audience, purpose, scope,\
+          version, and owner.
+      - heading: Basis
+        text: |-
+          Evidence, assumptions,\
+          limitations, and terms.
+      - heading: Next action
+        text: |-
+          A clear decision,\
+          responsibility, and record.
+    footer: Adapted / S06–S07
+    notes: assets/text/09-notes.md
+
+  - layout: three
+    title: |-
+      One message. One reason.\
+      One next step.
+    lead: Marketing should make the choice clearer—not exaggerate the evidence.
+    columns:
+      - heading: Proposition
+        text: |-
+          Name a problem\
+          the audience recognizes.
+      - heading: Support
+        text: |-
+          Show real work or a\
+          source-backed basis.
+      - heading: Action
+        text: |-
+          Choose a useful,\
+          working destination.
+    footer: Proposed campaign system
+    notes: assets/text/10-notes.md
+
+  - layout: three
+    title: |-
+      Make the next\
+      action real.
+    lead: A static interface must tell the truth about what it does.
+    columns:
+      - heading: Browse
+        text: |-
+          Complete HTML guidance\
+          and templates.
+      - heading: Prepare
+        text: |-
+          A brief generated\
+          on the visitor’s device.
+      - heading: Download
+        text: |-
+          An editable file—\
+          not a submission receipt.
+    footer: Implemented / static kit
+    notes: assets/text/11-notes.md
+
+  - layout: statement
+    title: |-
+      A format guide\
+      is not a portfolio.
+    lead: |-
+      Keep prototypes, experiments,\
+      and published work visibly distinct.
+    footer: Source limit / S02–S04
+    notes: assets/text/12-notes.md
+
+  - layout: two
+    title: |-
+      Translate the meaning,\
+      not only the heading.
+    lead: The Studio example is bilingual; the full kit is not.
+    columns:
+      - heading: English
+        text: |-
+          Web Comics / Sketchbook\
+          Essays / Studio Updates\
+          Complete labels and next steps
+      - heading: Español
+        text: |-
+          Web Cómics / Cuaderno\
+          Ensayos / Noticias del Estudio\
+          Revisión lingüística pendiente
+    footer: Draft examples / S04 vocabulary
+    notes: assets/text/13-notes.md
+
+  - layout: four
+    title: |-
+      Polish must not\
+      outrun proof.
+    lead: Use a visible route from statement to approval.
+    columns:
+      - heading: Statement
+        text: What is being said?
+      - heading: Basis
+        text: How is it known?
+      - heading: Limit
+        text: Where does it stop?
+      - heading: Review
+        text: Who can approve it?
+    footer: Adapted / evidence discipline
+    notes: assets/text/14-notes.md
+
+  - layout: attributes
+    title: |-
+      Release by decision,\
+      not assumption.
+    lead: A checklist supports review; it does not create authority.
+    items:
+      - label: Approve
+        text: Architecture, mark, and commercial scope.
+      - label: Verify
+        text: Facts, rights, contact, and language.
+      - label: Inspect
+        text: Keyboard, mobile, exports, and print.
+      - label: Publish
+        text: The static /docs folder—not Rust.
+      - label: Record
+        text: Version, owner, decisions, and limits.
+    footer: Proposed release sequence
+    notes: assets/text/15-notes.md
+
+  - layout: closing
+    title: |-
+      Build a practice people\
+      can carry forward.
+    lead: |-
+      Use the system. Keep the source.\
+      Make the next decision clear.
+    footer: Review edition / approval pending
+    notes: assets/text/16-notes.md

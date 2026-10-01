@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "outDir": "lib/browser-tests",
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": ["test/browser/**/*.ts"],
+  "exclude": ["**/node_modules", "lib"]
+}

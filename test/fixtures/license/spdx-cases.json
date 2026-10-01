@@ -1,0 +1,80 @@
+{
+  "$comment": "SPDX evaluation cases for scripts/license-check.mjs (R11). PSF-2.0, Python-2.0 and 0BSD are allowlisted in author-runtime scope only (D29), so they pass for any package there and fail in dev and published-piece scope. CC0-1.0 is a package-specific exception for railroad-diagrams@1.0.0 only (D30), so it is version- and package-sensitive. `expected` is true when the expression is allowed in that scope, false when it is refused, and \"error\" when the expression cannot be parsed at all. Run with: node scripts/license-check.mjs --spdx-cases test/fixtures/license/spdx-cases.json",
+  "cases": [
+    {"expression": "MIT", "scope": "published-piece", "expected": true},
+    {"expression": "ISC", "scope": "published-piece", "expected": true},
+    {"expression": "BSD-2-Clause", "scope": "published-piece", "expected": true},
+    {"expression": "BSD-3-Clause", "scope": "published-piece", "expected": true},
+    {"expression": "OFL-1.1", "scope": "published-piece", "expected": true},
+    {"expression": "Apache-2.0", "scope": "published-piece", "expected": false},
+    {"expression": "Apache-2.0", "scope": "author-runtime", "expected": true},
+    {"expression": "Apache-2.0", "scope": "dev", "expected": true},
+
+    {"expression": "MIT AND Apache-2.0", "scope": "published-piece", "expected": false},
+    {"expression": "MIT AND Apache-2.0", "scope": "author-runtime", "expected": true},
+    {"expression": "MIT AND ISC", "scope": "published-piece", "expected": true},
+
+    {"expression": "(AFL-2.1 OR BSD-3-Clause)", "scope": "published-piece", "expected": true},
+    {"expression": "AFL-2.1", "scope": "author-runtime", "expected": false},
+    {"expression": "MIT OR GPL-3.0-only", "scope": "published-piece", "expected": true},
+    {"expression": "MIT AND GPL-3.0-only", "scope": "author-runtime", "expected": false},
+
+    {"expression": "MIT OR GPL-3.0-only AND AGPL-3.0-only", "scope": "author-runtime", "expected": true},
+    {"expression": "GPL-3.0-only AND MIT OR ISC", "scope": "author-runtime", "expected": true},
+    {"expression": "(MIT OR GPL-3.0-only) AND AGPL-3.0-only", "scope": "author-runtime", "expected": false},
+    {"expression": "MIT AND (ISC OR GPL-2.0-only)", "scope": "author-runtime", "expected": true},
+    {"expression": "MIT AND (GPL-2.0-only OR AGPL-3.0-only)", "scope": "author-runtime", "expected": false},
+    {"expression": "((MIT))", "scope": "published-piece", "expected": true},
+
+    {"expression": "GPL-3.0-only", "scope": "published-piece", "expected": false},
+    {"expression": "GPL-3.0-only", "scope": "author-runtime", "expected": false},
+    {"expression": "GPL-3.0-only", "scope": "dev", "expected": false},
+    {"expression": "AGPL-3.0-or-later", "scope": "dev", "expected": false},
+    {"expression": "SSPL-1.0", "scope": "dev", "expected": false},
+    {"expression": "EUPL-1.2", "scope": "dev", "expected": false},
+    {"expression": "GPL-2.0-only WITH Classpath-exception-2.0", "scope": "author-runtime", "expected": false},
+
+    {"expression": "Apache-2.0 WITH LLVM-exception", "scope": "author-runtime", "expected": true},
+    {"expression": "Apache-2.0 WITH LLVM-exception", "scope": "published-piece", "expected": false},
+    {"expression": "MIT WITH Commons-Clause", "scope": "published-piece", "expected": false},
+    {"expression": "MIT WITH Commons-Clause", "scope": "dev", "expected": false},
+    {"expression": "Apache-2.0 WITH Not-A-Real-Exception", "scope": "author-runtime", "expected": false},
+    {"expression": "MIT WITH LLVM-excepton", "scope": "dev", "expected": false},
+    {"expression": "MIT OR Apache-2.0 WITH Commons-Clause", "scope": "published-piece", "expected": true},
+    {"expression": "MIT AND Apache-2.0 WITH Commons-Clause", "scope": "author-runtime", "expected": false},
+    {"expression": "BSD-3-Clause+", "scope": "published-piece", "expected": true},
+
+    {"expression": "LGPL-3.0-or-later", "package": "@img/sharp-libvips-linux-x64", "scope": "author-runtime", "expected": true},
+    {"expression": "LGPL-3.0-or-later", "package": "@img/sharp-libvips-linux-x64", "scope": "published-piece", "expected": false},
+    {"expression": "LGPL-3.0-or-later", "package": "some-other-package", "scope": "author-runtime", "expected": false},
+    {"expression": "Apache-2.0 AND LGPL-3.0-or-later", "package": "@img/sharp-win32-x64", "scope": "author-runtime", "expected": true},
+    {"expression": "Apache-2.0 AND LGPL-3.0-or-later AND MIT", "package": "@img/sharp-wasm32", "scope": "author-runtime", "expected": true},
+    {"expression": "Apache-2.0 AND LGPL-3.0-or-later", "package": "sharp", "scope": "author-runtime", "expected": false},
+
+    {"expression": "0BSD", "package": "tslib", "version": "2.8.1", "scope": "author-runtime", "expected": true},
+    {"expression": "0BSD", "package": "tslib", "version": "9.9.9", "scope": "author-runtime", "expected": true},
+    {"expression": "0BSD", "package": "any-other-package", "scope": "author-runtime", "expected": true},
+    {"expression": "0BSD", "package": "tslib", "version": "2.8.1", "scope": "dev", "expected": false},
+    {"expression": "0BSD", "package": "tslib", "version": "2.8.1", "scope": "published-piece", "expected": false},
+
+    {"expression": "PSF-2.0", "package": "argparse", "version": "3.0.2", "scope": "author-runtime", "expected": true},
+    {"expression": "PSF-2.0", "package": "argparse", "version": "3.0.2", "scope": "dev", "expected": false},
+    {"expression": "PSF-2.0", "package": "argparse", "version": "3.0.2", "scope": "published-piece", "expected": false},
+    {"expression": "Python-2.0", "package": "argparse", "version": "2.0.1", "scope": "author-runtime", "expected": true},
+    {"expression": "Python-2.0", "package": "argparse", "version": "2.0.1", "scope": "dev", "expected": false},
+    {"expression": "Python-2.0", "package": "argparse", "version": "2.0.1", "scope": "published-piece", "expected": false},
+
+    {"expression": "CC0-1.0", "package": "railroad-diagrams", "version": "1.0.0", "scope": "author-runtime", "expected": true},
+    {"expression": "CC0-1.0", "package": "railroad-diagrams", "version": "1.0.1", "scope": "author-runtime", "expected": false},
+    {"expression": "CC0-1.0", "package": "railroad-diagrams", "version": "1.0.0", "scope": "dev", "expected": false},
+    {"expression": "CC0-1.0", "package": "railroad-diagrams", "version": "1.0.0", "scope": "published-piece", "expected": false},
+    {"expression": "CC0-1.0", "package": "some-other-package", "version": "1.0.0", "scope": "author-runtime", "expected": false},
+
+    {"expression": "UNLICENSED", "scope": "author-runtime", "expected": false},
+    {"expression": "SEE LICENSE IN LICENSE.txt", "scope": "author-runtime", "expected": "error"},
+    {"expression": "MIT AND", "scope": "author-runtime", "expected": "error"},
+    {"expression": "(MIT OR ISC", "scope": "author-runtime", "expected": "error"},
+    {"expression": "MIT ISC", "scope": "author-runtime", "expected": "error"},
+    {"expression": "AND MIT", "scope": "author-runtime", "expected": "error"}
+  ]
+}

@@ -1,0 +1,8 @@
+%YAML 1.2
+---
+schema: 1
+template: deck
+title: Craft with care.
+slides:
+  - layout: statement
+    title: One idea.

@@ -1,0 +1,9 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: four
+    title: S
+    columns:
+      - {heading: H0, text: t}
+      - {heading: H1, text: t}

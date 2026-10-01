@@ -1,0 +1,1 @@
+Supplied standards: Reusable baseline §16.5–16.6 and Reference standard §9.4. The kit includes letterhead, memo, proposal, statement of work, report, invoice, and business card in editable/printable HTML. Legal/commercial fields remain explicit placeholders.

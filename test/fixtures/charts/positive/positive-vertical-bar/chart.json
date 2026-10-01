@@ -1,0 +1,9 @@
+{
+  "id": "chart-phase",
+  "type": "bar",
+  "x": "phase",
+  "y": "hours",
+  "summary": "Review took the most hours and delivery the fewest.",
+  "locale": "en",
+  "dataName": "hours-by-phase.csv"
+}

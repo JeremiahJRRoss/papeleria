@@ -1,0 +1,41 @@
+# W5C (M5.4): el mazo en español de la matriz de localización. Its author text
+# is Spanish and holds no control-string value of either language as a whole
+# word; test/integration/localization.test.ts checks that before it builds
+# anything. The tests write the other three statuses over `status: draft`.
+schema: 1
+template: deck
+title: Oficio sereno, siempre a la vista.
+language: es
+status: draft
+register: Informe breve / Otoño
+edition: Edición 3 / 2026-09-28
+credits:
+  - { role: Autora, name: Rosa Marín }
+
+slides:
+  - layout: cover
+    title: Oficio sereno, siempre a la vista.
+    lead: Un informe breve para el estudio
+    notes: assets/text/notas-portada.md
+
+  - layout: three
+    title: Tres hábitos que conviene mantener.
+    lead: Cada uno deja constancia.
+    columns:
+      - heading: Etiqueta
+        text: Nombra al responsable y la fecha.
+      - heading: Fuente
+        text: Enlaza la [guía del estudio](https://example.com/guia) junto a la afirmación.
+      - heading: Relevo
+        text: Di quién actúa y para cuándo.
+
+  - layout: chart
+    title: Horas registradas por equipo.
+    table:
+      data: assets/data/horas.csv
+      caption: Horas por equipo, con una entrada en blanco.
+
+  - layout: closing
+    title: Mantén la fuente cerca.
+    lead: Compártela y di qué cambió.
+    notes: Agradece a la sala y abre el turno de preguntas.

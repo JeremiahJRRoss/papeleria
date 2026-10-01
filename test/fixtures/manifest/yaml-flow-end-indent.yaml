@@ -1,0 +1,13 @@
+# A multi-line flow list closed at its parent's indentation is accepted (D146).
+schema: 1
+template: document
+title: Review took the most hours.
+sections:
+  - heading: Hours by phase
+    blocks:
+      - table:
+          data: assets/data/hours-by-phase.csv
+          columns: [
+            phase,
+            hours
+          ]

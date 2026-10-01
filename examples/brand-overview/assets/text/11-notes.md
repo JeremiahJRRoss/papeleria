@@ -1,0 +1,1 @@
+The delivered site has no application backend, form delivery, newsletter service, or analytics. The brief builder downloads Markdown locally. Contact actions open the existing live page as an external destination; its delivery behavior was not independently tested.

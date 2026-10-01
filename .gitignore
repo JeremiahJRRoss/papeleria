@@ -1,0 +1,17 @@
+node_modules/
+lib/
+**/dist/
+**/.papeleria/
+.DS_Store
+**/.DS_Store
+coverage/
+test-results/
+playwright-report/
+*.tgz
+# The installers' zip, its tarball and SHA256SUMS: npm run package:installers writes them here.
+release/
+
+# The licence-check fixtures need literal node_modules/ trees on disk, so those
+# specific directories stay tracked (M0.4).
+!test/fixtures/license/**/node_modules/
+!test/fixtures/license/**/node_modules/**

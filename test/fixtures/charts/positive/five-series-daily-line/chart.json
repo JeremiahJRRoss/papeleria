@@ -1,0 +1,9 @@
+{
+  "id": "chart-daily",
+  "type": "line",
+  "x": "day",
+  "y": "hours",
+  "series": "studio",
+  "summary": "Daily hours by studio for September.",
+  "locale": "en"
+}

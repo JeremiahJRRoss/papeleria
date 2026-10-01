@@ -1,0 +1,68 @@
+# Valid: every deck layout, with the optional fields each one takes (C08, C09 positives).
+schema: 1
+template: deck
+title: Every layout.
+language: en
+status: draft
+wordmark: studio
+register: Fixture / Every layout
+edition: Version 1 / 2026-09-22
+logo: {src: assets/images/logos/client.svg, alt: Client}
+credits:
+  - {role: Author, name: Studio}
+slides:
+  - layout: cover
+    title: Cover.
+    lead: A lead.
+    notes: Notes for the cover.
+  - layout: statement
+    title: Statement.
+    footer: Custom footer
+  - layout: closing
+    title: Closing.
+  - layout: two
+    title: Two.
+    columns:
+      - {heading: A, text: a}
+      - {heading: B, text: assets/text/b.md}
+  - layout: three
+    title: Three.
+    columns:
+      - {heading: A, text: a}
+      - {heading: B, text: b}
+      - {heading: C, text: c}
+  - layout: four
+    title: Four.
+    columns:
+      - {heading: A, text: a}
+      - {heading: B, text: b}
+      - {heading: C, text: c}
+      - {heading: D, text: d}
+  - layout: chart
+    title: Chart.
+    chart: {type: bar, orientation: horizontal, data: assets/data/hours.csv, x: phase, y: hours, summary: Review took longest., show_table: true, caption: A caption., source: Timesheets}
+  - layout: chart
+    title: Table.
+    table: {data: assets/data/hours.csv, columns: [phase, {field: hours, label: Hours}], caption: Hours., source: Timesheets}
+  - layout: chart
+    title: Line.
+    chart: {type: line, data: assets/data/weeks.csv, x: week, y: hours, series: phase, summary: Review rose.}
+  - layout: image
+    title: Image.
+    image: {src: assets/images/photo.jpg, alt: A pier., caption: Dawn., credit: J. Ross, rights: Studio photograph, focal_point: [50, 30]}
+  - layout: image
+    title: Decorative image.
+    image: {src: assets/images/texture.png, decorative: true}
+  - layout: attributes
+    title: Attributes.
+    items:
+      - {label: Considered, text: Not aloof.}
+  - layout: palette
+    title: Palette.
+    swatches:
+      - {name: Process cyan, value: "#32BCE9", use: section rail}
+      - {name: Ink, value: "#1d1d1a"}
+  - layout: type
+    title: Type.
+  - layout: wordmark
+    title: Wordmark.

@@ -1,0 +1,105 @@
+# The sample comic. Its pages are placeholders drawn by scripts/gen-sample-comic.mjs and labeled as a prototype.
+# It is never presented as published work.
+schema: 1
+template: comic
+title: The ferry
+format: Web Comics
+language: en
+status: draft
+credits:
+  - { role: Art, name: "Placeholder art, generated" }
+pages:
+  - image: assets/images/pages/01.png
+    alt: A harbor at dawn, seen from the ferry pier.
+    credit: Placeholder art, generated
+    rights: Prototype art from scripts/gen-sample-comic.mjs; no rights claimed
+    panels:
+      - box: [4, 4, 56, 28]
+        transcript: "Narration: The ferry was late again."
+        detail: { zoom: true }
+      - box: [64, 4, 32, 28]
+        transcript: "A gull on a bollard. Sound: a distant horn."
+        detail: { text: assets/text/gull-note.md }
+      - box: [4, 36, 92, 26]
+        transcript: "Wide shot of the harbor. Two figures wait at the ticket booth."
+      - box: [4, 66, 44, 30]
+        transcript: "Speech: Is it always like this?"
+      - box: [52, 66, 44, 30]
+        transcript: "The ferry appears through the fog."
+  - image: assets/images/pages/02.png
+    alt: The ferry docks; passengers file aboard.
+    credit: Placeholder art, generated
+    rights: Prototype art from scripts/gen-sample-comic.mjs; no rights claimed
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: "Page 2, panel 1: The ferry docks; passengers file aboard."
+      - box: [4, 52, 44, 44]
+        transcript: "Page 2, panel 2: a closer view."
+      - box: [52, 52, 44, 44]
+        transcript: "Page 2, panel 3: the next beat."
+  - image: assets/images/pages/03.png
+    alt: On deck; the town shrinks behind the wake.
+    credit: Placeholder art, generated
+    rights: Prototype art from scripts/gen-sample-comic.mjs; no rights claimed
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: "Page 3, panel 1: On deck; the town shrinks behind the wake."
+      - box: [4, 52, 44, 44]
+        transcript: "Page 3, panel 2: a closer view."
+      - box: [52, 52, 44, 44]
+        transcript: "Page 3, panel 3: the next beat."
+  - image: assets/images/pages/04.png
+    alt: A conversation at the rail.
+    credit: Placeholder art, generated
+    rights: Prototype art from scripts/gen-sample-comic.mjs; no rights claimed
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: "Page 4, panel 1: A conversation at the rail."
+      - box: [4, 52, 44, 44]
+        transcript: "Page 4, panel 2: a closer view."
+      - box: [52, 52, 44, 44]
+        transcript: "Page 4, panel 3: the next beat."
+  - image: assets/images/pages/05.png
+    alt: The far shore; a lighthouse in the fog.
+    credit: Placeholder art, generated
+    rights: Prototype art from scripts/gen-sample-comic.mjs; no rights claimed
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: "Page 5, panel 1: The far shore; a lighthouse in the fog."
+      - box: [4, 52, 44, 44]
+        transcript: "Page 5, panel 2: a closer view."
+      - box: [52, 52, 44, 44]
+        transcript: "Page 5, panel 3: the next beat."
+  - image: assets/images/pages/06.png
+    alt: The crossing at midday.
+    credit: Placeholder art, generated
+    rights: Prototype art from scripts/gen-sample-comic.mjs; no rights claimed
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: "Page 6, panel 1: The crossing at midday."
+      - box: [4, 52, 44, 44]
+        transcript: "Page 6, panel 2: a closer view."
+      - box: [52, 52, 44, 44]
+        transcript: "Page 6, panel 3: the next beat."
+  - image: assets/images/pages/07.png
+    alt: Arrival; the same two figures, ashore.
+    credit: Placeholder art, generated
+    rights: Prototype art from scripts/gen-sample-comic.mjs; no rights claimed
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: "Page 7, panel 1: Arrival; the same two figures, ashore."
+      - box: [4, 52, 44, 44]
+        transcript: "Page 7, panel 2: a closer view."
+      - box: [52, 52, 44, 44]
+        transcript: "Page 7, panel 3: the next beat."
+  - image: assets/images/pages/08.png
+    alt: The ferry leaves; the pier is empty.
+    credit: Placeholder art, generated
+    rights: Prototype art from scripts/gen-sample-comic.mjs; no rights claimed
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: "Page 8, panel 1: The ferry leaves; the pier is empty."
+      - box: [4, 52, 44, 44]
+        transcript: "Page 8, panel 2: a closer view."
+      - box: [52, 52, 44, 44]
+        transcript: "Page 8, panel 3: the next beat."

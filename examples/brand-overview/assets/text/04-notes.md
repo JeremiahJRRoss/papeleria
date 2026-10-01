@@ -1,0 +1,1 @@
+This is a creative interpretation of artisan care, industrial systems, and the long view expressed on the live page. It is not a claim of quantified sustainability, environmental certification, or guaranteed business performance.

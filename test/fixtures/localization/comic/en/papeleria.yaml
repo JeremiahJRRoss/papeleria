@@ -1,0 +1,63 @@
+# W5C (M5.4): the English comic of the localization matrix. Four drawn (SVG)
+# pages, so a build derives no raster: page 1 has five panels, one of each
+# detail kind (a zoom, a text, none, a link to page 4, an external link); page 2
+# has one panel, with a picture; page 3 has none; page 4 has two. No `format`,
+# so the localized `format_comics` label renders; the tests add one for the
+# override. Its author text holds no control-string value of either language
+# as a whole word, which test/integration/localization.test.ts checks first.
+schema: 1
+template: comic
+title: The lantern keeper
+language: en
+status: draft
+credits:
+  - { role: Story, name: Rosa Marín }
+  - { role: Art, name: Drawn for the tests }
+pages:
+  - image: assets/images/pages/01.svg
+    alt: A lighthouse at dusk, five frames around it.
+    credit: Drawn for the tests
+    rights: Test fixture; no rights claimed
+    panels:
+      - box: [4, 4, 56, 28]
+        transcript: The keeper climbs the stairs.
+        detail: { zoom: true }
+      - box: [64, 4, 32, 28]
+        transcript: A logbook lies open on the desk.
+        detail: { text: assets/text/logbook.md }
+      - box: [4, 36, 92, 26]
+        transcript: Wind rattles the glass.
+      - box: [4, 66, 44, 30]
+        transcript: A path leads down to the harbour.
+        detail: { href: "#page-4", label: Walk to the harbour }
+      - box: [52, 66, 44, 30]
+        transcript: A ship's horn sounds far away.
+        detail: { href: "https://example.com/ships", label: Read about ships }
+  - image: assets/images/pages/02.svg
+    alt: The lamp room, one frame across the top half.
+    credit: Drawn for the tests
+    rights: Test fixture; no rights claimed
+    panels:
+      - box: [0, 0, 100, 50]
+        transcript: The lamp turns slowly.
+        detail:
+          image:
+            src: assets/images/lamp.svg
+            alt: The great lamp, seen from below.
+            caption: The lens of the lamp, drawn in pencil.
+            credit: Drawn for the tests
+            rights: Test fixture; no rights claimed
+  - image: assets/images/pages/03.svg
+    alt: The sea at night, with no frames drawn.
+    credit: Drawn for the tests
+    rights: Test fixture; no rights claimed
+  - image: assets/images/pages/04.svg
+    alt: The harbour at dawn, two frames.
+    credit: Drawn for the tests
+    rights: Test fixture; no rights claimed
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: Boats wait at the quay.
+      - box: [4, 52, 92, 44]
+        transcript: The keeper waves from the rocks.
+        detail: { zoom: true }

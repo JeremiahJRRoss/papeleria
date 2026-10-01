@@ -1,0 +1,8 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: palette
+    title: S
+    swatches:
+      - {name: Ink, value: black}

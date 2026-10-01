@@ -1,0 +1,10 @@
+{
+  "engine": "chromium",
+  "version": "153.0.8010.12",
+  "os": "linux",
+  "osRelease": "ubuntu 24.04",
+  "madeBy": "session W2B, test/browser/golden/brand-overview.visual.test.ts, extracted with test/golden/extract-captures.mjs",
+  "run": "36066417849, job 107857110819, in the development record's CI",
+  "commit": "5c1f796b50a35a46c334e2054e303341ac4b7693",
+  "review": "pending the design maintainer; see REVIEW_PENDING.md"
+}

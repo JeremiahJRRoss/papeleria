@@ -1,0 +1,45 @@
+# The sample report: the piece that `papeleria new document` copies, with a bar chart, a line chart and a table.
+schema: 1
+template: document
+title: Review took the most hours.
+language: en
+status: draft
+doc_type: Project report
+metadata:
+  - { label: Audience, value: Studio leads }
+  - { label: Owner, value: Ross.moda studio }
+  - { label: Period, value: Q3 2026 }
+  - { label: Version, value: Draft 0.1 }
+sections:
+  - heading: Executive summary
+    blocks:
+      - text: assets/text/summary.md
+  - heading: Hours by phase
+    blocks:
+      - chart:
+          type: bar
+          orientation: horizontal
+          data: assets/data/hours-by-phase.csv
+          x: phase
+          y: hours
+          summary: Review took the most hours and delivery the fewest.
+          source: Studio timesheets, Q3 2026
+      - table:
+          data: assets/data/hours-by-phase.csv
+          columns: [phase, hours]
+  - heading: Hours by week
+    blocks:
+      - chart:
+          type: line
+          data: assets/data/hours-by-week.csv
+          x: week
+          y: hours
+          series: phase
+          summary: Review hours rose through the quarter while build hours fell.
+          show_table: true
+  - heading: Next action
+    new_page: true
+    blocks:
+      - text: The studio records the decision in the decision log and sets the next review date.
+      - note: { text: "Sample data, for the example only.", tone: warning }
+source_note: "Basis: sample timesheets. Not a signed approval."

@@ -1,0 +1,6 @@
+schema: 1
+template: deck
+title: &shared Craft with care.
+slides:
+  - layout: statement
+    title: *shared

@@ -1,0 +1,433 @@
+[
+  {
+    "name": "y-invalid",
+    "note": "A text cell in a number column is reported at its row, not skipped.",
+    "csv": "y-invalid.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "y_invalid",
+        "rule": "R13",
+        "field": "y",
+        "line": 3
+      }
+    ]
+  },
+  {
+    "name": "y-empty",
+    "note": "A blank y is reported, never charted as zero.",
+    "csv": "y-empty.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "y_empty",
+        "rule": "R13",
+        "field": "y",
+        "line": 3
+      }
+    ]
+  },
+  {
+    "name": "x-empty",
+    "note": "A blank category is reported.",
+    "csv": "x-empty.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "x_empty",
+        "rule": "R13",
+        "field": "x",
+        "line": 3
+      }
+    ]
+  },
+  {
+    "name": "series-empty",
+    "note": "A blank series name is reported.",
+    "csv": "series-empty.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "line",
+      "x": "week",
+      "y": "hours",
+      "series": "phase",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "series_empty",
+        "rule": "R13",
+        "field": "series",
+        "line": 3
+      }
+    ]
+  },
+  {
+    "name": "duplicate-category",
+    "note": "Authors aggregate explicitly; the second row is reported with the first named.",
+    "csv": "duplicate-category.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "duplicate_point",
+        "rule": "R13",
+        "field": "x",
+        "line": 4
+      }
+    ]
+  },
+  {
+    "name": "duplicate-series-point",
+    "note": "The same (x, series) twice.",
+    "csv": "duplicate-series-point.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "line",
+      "x": "week",
+      "y": "hours",
+      "series": "phase",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "duplicate_point",
+        "rule": "R13",
+        "field": "series",
+        "line": 5
+      }
+    ]
+  },
+  {
+    "name": "duplicate-numeric-x",
+    "note": "On a line chart 1 and 1.0 are the same x.",
+    "csv": "duplicate-numeric-x.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "line",
+      "x": "x",
+      "y": "y",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "duplicate_point",
+        "rule": "R13",
+        "field": "x",
+        "line": 4
+      }
+    ]
+  },
+  {
+    "name": "missing-x-column",
+    "note": "The manifest names a column the header lacks; the location is the manifest field.",
+    "csv": "missing-x-column.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phse",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "column_missing",
+        "rule": "R13",
+        "field": "x",
+        "line": null
+      }
+    ]
+  },
+  {
+    "name": "missing-series-column",
+    "note": "A series column that does not exist.",
+    "csv": "missing-series-column.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en",
+      "series": "team"
+    },
+    "problems": [
+      {
+        "code": "column_missing",
+        "rule": "R13",
+        "field": "series",
+        "line": null
+      }
+    ]
+  },
+  {
+    "name": "header-only",
+    "note": "R13 is an error for a chart (a table only warns).",
+    "csv": "header-only.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "header_only",
+        "rule": "R13",
+        "field": null,
+        "line": 1
+      }
+    ]
+  },
+  {
+    "name": "line-mixed-x",
+    "note": "A line chart's x is all numbers or all dates; the odd one out is named.",
+    "csv": "line-mixed-x.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "line",
+      "x": "x",
+      "y": "y",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "x_invalid",
+        "rule": "R13",
+        "field": "x",
+        "line": 3
+      }
+    ]
+  },
+  {
+    "name": "line-text-x",
+    "note": "A text x on a line chart is one problem about the field.",
+    "csv": "line-text-x.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "line",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "x_invalid",
+        "rule": "R13",
+        "field": "x",
+        "line": null
+      }
+    ]
+  },
+  {
+    "name": "y-text-column",
+    "note": "A y column with no numbers at all is one problem about the field.",
+    "csv": "y-text-column.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "phase",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "y_invalid",
+        "rule": "R13",
+        "field": "y",
+        "line": null
+      }
+    ]
+  },
+  {
+    "name": "orientation-on-line",
+    "note": "C14: orientation is bar-only; this is R09, not R13.",
+    "csv": "orientation-on-line.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "line",
+      "orientation": "vertical",
+      "x": "x",
+      "y": "y",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "orientation_line",
+        "rule": "R09",
+        "field": "orientation",
+        "line": null
+      }
+    ]
+  },
+  {
+    "name": "multiline-record",
+    "note": "The bad row starts on line 4 because the record before it spans lines 2 and 3.",
+    "csv": "multiline-record.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "y_invalid",
+        "rule": "R13",
+        "field": "y",
+        "line": 4
+      }
+    ]
+  },
+  {
+    "name": "too-many-series",
+    "note": "Six series: the palette has five fixed colours and never cycles.",
+    "csv": "too-many-series.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "line",
+      "x": "week",
+      "y": "hours",
+      "series": "phase",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "too_many_series",
+        "rule": "R13",
+        "field": "series",
+        "line": null
+      }
+    ]
+  },
+  {
+    "name": "several-problems",
+    "note": "Every problem is reported, in row order.",
+    "csv": "several-problems.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "x_empty",
+        "rule": "R13",
+        "field": "x",
+        "line": 2
+      },
+      {
+        "code": "y_empty",
+        "rule": "R13",
+        "field": "y",
+        "line": 3
+      },
+      {
+        "code": "y_invalid",
+        "rule": "R13",
+        "field": "y",
+        "line": 4
+      },
+      {
+        "code": "duplicate_point",
+        "rule": "R13",
+        "field": "x",
+        "line": 6
+      }
+    ]
+  },
+  {
+    "name": "hidden-characters",
+    "note": "Names that differ from Review or Build only by characters a chart draws as nothing are ambiguous (W5R-21, D48): a zero-width space (line 3), a word joiner (4), a soft hyphen (5), an isolate pair (6), a variation selector (7) and a zero-width joiner (9). U+0600 on line 11 is a format character that is drawn, so Ship and Ship with it stay two names.",
+    "csv": "hidden-characters.csv",
+    "chart": {
+      "id": "chart-neg",
+      "type": "bar",
+      "x": "phase",
+      "y": "hours",
+      "summary": "S.",
+      "locale": "en"
+    },
+    "problems": [
+      {
+        "code": "ambiguous_name",
+        "rule": "R13",
+        "field": "x",
+        "line": 3
+      },
+      {
+        "code": "ambiguous_name",
+        "rule": "R13",
+        "field": "x",
+        "line": 4
+      },
+      {
+        "code": "ambiguous_name",
+        "rule": "R13",
+        "field": "x",
+        "line": 5
+      },
+      {
+        "code": "ambiguous_name",
+        "rule": "R13",
+        "field": "x",
+        "line": 6
+      },
+      {
+        "code": "ambiguous_name",
+        "rule": "R13",
+        "field": "x",
+        "line": 7
+      },
+      {
+        "code": "ambiguous_name",
+        "rule": "R13",
+        "field": "x",
+        "line": 9
+      }
+    ]
+  }
+]

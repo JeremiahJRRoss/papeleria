@@ -1,0 +1,7 @@
+schema: 1
+template: deck
+title: Fixture.
+logo: {src: assets/images/logos/client.svg}
+slides:
+  - layout: statement
+    title: S

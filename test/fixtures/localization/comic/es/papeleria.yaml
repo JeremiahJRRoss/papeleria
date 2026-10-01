@@ -1,0 +1,63 @@
+# W5C (M5.4): el cómic en español de la matriz de localización. Four drawn
+# (SVG) pages, so a build derives no raster: page 1 has five panels, one of each
+# detail kind (a zoom, a text, none, a link to page 4, an external link); page 2
+# has one panel, with a picture; page 3 has none; page 4 has two. No `format`,
+# so the localized `format_comics` label renders; the tests add one for the
+# override. Its author text holds no control-string value of either language
+# as a whole word, which test/integration/localization.test.ts checks first.
+schema: 1
+template: comic
+title: La guardiana del faro
+language: es
+status: draft
+credits:
+  - { role: Guion, name: Rosa Marín }
+  - { role: Dibujo, name: Dibujado para las pruebas }
+pages:
+  - image: assets/images/pages/01.svg
+    alt: Un faro al anochecer, con cinco recuadros alrededor.
+    credit: Dibujado para las pruebas
+    rights: Material de prueba; sin derechos reclamados
+    panels:
+      - box: [4, 4, 56, 28]
+        transcript: La guardiana sube la escalera.
+        detail: { zoom: true }
+      - box: [64, 4, 32, 28]
+        transcript: Un cuaderno de bitácora abierto sobre la mesa.
+        detail: { text: assets/text/bitacora.md }
+      - box: [4, 36, 92, 26]
+        transcript: El viento sacude los cristales.
+      - box: [4, 66, 44, 30]
+        transcript: Un sendero baja hasta el puerto.
+        detail: { href: "#page-4", label: Bajar al puerto }
+      - box: [52, 66, 44, 30]
+        transcript: Suena a lo lejos la sirena de un barco.
+        detail: { href: "https://example.com/barcos", label: Leer sobre barcos }
+  - image: assets/images/pages/02.svg
+    alt: La sala de la lámpara, un recuadro en la mitad superior.
+    credit: Dibujado para las pruebas
+    rights: Material de prueba; sin derechos reclamados
+    panels:
+      - box: [0, 0, 100, 50]
+        transcript: La lámpara gira despacio.
+        detail:
+          image:
+            src: assets/images/lampara.svg
+            alt: La gran lámpara, vista desde abajo.
+            caption: La lente de la lámpara, a lápiz.
+            credit: Dibujado para las pruebas
+            rights: Material de prueba; sin derechos reclamados
+  - image: assets/images/pages/03.svg
+    alt: El mar de noche, sin recuadros.
+    credit: Dibujado para las pruebas
+    rights: Material de prueba; sin derechos reclamados
+  - image: assets/images/pages/04.svg
+    alt: El puerto al amanecer, dos recuadros.
+    credit: Dibujado para las pruebas
+    rights: Material de prueba; sin derechos reclamados
+    panels:
+      - box: [4, 4, 92, 44]
+        transcript: Las barcas esperan en el muelle.
+      - box: [4, 52, 92, 44]
+        transcript: La guardiana saluda desde las rocas.
+        detail: { zoom: true }

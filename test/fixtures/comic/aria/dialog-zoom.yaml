@@ -1,0 +1,4 @@
+- dialog "Panel 1 of 5 on page 1":
+  - heading "Panel 1 of 5 on page 1" [level=2]
+  - button "Close"
+  - img "Panel one zooms into the art."

@@ -1,0 +1,46 @@
+# W5C (M5.4): el documento en español de la matriz de localización. Two logical
+# sheets; a note and a warning; text with an external link; a table from a CSV
+# with a blank cell; a bar chart with four-digit values and a line chart over
+# July dates (D41's number and date forms). No `doc_type`, so the localized
+# `doc_type_default` renders; the tests add one for the override. Its author
+# text holds no control-string value of either language as a whole word, which
+# test/integration/localization.test.ts checks first.
+schema: 1
+template: document
+title: Las horas de otoño se alargaron.
+language: es
+status: draft
+metadata:
+  - { label: Público, value: Responsables del estudio }
+  - { label: Periodo, value: Julio de 2026 }
+credits:
+  - { role: Autora, name: Rosa Marín }
+footer: Registros del estudio
+sections:
+  - heading: Resumen
+    blocks:
+      - text: assets/text/resumen.md
+      - note: { text: "Las cifras se redondean a la hora." }
+      - note: { text: "Dos semanas siguen abiertas.", tone: warning }
+  - heading: Horas por equipo
+    blocks:
+      - chart:
+          type: bar
+          data: assets/data/horas-equipo.csv
+          x: equipo
+          y: horas
+          summary: Diseño registró más horas, por encima de dos mil.
+          source: Partes de horas del estudio
+      - table:
+          data: assets/data/comentarios.csv
+          caption: Comentarios por equipo, uno en blanco.
+  - heading: Horas por semana
+    new_page: true
+    blocks:
+      - chart:
+          type: line
+          data: assets/data/semanal.csv
+          x: semana
+          y: horas
+          summary: Las horas semanales subieron a lo largo de julio.
+source_note: "Base: partes de horas de ejemplo hechos para las pruebas."

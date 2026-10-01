@@ -1,0 +1,12 @@
+{
+  "id": "chart-change",
+  "type": "bar",
+  "orientation": "horizontal",
+  "x": "quarter",
+  "y": "change",
+  "series": "team",
+  "summary": "El estudio creció en el primer trimestre y bajó en el segundo; impresión hizo lo contrario.",
+  "title": "Cambio de horas por trimestre",
+  "locale": "es",
+  "dataName": "cambio.csv"
+}

@@ -1,0 +1,191 @@
+/* Papeleria editor. Own code under Apache-2.0; see LICENSE and NOTICE.md.
+ *
+ * A kit page (UX §08 "Aesthetics", D85): white chrome, 1 px rules, the
+ * register style in the header, kit buttons from site.css, the preview on the
+ * paper ground. Light only, like every kit page. Colours, type and spacing are
+ * the theme's tokens; nothing here introduces a colour of its own. */
+
+html, body { height: 100%; }
+
+body.editor-page {
+  display: grid;
+  grid-template-areas: "header" "banner" "main" "diagnostics";
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-ground);
+  font-size: var(--type-small);
+  line-height: 1.5;
+}
+
+.editor-header { grid-area: header; }
+.editor-banner { grid-area: banner; }
+.editor-main { grid-area: main; }
+.editor-diagnostics { grid-area: diagnostics; }
+
+/* Header: the register style. */
+.editor-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  padding: 8px 16px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-rule);
+  font-size: var(--type-meta);
+}
+.editor-wordmark { font-size: 1.5rem; }
+.editor-tool { font-weight: 700; letter-spacing: .02em; }
+.editor-piece { margin: 0; color: var(--color-text-muted); letter-spacing: .04em; }
+.editor-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-left: auto; }
+.editor-actions .button { min-height: 44px; padding: 8px 16px; }
+.editor-hint { flex-basis: 100%; margin: 0; color: var(--color-text-muted); text-align: right; }
+.editor-keys { border: 0; padding: 0; position: relative; }
+.editor-keys summary { min-height: 44px; padding: 10px 8px; font-weight: 700; }
+.editor-keys dl {
+  position: absolute; right: 0; z-index: 20; width: min(34rem, 90vw); margin: 4px 0 0; padding: 16px;
+  display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px;
+  background: var(--color-surface); border: 1px solid var(--color-rule);
+}
+.editor-keys dt { font-family: var(--font-mono); }
+.editor-keys dd { margin: 0; }
+
+/* The disk-change and lost-connection banner. */
+.editor-banner {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+  padding: 8px 16px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-rule);
+  border-left: 3px solid var(--semantic-warning);
+}
+.editor-banner p { margin: 0; font-weight: 700; }
+.editor-banner.is-stopped { border-left-color: var(--semantic-error); }
+.editor-banner-actions { display: flex; gap: 8px; }
+.editor-banner-actions .button { min-height: 44px; padding: 8px 16px; }
+
+/* The split: editor, divider, preview. */
+.editor-main {
+  display: grid;
+  grid-template-columns: minmax(0, var(--split, 50%)) 6px minmax(0, 1fr);
+  min-height: 0;
+}
+.editor-source, .editor-preview { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.editor-source { background: var(--color-surface); }
+.editor-divider { cursor: col-resize; background: linear-gradient(to right, transparent 2px, var(--color-rule) 2px 3px, transparent 3px); touch-action: none; }
+.editor-divider:focus-visible { outline: var(--focus-outline); outline-offset: -3px; }
+
+@media (max-width: 900px) {
+  .editor-main { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, var(--split, 50%)) 6px minmax(0, 1fr); }
+  .editor-divider { cursor: row-resize; background: linear-gradient(to bottom, transparent 2px, var(--color-rule) 2px 3px, transparent 3px); }
+}
+
+/* Tabs and the file list. */
+.editor-tabbar { display: flex; align-items: stretch; border-bottom: 1px solid var(--color-rule); }
+.editor-tabs { display: flex; flex-wrap: wrap; min-width: 0; }
+.editor-tab { display: flex; align-items: stretch; border-right: 1px solid var(--color-rule); }
+.editor-tab button[role=tab] {
+  min-height: 44px; padding: 8px 12px; border: 0; border-bottom: 2px solid transparent;
+  background: transparent; color: var(--color-text); font-family: var(--font-mono); font-size: var(--type-meta);
+}
+.editor-tab button[aria-selected=true] { font-weight: 700; border-bottom-color: var(--color-text); }
+.editor-tab-close { min-width: 32px; border: 0; background: transparent; color: var(--color-text-muted); font-size: 1rem; }
+.editor-files { position: relative; margin-left: auto; }
+.editor-files-toggle { min-height: 44px; padding: 8px 12px; border: 0; background: transparent; color: var(--color-text); font-size: var(--type-meta); font-weight: 700; }
+.editor-files-list {
+  position: absolute; right: 0; z-index: 20; min-width: 18rem; max-height: 60vh; overflow: auto; padding: 8px 0;
+  background: var(--color-surface); border: 1px solid var(--color-rule);
+}
+.editor-files-list h2 { margin: 8px 16px 4px; font: 700 .72rem/1.5 var(--font-ui); letter-spacing: .13em; text-transform: uppercase; color: var(--color-text-muted); }
+.editor-files-list ul { list-style: none; margin: 0; padding: 0; }
+.editor-files-list li + li { margin-top: 0; }
+.editor-files-list button { display: block; width: 100%; min-height: 36px; padding: 6px 16px; border: 0; background: transparent; text-align: left; font-family: var(--font-mono); font-size: var(--type-meta); }
+.editor-files-list button:hover { background: var(--color-ground); }
+.editor-panels { flex: 1; min-height: 0; position: relative; }
+.editor-panel { position: absolute; inset: 0; overflow: hidden; }
+.editor-panel > .cm-editor { height: 100%; }
+.editor-csv { height: 100%; margin: 0; }
+.editor-csv caption { caption-side: top; text-align: left; padding: 8px 12px; color: var(--color-text-muted); font-size: var(--type-meta); }
+
+/* Indentation guides: one rule per two-space step, drawn from the text's own left edge. */
+.cm-line[class*='cm-indent-'] {
+  background-image: repeating-linear-gradient(to right, var(--color-rule) 0 1px, transparent 1px 2ch);
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-clip: content-box;
+}
+.cm-indent-1 { background-size: 2ch 100%; }
+.cm-indent-2 { background-size: 4ch 100%; }
+.cm-indent-3 { background-size: 6ch 100%; }
+.cm-indent-4 { background-size: 8ch 100%; }
+.cm-indent-5 { background-size: 10ch 100%; }
+.cm-indent-6 { background-size: 12ch 100%; }
+.cm-indent-7 { background-size: 14ch 100%; }
+.cm-indent-8 { background-size: 16ch 100%; }
+.cm-indent-9 { background-size: 18ch 100%; }
+.cm-indent-10 { background-size: 20ch 100%; }
+.cm-indent-11 { background-size: 22ch 100%; }
+.cm-indent-12 { background-size: 24ch 100%; }
+.cm-indent-13 { background-size: 26ch 100%; }
+.cm-indent-14 { background-size: 28ch 100%; }
+.cm-indent-15 { background-size: 30ch 100%; }
+.cm-indent-16 { background-size: 32ch 100%; }
+
+/* Hover help and finding text. */
+.papeleria-help, .papeleria-finding { max-width: 34rem; padding: 8px 12px; font-family: var(--font-ui); font-size: var(--type-meta); line-height: 1.5; }
+.papeleria-help p, .papeleria-finding p { margin: 0 0 6px; }
+.papeleria-help p:last-child, .papeleria-finding p:last-child { margin-bottom: 0; }
+.papeleria-help-summary, .papeleria-finding-fix, .papeleria-finding-detail { color: var(--color-text-muted); }
+
+/* The preview. */
+.preview-toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px;
+  padding: 0 12px; background: var(--color-surface); border-bottom: 1px solid var(--color-rule);
+}
+.preview-toolbar button {
+  min-height: 44px; padding: 8px 10px; border: 0; border-bottom: 2px solid transparent;
+  background: transparent; color: var(--color-text); font-size: var(--type-meta);
+}
+.preview-toolbar button[aria-pressed=true] { font-weight: 700; border-bottom-color: var(--color-text); }
+.preview-toolbar button:disabled { color: var(--color-text-muted); cursor: not-allowed; }
+.preview-widths { display: flex; gap: 4px; }
+/* The comic's pointer readout beside Grid (M4.4): the form a box is written in, so it never jumps as it changes. */
+.preview-readout { font-family: var(--font-mono); font-size: var(--type-meta); font-variant-numeric: tabular-nums; min-width: 24ch; color: var(--color-text); }
+#open-tab { margin-left: auto; }
+.preview-stage { position: relative; flex: 1; min-height: 0; overflow: hidden; background: var(--color-ground); }
+.preview-frame { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; background: var(--color-ground); }
+.preview-frame.is-loading { visibility: hidden; }
+.preview-stage.is-stale .preview-frame { opacity: .8; }
+.preview-empty { margin: 32px auto; max-width: 30rem; padding: 0 16px; color: var(--color-text-muted); }
+.preview-stale {
+  position: absolute; z-index: 5; top: 12px; left: 50%; transform: translateX(-50%); margin: 0; padding: 6px 12px;
+  background: var(--color-surface); border: 1px solid var(--color-rule); border-left: 3px solid var(--semantic-warning);
+  font-size: var(--type-meta); font-weight: 700;
+}
+.editor-status { margin: 0; min-height: 1.6em; padding: 4px 12px; background: var(--color-surface); border-top: 1px solid var(--color-rule); font-size: var(--type-meta); }
+.tone-success { color: var(--semantic-success); }
+.tone-warning { color: var(--semantic-warning); }
+.tone-error { color: var(--semantic-error); }
+#status-note:not(:empty)::before { content: ' · '; color: var(--color-text-muted); }
+
+/* Diagnostics. */
+.editor-diagnostics { background: var(--color-surface); border-top: 1px solid var(--color-rule); font-size: var(--type-meta); }
+.diagnostics-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; padding: 0 12px; }
+.diagnostics-count { min-height: 44px; padding: 8px 6px; border: 0; background: transparent; color: var(--color-text); font-size: var(--type-meta); font-weight: 700; }
+.diagnostics-count.has-errors { color: var(--semantic-error); }
+.diagnostics-count.has-warnings { color: var(--semantic-warning); }
+.diagnostics-cursor { margin: 0; font-family: var(--font-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 1; }
+.diagnostics-list { max-height: 30vh; overflow: auto; border-top: 1px solid var(--color-rule); }
+.diagnostics-items { list-style: none; margin: 0; padding: 0; }
+.diagnostics-items li + li { margin-top: 0; }
+.diagnostics-item { padding: 8px 12px; border-bottom: 1px solid var(--color-rule); border-left: 3px solid var(--semantic-warning); }
+.diagnostics-item.is-error { border-left-color: var(--semantic-error); }
+.diagnostics-item p { margin: 2px 0 0; color: var(--color-text-muted); }
+.diagnostics-jump, .diagnostics-related { display: block; min-height: 32px; padding: 4px 0; border: 0; background: transparent; color: var(--color-text); text-align: left; font-size: var(--type-meta); }
+.diagnostics-where { font-family: var(--font-mono); font-weight: 700; }
+.diagnostics-related { text-decoration: underline; text-underline-offset: .22em; }
+.diagnostics-none { padding: 8px 12px; color: var(--color-text-muted); }
+
+@media (forced-colors: active) {
+  .editor-tab button[aria-selected=true], .preview-toolbar button[aria-pressed=true] { border-bottom-color: CanvasText; }
+  .editor-banner, .preview-stale, .diagnostics-item { border: 1px solid CanvasText; }
+}

@@ -1,0 +1,9 @@
+- figure "Page 1 of 5":
+  - img "Page one, five panels, one of each kind."
+  - button "Panel one zooms into the art."
+  - button "Panel two opens a note."
+  - button "Panel three has no detail; its transcript is announced."
+  - link "Panel four links to page four. Go to page four":
+    - /url: "#page-4"
+  - link "Panel five links out. More on the web (External link)":
+    - /url: https://example.com/more

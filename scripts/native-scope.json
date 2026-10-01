@@ -1,0 +1,73 @@
+{
+  "$comment": [
+    "The documented distribution scope for native packages (D34).",
+    "This file is what makes a platform 'required'. The release check derives its requirements from the lockfile intersected with the platforms listed here, so nobody can quietly drop a platform by editing a review record: dropping one means editing this file, which names a decision, an approver and a date.",
+    "An exclusion is not 'we did not get to it'. It is a recorded decision that the project does not distribute for that platform, with a reason. An excluded platform still appears in observations if npm locks it; it simply does not block a release.",
+    "A packagePattern exclusion matches by name on every platform at once, so it may name only packages that no platform listed below requires; scripts/native-reconcile.mjs refuses one that matches a required package, whatever decision it cites (D177). A platform leaves scope through an os/cpu exclusion. sharp and @img/sharp-wasm32, which npm installs on every platform, stay required whatever this file lists.",
+    "Node.js 22.x on Mac, Windows and Linux is the supported runtime (ERD section 08 TOOL, install guide section 1). The platform list below follows from that."
+  ],
+  "distributionScope": {
+    "decision": "D34",
+    "authorizedBy": "Repository owner instruction of 2026-09-22; scope derived from ERD section 08 TOOL and the installation guide",
+    "date": "2026-09-22",
+    "platforms": [
+      {"os": "linux", "cpu": "x64", "required": true, "rationale": "The CI platform and the common server and desktop Linux target."},
+      {"os": "linux", "cpu": "arm64", "required": true, "rationale": "Apple Silicon containers and ARM servers."},
+      {"os": "darwin", "cpu": "arm64", "required": true, "rationale": "Supported author platform (macOS on Apple Silicon)."},
+      {"os": "darwin", "cpu": "x64", "required": true, "rationale": "Supported author platform (macOS on Intel)."},
+      {"os": "win32", "cpu": "x64", "required": true, "rationale": "Supported author platform (Windows 11 x64)."},
+      {"os": "win32", "cpu": "arm64", "required": true, "rationale": "Supported author platform (Windows 11 on ARM)."}
+    ]
+  },
+  "exclusions": [
+    {
+      "match": {"os": "win32", "cpu": "ia32"},
+      "reason": "Papeleria requires Node.js 22.x, which has no supported 32-bit Windows author workflow in this project's matrix. The binary is locked because npm resolves every sharp optional dependency, not because the project ships for it.",
+      "decision": "D34",
+      "approvedBy": "Repository owner instruction of 2026-09-22",
+      "date": "2026-09-22"
+    },
+    {
+      "match": {"os": "linux", "cpu": "ppc64"},
+      "reason": "Not a supported author or CI platform. Locked only because npm resolves every sharp optional dependency.",
+      "decision": "D34",
+      "approvedBy": "Repository owner instruction of 2026-09-22",
+      "date": "2026-09-22"
+    },
+    {
+      "match": {"os": "linux", "cpu": "riscv64"},
+      "reason": "Not a supported author or CI platform. Locked only because npm resolves every sharp optional dependency.",
+      "decision": "D34",
+      "approvedBy": "Repository owner instruction of 2026-09-22",
+      "date": "2026-09-22"
+    },
+    {
+      "match": {"os": "linux", "cpu": "s390x"},
+      "reason": "Not a supported author or CI platform. Locked only because npm resolves every sharp optional dependency.",
+      "decision": "D34",
+      "approvedBy": "Repository owner instruction of 2026-09-22",
+      "date": "2026-09-22"
+    },
+    {
+      "match": {"os": "linux", "cpu": "arm"},
+      "reason": "32-bit ARM is not a supported author or CI platform. Locked only because npm resolves every sharp optional dependency.",
+      "decision": "D34",
+      "approvedBy": "Repository owner instruction of 2026-09-22",
+      "date": "2026-09-22"
+    },
+    {
+      "match": {"os": "freebsd"},
+      "reason": "FreeBSD is not a supported platform. Locked only because npm resolves every sharp optional dependency.",
+      "decision": "D34",
+      "approvedBy": "Repository owner instruction of 2026-09-22",
+      "date": "2026-09-22"
+    },
+    {
+      "match": {"packagePattern": "^@img/sharp-webcontainers-"},
+      "reason": "WebContainers is a browser sandbox runtime that Papeleria does not target; the CLI requires a real Node.js host.",
+      "decision": "D34",
+      "approvedBy": "Repository owner instruction of 2026-09-22",
+      "date": "2026-09-22"
+    }
+  ]
+}

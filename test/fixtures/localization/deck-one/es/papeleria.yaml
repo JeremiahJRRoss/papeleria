@@ -1,0 +1,11 @@
+# W5C (M5.4): un mazo de una sola lámina en español, for the singular
+# stacked-view status (`all_shown_one`, D130) in test/browser/localization.test.ts.
+schema: 1
+template: deck
+title: Una idea, quieta.
+language: es
+status: draft
+slides:
+  - layout: statement
+    title: Una idea, quieta.
+    lead: Nada más a la vista.

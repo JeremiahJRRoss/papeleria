@@ -1,0 +1,411 @@
+{
+  "$comment": [
+    "Native package compliance reviews (D34). A person writes this file. No generator may.",
+    "A review answers whether the distribution obligations are met. scripts/native-inventory.mjs records what is IN a package; it can never set a status here, which is the point of the two files being separate.",
+    "To mark a review 'verified' it must carry evidence.licenseTextsRetained, evidence.sourceAvailability and evidence.linkingPosition, and boundToArtefactDigest must equal the artefactDigest of a current observation. If the binary changes, the digest changes and the review stops applying rather than being inherited.",
+    "proposedEvidence (D36) is different from evidence. It holds facts a machine assembled — the static linkage read, the retained SPDX texts, the recorded upstreams — so the reviewer has them to hand. It never moves a review towards verified. Signing a review means reading those facts, moving the ones you accept into evidence, and setting status; the validator rejects a verified review that still carries proposals.",
+    "Every entry below is unresolved. That is the true state: the libvips obligations have not been discharged, and npm run check:licenses:release fails because of it. Do not edit a status here to obtain a green run."
+  ],
+  "reviews": [
+    {
+      "package": "@img/sharp-darwin-arm64",
+      "version": "0.35.4",
+      "platformKey": "darwin/arm64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the static read shows this artefact dynamically linking libvips-cpp from the library shipped beside it, so the weak-copyleft obligation follows that library rather than this package; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text (its SHA-256 is in scripts/native-observations.json), and its README gives the notice 'Copyright 2013 Lovell Fuller and others.'; the Apache-2.0 text is also retained at licenses/Apache-2.0.txt. The libraries this addon loads are in @img/sharp-libvips-darwin-arm64, whose review covers them.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/darwin-arm64), published by GitHub Actions trusted publishing; the addon's sources and its build are at that commit. The libvips it loads comes from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9 (that package's review). Not yet established: whether the commit is the Minimal Corresponding Source (issue 002 A1).",
+        "linkingPosition": "sharp-darwin-arm64-0.35.4.node is Mach-O, read with llvm-objdump -p and dynamically links @rpath/libvips-cpp.8.18.6.dylib resolved through a recorded search path (6 entries, first: @loader_path/../../sharp-libvips-darwin-arm64/lib).",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-darwin-x64",
+      "version": "0.35.4",
+      "platformKey": "darwin/x64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the static read shows this artefact dynamically linking libvips-cpp from the library shipped beside it, so the weak-copyleft obligation follows that library rather than this package; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text (its SHA-256 is in scripts/native-observations.json), and its README gives the notice 'Copyright 2013 Lovell Fuller and others.'; the Apache-2.0 text is also retained at licenses/Apache-2.0.txt. The libraries this addon loads are in @img/sharp-libvips-darwin-x64, whose review covers them.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/darwin-x64), published by GitHub Actions trusted publishing; the addon's sources and its build are at that commit. The libvips it loads comes from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9 (that package's review). Not yet established: whether the commit is the Minimal Corresponding Source (issue 002 A1).",
+        "linkingPosition": "sharp-darwin-x64-0.35.4.node is Mach-O, read with llvm-objdump -p and dynamically links @rpath/libvips-cpp.8.18.6.dylib resolved through a recorded search path (6 entries, first: @loader_path/../../sharp-libvips-darwin-x64/lib).",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-libvips-darwin-arm64",
+      "version": "1.3.3",
+      "platformKey": "darwin/arm64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the package ships no licence text of its own although it declares LGPL-3.0-or-later; the text now retained at licenses/ has to be accepted as travelling with this binary; 28 bundled upstream components, 9 of them weak-copyleft (cairo Mozilla Public License 2.0, exif LGPLv3, fribidi LGPLv3, glib LGPLv3, heif LGPLv3, pango LGPLv3, proxy-libintl LGPLv3, rsvg LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships no licence text of its own. The fourteen SPDX texts its libraries' licences need are retained at licenses/ (IJG and libtiff added at M5.3), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 28 libraries inside this binary to its text (issue 002 A3), and THIRD_PARTY.md section 5.1 lists them with their upstreams. Not retained: fontconfig's own licence text and the Alliance for Open Media Patent License 1.0 (aom 3.15.0), whose upstreams this environment could not reach, and each library's own licence file with its copyright lines.",
+        "sourceAvailability": "the npm registry records gitHead 6e5971d333377743163edc3ad9e5d0b897abcbc9 in https://github.com/lovell/sharp-libvips (directory npm/darwin-arm64) for this package, as for every 1.3.3 package, published by GitHub Actions trusted publishing. At that commit versions.properties pins exactly the 28 component versions this package's versions.json lists, and build.sh with build/posix.sh builds them; docs/evidence/native-source-index.json records each component's upstream. Not yet established: whether these revisions, with the component sources they download, are the Minimal Corresponding Source (issue 002 A1), and how the relinking terms are met for the LGPL libraries linked statically (A2). Those are the owner's decisions.",
+        "linkingPosition": "libvips-cpp.8.18.6.dylib is Mach-O, read with llvm-objdump -p and names no bundled component among its 11 dependencies — they are the platform C/C++ runtime and system libraries only (/usr/lib/libSystem.B.dylib, /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation, /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation, /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit, …). The bundled upstream components are therefore linked INTO this binary, not loaded from beside it: the weak-copyleft components among them are statically linked.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-libvips-darwin-x64",
+      "version": "1.3.3",
+      "platformKey": "darwin/x64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the package ships no licence text of its own although it declares LGPL-3.0-or-later; the text now retained at licenses/ has to be accepted as travelling with this binary; 28 bundled upstream components, 9 of them weak-copyleft (cairo Mozilla Public License 2.0, exif LGPLv3, fribidi LGPLv3, glib LGPLv3, heif LGPLv3, pango LGPLv3, proxy-libintl LGPLv3, rsvg LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships no licence text of its own. The fourteen SPDX texts its libraries' licences need are retained at licenses/ (IJG and libtiff added at M5.3), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 28 libraries inside this binary to its text (issue 002 A3), and THIRD_PARTY.md section 5.1 lists them with their upstreams. Not retained: fontconfig's own licence text and the Alliance for Open Media Patent License 1.0 (aom 3.15.0), whose upstreams this environment could not reach, and each library's own licence file with its copyright lines.",
+        "sourceAvailability": "the npm registry records gitHead 6e5971d333377743163edc3ad9e5d0b897abcbc9 in https://github.com/lovell/sharp-libvips (directory npm/darwin-x64) for this package, as for every 1.3.3 package, published by GitHub Actions trusted publishing. At that commit versions.properties pins exactly the 28 component versions this package's versions.json lists, and build.sh with build/posix.sh builds them; docs/evidence/native-source-index.json records each component's upstream. Not yet established: whether these revisions, with the component sources they download, are the Minimal Corresponding Source (issue 002 A1), and how the relinking terms are met for the LGPL libraries linked statically (A2). Those are the owner's decisions.",
+        "linkingPosition": "libvips-cpp.8.18.6.dylib is Mach-O, read with llvm-objdump -p and names no bundled component among its 11 dependencies — they are the platform C/C++ runtime and system libraries only (/usr/lib/libSystem.B.dylib, /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation, /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation, /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit, …). The bundled upstream components are therefore linked INTO this binary, not loaded from beside it: the weak-copyleft components among them are statically linked.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-libvips-linux-arm64",
+      "version": "1.3.3",
+      "platformKey": "linux/arm64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the package ships no licence text of its own although it declares LGPL-3.0-or-later; the text now retained at licenses/ has to be accepted as travelling with this binary; 28 bundled upstream components, 9 of them weak-copyleft (cairo Mozilla Public License 2.0, exif LGPLv3, fribidi LGPLv3, glib LGPLv3, heif LGPLv3, pango LGPLv3, proxy-libintl LGPLv3, rsvg LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships no licence text of its own. The fourteen SPDX texts its libraries' licences need are retained at licenses/ (IJG and libtiff added at M5.3), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 28 libraries inside this binary to its text (issue 002 A3), and THIRD_PARTY.md section 5.1 lists them with their upstreams. Not retained: fontconfig's own licence text and the Alliance for Open Media Patent License 1.0 (aom 3.15.0), whose upstreams this environment could not reach, and each library's own licence file with its copyright lines.",
+        "sourceAvailability": "the npm registry records gitHead 6e5971d333377743163edc3ad9e5d0b897abcbc9 in https://github.com/lovell/sharp-libvips (directory npm/linux-arm64) for this package, as for every 1.3.3 package, published by GitHub Actions trusted publishing. At that commit versions.properties pins exactly the 28 component versions this package's versions.json lists, and build.sh with build/posix.sh builds them; docs/evidence/native-source-index.json records each component's upstream. Not yet established: whether these revisions, with the component sources they download, are the Minimal Corresponding Source (issue 002 A1), and how the relinking terms are met for the LGPL libraries linked statically (A2). Those are the owner's decisions.",
+        "linkingPosition": "libvips-cpp.so.8.18.6 is ELF, read with readelf -d and names no bundled component among its 8 dependencies — they are the platform C/C++ runtime and system libraries only (libresolv.so.2, libdl.so.2, libstdc++.so.6, libpthread.so.0, …). The bundled upstream components are therefore linked INTO this binary, not loaded from beside it: the weak-copyleft components among them are statically linked.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-libvips-linux-x64",
+      "version": "1.3.3",
+      "platformKey": "linux/x64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the package ships no licence text of its own although it declares LGPL-3.0-or-later; the text now retained at licenses/ has to be accepted as travelling with this binary; 28 bundled upstream components, 9 of them weak-copyleft (cairo Mozilla Public License 2.0, exif LGPLv3, fribidi LGPLv3, glib LGPLv3, heif LGPLv3, pango LGPLv3, proxy-libintl LGPLv3, rsvg LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships no licence text of its own. The fourteen SPDX texts its libraries' licences need are retained at licenses/ (IJG and libtiff added at M5.3), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 28 libraries inside this binary to its text (issue 002 A3), and THIRD_PARTY.md section 5.1 lists them with their upstreams. Not retained: fontconfig's own licence text and the Alliance for Open Media Patent License 1.0 (aom 3.15.0), whose upstreams this environment could not reach, and each library's own licence file with its copyright lines.",
+        "sourceAvailability": "the npm registry records gitHead 6e5971d333377743163edc3ad9e5d0b897abcbc9 in https://github.com/lovell/sharp-libvips (directory npm/linux-x64) for this package, as for every 1.3.3 package, published by GitHub Actions trusted publishing. At that commit versions.properties pins exactly the 28 component versions this package's versions.json lists, and build.sh with build/posix.sh builds them; docs/evidence/native-source-index.json records each component's upstream. Not yet established: whether these revisions, with the component sources they download, are the Minimal Corresponding Source (issue 002 A1), and how the relinking terms are met for the LGPL libraries linked statically (A2). Those are the owner's decisions.",
+        "linkingPosition": "libvips-cpp.so.8.18.6 is ELF, read with readelf -d and names no bundled component among its 8 dependencies — they are the platform C/C++ runtime and system libraries only (libresolv.so.2, libdl.so.2, libstdc++.so.6, libpthread.so.0, …). The bundled upstream components are therefore linked INTO this binary, not loaded from beside it: the weak-copyleft components among them are statically linked.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-libvips-linuxmusl-arm64",
+      "version": "1.3.3",
+      "platformKey": "linux/arm64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the package ships no licence text of its own although it declares LGPL-3.0-or-later; the text now retained at licenses/ has to be accepted as travelling with this binary; 28 bundled upstream components, 9 of them weak-copyleft (cairo Mozilla Public License 2.0, exif LGPLv3, fribidi LGPLv3, glib LGPLv3, heif LGPLv3, pango LGPLv3, proxy-libintl LGPLv3, rsvg LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships no licence text of its own. The fourteen SPDX texts its libraries' licences need are retained at licenses/ (IJG and libtiff added at M5.3), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 28 libraries inside this binary to its text (issue 002 A3), and THIRD_PARTY.md section 5.1 lists them with their upstreams. Not retained: fontconfig's own licence text and the Alliance for Open Media Patent License 1.0 (aom 3.15.0), whose upstreams this environment could not reach, and each library's own licence file with its copyright lines.",
+        "sourceAvailability": "the npm registry records gitHead 6e5971d333377743163edc3ad9e5d0b897abcbc9 in https://github.com/lovell/sharp-libvips (directory npm/linuxmusl-arm64) for this package, as for every 1.3.3 package, published by GitHub Actions trusted publishing. At that commit versions.properties pins exactly the 28 component versions this package's versions.json lists, and build.sh with build/posix.sh builds them; docs/evidence/native-source-index.json records each component's upstream. Not yet established: whether these revisions, with the component sources they download, are the Minimal Corresponding Source (issue 002 A1), and how the relinking terms are met for the LGPL libraries linked statically (A2). Those are the owner's decisions.",
+        "linkingPosition": "libvips-cpp.so.8.18.6 is ELF, read with readelf -d and names no bundled component among its 3 dependencies — they are the platform C/C++ runtime and system libraries only (libstdc++.so.6, libgcc_s.so.1, libc.musl-aarch64.so.1). The bundled upstream components are therefore linked INTO this binary, not loaded from beside it: the weak-copyleft components among them are statically linked.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-libvips-linuxmusl-x64",
+      "version": "1.3.3",
+      "platformKey": "linux/x64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the package ships no licence text of its own although it declares LGPL-3.0-or-later; the text now retained at licenses/ has to be accepted as travelling with this binary; 28 bundled upstream components, 9 of them weak-copyleft (cairo Mozilla Public License 2.0, exif LGPLv3, fribidi LGPLv3, glib LGPLv3, heif LGPLv3, pango LGPLv3, proxy-libintl LGPLv3, rsvg LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships no licence text of its own. The fourteen SPDX texts its libraries' licences need are retained at licenses/ (IJG and libtiff added at M5.3), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 28 libraries inside this binary to its text (issue 002 A3), and THIRD_PARTY.md section 5.1 lists them with their upstreams. Not retained: fontconfig's own licence text and the Alliance for Open Media Patent License 1.0 (aom 3.15.0), whose upstreams this environment could not reach, and each library's own licence file with its copyright lines.",
+        "sourceAvailability": "the npm registry records gitHead 6e5971d333377743163edc3ad9e5d0b897abcbc9 in https://github.com/lovell/sharp-libvips (directory npm/linuxmusl-x64) for this package, as for every 1.3.3 package, published by GitHub Actions trusted publishing. At that commit versions.properties pins exactly the 28 component versions this package's versions.json lists, and build.sh with build/posix.sh builds them; docs/evidence/native-source-index.json records each component's upstream. Not yet established: whether these revisions, with the component sources they download, are the Minimal Corresponding Source (issue 002 A1), and how the relinking terms are met for the LGPL libraries linked statically (A2). Those are the owner's decisions.",
+        "linkingPosition": "libvips-cpp.so.8.18.6 is ELF, read with readelf -d and names no bundled component among its 3 dependencies — they are the platform C/C++ runtime and system libraries only (libstdc++.so.6, libgcc_s.so.1, libc.musl-x86_64.so.1). The bundled upstream components are therefore linked INTO this binary, not loaded from beside it: the weak-copyleft components among them are statically linked.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-linux-arm64",
+      "version": "0.35.4",
+      "platformKey": "linux/arm64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the static read shows this artefact dynamically linking libvips-cpp from the library shipped beside it, so the weak-copyleft obligation follows that library rather than this package; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text (its SHA-256 is in scripts/native-observations.json), and its README gives the notice 'Copyright 2013 Lovell Fuller and others.'; the Apache-2.0 text is also retained at licenses/Apache-2.0.txt. The libraries this addon loads are in @img/sharp-libvips-linux-arm64, whose review covers them.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/linux-arm64), published by GitHub Actions trusted publishing; the addon's sources and its build are at that commit. The libvips it loads comes from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9 (that package's review). Not yet established: whether the commit is the Minimal Corresponding Source (issue 002 A1).",
+        "linkingPosition": "sharp-linux-arm64-0.35.4.node is ELF, read with readelf -d and dynamically links libvips-cpp.so.8.18.6 resolved through a recorded search path (1 entry, first: $ORIGIN/../../sharp-libvips-linux-arm64/lib:$ORIGIN/../../../sharp-libvips-linux-arm64/1.3.3/lib:$ORIGIN/../../node_modules/@img/sharp-libvips-linux-arm64/lib:$ORIGIN/../../../node_modules/@img/sharp-libvips-linux-arm64/lib:$ORIGIN/../../../../../@img-sharp-libvips-linux-arm64-npm-1.3.3-bf2433b8d9/node_modules/@img/sharp-libvips-linux-arm64/lib).",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-linux-x64",
+      "version": "0.35.4",
+      "platformKey": "linux/x64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the static read shows this artefact dynamically linking libvips-cpp from the library shipped beside it, so the weak-copyleft obligation follows that library rather than this package; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text (its SHA-256 is in scripts/native-observations.json), and its README gives the notice 'Copyright 2013 Lovell Fuller and others.'; the Apache-2.0 text is also retained at licenses/Apache-2.0.txt. The libraries this addon loads are in @img/sharp-libvips-linux-x64, whose review covers them.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/linux-x64), published by GitHub Actions trusted publishing; the addon's sources and its build are at that commit. The libvips it loads comes from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9 (that package's review). Not yet established: whether the commit is the Minimal Corresponding Source (issue 002 A1).",
+        "linkingPosition": "sharp-linux-x64-0.35.4.node is ELF, read with readelf -d and dynamically links libvips-cpp.so.8.18.6 resolved through a recorded search path (1 entry, first: $ORIGIN/../../sharp-libvips-linux-x64/lib:$ORIGIN/../../../sharp-libvips-linux-x64/1.3.3/lib:$ORIGIN/../../node_modules/@img/sharp-libvips-linux-x64/lib:$ORIGIN/../../../node_modules/@img/sharp-libvips-linux-x64/lib:$ORIGIN/../../../../../@img-sharp-libvips-linux-x64-npm-1.3.3-3b9999d71f/node_modules/@img/sharp-libvips-linux-x64/lib).",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-linuxmusl-arm64",
+      "version": "0.35.4",
+      "platformKey": "linux/arm64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the static read shows this artefact dynamically linking libvips-cpp from the library shipped beside it, so the weak-copyleft obligation follows that library rather than this package; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text (its SHA-256 is in scripts/native-observations.json), and its README gives the notice 'Copyright 2013 Lovell Fuller and others.'; the Apache-2.0 text is also retained at licenses/Apache-2.0.txt. The libraries this addon loads are in @img/sharp-libvips-linuxmusl-arm64, whose review covers them.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/linuxmusl-arm64), published by GitHub Actions trusted publishing; the addon's sources and its build are at that commit. The libvips it loads comes from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9 (that package's review). Not yet established: whether the commit is the Minimal Corresponding Source (issue 002 A1).",
+        "linkingPosition": "sharp-linuxmusl-arm64-0.35.4.node is ELF, read with readelf -d and dynamically links libvips-cpp.so.8.18.6 resolved through a recorded search path (1 entry, first: $ORIGIN/../../sharp-libvips-linuxmusl-arm64/lib:$ORIGIN/../../../sharp-libvips-linuxmusl-arm64/1.3.3/lib:$ORIGIN/../../node_modules/@img/sharp-libvips-linuxmusl-arm64/lib:$ORIGIN/../../../node_modules/@img/sharp-libvips-linuxmusl-arm64/lib:$ORIGIN/../../../../../@img-sharp-libvips-linuxmusl-arm64-npm-1.3.3-dbd6d96b5b/node_modules/@img/sharp-libvips-linuxmusl-arm64/lib).",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-linuxmusl-x64",
+      "version": "0.35.4",
+      "platformKey": "linux/x64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "the static read shows this artefact dynamically linking libvips-cpp from the library shipped beside it, so the weak-copyleft obligation follows that library rather than this package; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text (its SHA-256 is in scripts/native-observations.json), and its README gives the notice 'Copyright 2013 Lovell Fuller and others.'; the Apache-2.0 text is also retained at licenses/Apache-2.0.txt. The libraries this addon loads are in @img/sharp-libvips-linuxmusl-x64, whose review covers them.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/linuxmusl-x64), published by GitHub Actions trusted publishing; the addon's sources and its build are at that commit. The libvips it loads comes from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9 (that package's review). Not yet established: whether the commit is the Minimal Corresponding Source (issue 002 A1).",
+        "linkingPosition": "sharp-linuxmusl-x64-0.35.4.node is ELF, read with readelf -d and dynamically links libvips-cpp.so.8.18.6 resolved through a recorded search path (1 entry, first: $ORIGIN/../../sharp-libvips-linuxmusl-x64/lib:$ORIGIN/../../../sharp-libvips-linuxmusl-x64/1.3.3/lib:$ORIGIN/../../node_modules/@img/sharp-libvips-linuxmusl-x64/lib:$ORIGIN/../../../node_modules/@img/sharp-libvips-linuxmusl-x64/lib:$ORIGIN/../../../../../@img-sharp-libvips-linuxmusl-x64-npm-1.3.3-54c89def0d/node_modules/@img/sharp-libvips-linuxmusl-x64/lib).",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-wasm32",
+      "version": "0.35.4",
+      "platformKey": "any-os/any-cpu",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "19 bundled upstream components, 4 of them weak-copyleft (exif LGPLv3, glib LGPLv3, heif LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json, but the build that produced this WebAssembly module is not the sharp-libvips build the other packages come from and is not identified yet; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text, and declares Apache-2.0 AND LGPL-3.0-or-later AND MIT; its README's Licensing section reads 'Copyright 2013 Lovell Fuller and others.'. The texts its libraries' licences need are retained at licenses/ (fourteen SPDX texts), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 19 libraries inside the module to its text (issue 002 A3). Not retained: the Alliance for Open Media Patent License 1.0 (aom 3.14.1), each library's own licence file with its copyright lines, and the licences of resvg's Rust crates and of Emscripten's runtime libraries compiled into the module, which no package lists.",
+        "sourceAvailability": "identified at M5.3 (issue 002 A5): the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/wasm32); that commit's CI job build-emscripten builds the module in emscripten/emsdk:6.0.8 against @img/sharp-libvips-dev-wasm32@1.3.3, which the registry records as published from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9; its build/wasm.sh runs kleisauke/wasm-vips' build.sh from an unpinned HEAD, and wasm-vips at 79103664d21ce00982e80571cf12f58bd3dcc5f3 pins exactly the versions this package's versions.json lists. resvg 0.48.1 comes from https://github.com/linebender/resvg (A6). docs/evidence/native-source-index.json, wasm32Build, has each step. Not yet established: that the wasm-vips revision, identified by matching versions rather than by a pin, is the one used; the Minimal Corresponding Source (A1); and how the relinking terms are met for the LGPL libraries compiled into the module (A2).",
+        "linkingPosition": "the shipped artefacts are WebAssembly and JavaScript glue with no dynamic-linking structures at all (sharp-wasm32-0.35.4.node.js, sharp-wasm32-0.35.4.node.wasm; readelf -d, objdump -p and llvm-objdump -p each find no import table). Every bundled component is compiled into the module, so the components are statically linked.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-win32-arm64",
+      "version": "0.35.4",
+      "platformKey": "win32/arm64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "28 bundled upstream components, 9 of them weak-copyleft (cairo Mozilla Public License 2.0, exif LGPLv3, fribidi LGPLv3, glib LGPLv3, heif LGPLv3, pango LGPLv3, proxy-libintl LGPLv3, rsvg LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text (its SHA-256 is in scripts/native-observations.json). The texts its libraries' licences need are retained at licenses/ (fourteen SPDX texts, IJG and libtiff added at M5.3), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 28 libraries inside libvips-42.dll to its text (issue 002 A3), and THIRD_PARTY.md section 5.1 lists them with their upstreams. Not retained: fontconfig's own licence text and the Alliance for Open Media Patent License 1.0 (aom 3.14.1), whose upstreams this environment could not reach, and each library's own licence file with its copyright lines.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/win32-arm64); libvips-cpp-8.18.6.dll and the addon are built there. lib/libvips-42.dll is byte for byte the one in @img/sharp-libvips-win32-arm64@1.3.3 (SHA-256 5c73dcac80d514315b234e45b7ffeea6e70f677fed95906c02c77693938c3f41), which the registry records as published from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9, whose build/win.sh packages the prebuilt libraries of https://github.com/libvips/build-win64-mxe at v8.18.6 rather than building them: that project's pins, not sharp-libvips', are the versions in this package's versions.json (aom 3.14.1). docs/evidence/native-source-index.json, windowsBuild, has each step. Not yet established: whether these revisions, with the component sources they download, are the Minimal Corresponding Source (issue 002 A1), and how the relinking terms are met for the LGPL libraries linked statically (A2). Those are the owner's decisions.",
+        "linkingPosition": "libvips-42.dll is PE, read with llvm-objdump -p and names no bundled component among its 27 dependencies — they are the platform C/C++ runtime and system libraries only (KERNEL32.dll, api-ms-win-crt-stdio-l1-1-0.dll, api-ms-win-crt-heap-l1-1-0.dll, api-ms-win-crt-runtime-l1-1-0.dll, …). The bundled upstream components are therefore linked INTO this binary, not loaded from beside it: the weak-copyleft components among them are statically linked. libvips-cpp-8.18.6.dll is PE, read with llvm-objdump -p and dynamically links libvips-42.dll resolved from the library beside it in this same package. sharp-win32-arm64-0.35.4.node is PE, read with llvm-objdump -p and dynamically links libvips-42.dll and libvips-cpp-8.18.6.dll resolved from the library beside it in this same package.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "@img/sharp-win32-x64",
+      "version": "0.35.4",
+      "platformKey": "win32/x64",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "28 bundled upstream components, 9 of them weak-copyleft (cairo Mozilla Public License 2.0, exif LGPLv3, fribidi LGPLv3, glib LGPLv3, heif LGPLv3, pango LGPLv3, proxy-libintl LGPLv3, rsvg LGPLv3, vips LGPLv3), each needing its licence text retained and attributed; the static read finds no bundled component among this binary’s dependencies, so they are linked into it rather than loaded beside it; a statically linked LGPL component brings a relinking obligation, and how that is met is the release owner’s decision; source availability is recorded per component in docs/evidence/native-source-index.json but not accepted: whether lovell/sharp-libvips at 1.3.3 is the Minimal Corresponding Source for the binary as shipped is the owner’s call; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own LICENSE, the Apache-2.0 text (its SHA-256 is in scripts/native-observations.json). The texts its libraries' licences need are retained at licenses/ (fourteen SPDX texts, IJG and libtiff added at M5.3), each in licenses/index.json with its SHA-256, and package.json ships licenses/. NOTICE.md attributes each of the 28 libraries inside libvips-42.dll to its text (issue 002 A3), and THIRD_PARTY.md section 5.1 lists them with their upstreams. Not retained: fontconfig's own licence text and the Alliance for Open Media Patent License 1.0 (aom 3.14.1), whose upstreams this environment could not reach, and each library's own licence file with its copyright lines.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp (directory npm/win32-x64); libvips-cpp-8.18.6.dll and the addon are built there. lib/libvips-42.dll is byte for byte the one in @img/sharp-libvips-win32-x64@1.3.3 (SHA-256 e6cc51bbc763e7deda536c6f56ce96b4c51ea769690ce4f4ed07607527b81dae), which the registry records as published from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9, whose build/win.sh packages the prebuilt libraries of https://github.com/libvips/build-win64-mxe at v8.18.6 rather than building them: that project's pins, not sharp-libvips', are the versions in this package's versions.json (aom 3.14.1). docs/evidence/native-source-index.json, windowsBuild, has each step. Not yet established: whether these revisions, with the component sources they download, are the Minimal Corresponding Source (issue 002 A1), and how the relinking terms are met for the LGPL libraries linked statically (A2). Those are the owner's decisions.",
+        "linkingPosition": "libvips-42.dll is PE, read with llvm-objdump -p and names no bundled component among its 27 dependencies — they are the platform C/C++ runtime and system libraries only (KERNEL32.dll, api-ms-win-crt-stdio-l1-1-0.dll, api-ms-win-crt-heap-l1-1-0.dll, api-ms-win-crt-runtime-l1-1-0.dll, …). The bundled upstream components are therefore linked INTO this binary, not loaded from beside it: the weak-copyleft components among them are statically linked. libvips-cpp-8.18.6.dll is PE, read with objdump -p and dynamically links libvips-42.dll resolved from the library beside it in this same package. sharp-win32-x64-0.35.4.node is PE, read with objdump -p and dynamically links libvips-42.dll and libvips-cpp-8.18.6.dll resolved from the library beside it in this same package.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    },
+    {
+      "package": "sharp",
+      "version": "0.35.4",
+      "platformKey": "any-os/any-cpu",
+      "status": "unresolved",
+      "reviewedBy": "not yet reviewed by a person",
+      "reviewedOn": "2026-09-22",
+      "unresolved": "pure JavaScript package with no native artefact; the only open question is whether its own licence text is retained in the distribution, which the release owner confirms; see proposedEvidence for the assembled facts; assembling them is not accepting them",
+      "owner": "Release maintainer (D18), at M5.3 / DEP06",
+      "proposedEvidence": {
+        "assembledBy": "scripts/native-inventory.mjs (static linkage read), scripts/fetch-license-texts.mjs (SPDX texts) and the component tables in each package README (source index), assembled under D36; refreshed at M5.3 by W5B with scripts/license-inventory.mjs, scripts/gen-notice.mjs, NOTICE.md's attribution, the npm registry's gitHead for each package and the build scripts at those commits (D129)",
+        "assembledOn": "2026-09-28",
+        "licenseTextsRetained": "the package ships its own Apache-2.0 LICENSE (its SHA-256 is in scripts/native-observations.json) and a README whose Licensing section reads 'Copyright 2013 Lovell Fuller and others.'; the Apache-2.0 text is also retained at licenses/Apache-2.0.txt, and THIRD_PARTY.md section 4 lists sharp with that notice.",
+        "sourceAvailability": "the npm registry records gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp for sharp@0.35.4, published by GitHub Actions trusted publishing. The package is JavaScript and is its own source.",
+        "linkingPosition": "the package ships no native artefact, so there is no linking position to determine.",
+        "sources": [
+          "native-observations.json",
+          "../licenses/index.json",
+          "../docs/evidence/native-source-index.json",
+          "../docs/evidence/license-inventory.json",
+          "../THIRD_PARTY.md",
+          "../NOTICE.md"
+        ]
+      }
+    }
+  ]
+}

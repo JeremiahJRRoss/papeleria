@@ -1,0 +1,10 @@
+schema: 1
+template: comic
+title: Fixture.
+pages:
+  - image: assets/images/p.png
+    alt: A page.
+    panels:
+      - box: [0, 0, 50, 50]
+        transcript: T
+        detail: {zoom: false}

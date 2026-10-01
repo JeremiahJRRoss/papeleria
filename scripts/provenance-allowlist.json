@@ -1,0 +1,445 @@
+{
+  "$comment": "The readings scripts/provenance-check.mjs holds its hits to (code provenance review §5.3 B1 and B2, D181). Each entry says what a flagged line or file is and which decision admitted it, and states how many hits it covers: a different count, or none, fails the check, so a new hit is read before it passes. A B1 entry names the text of the line it read, holding every marker the line matches: it covers a line of its file that contains the text and matches no marker the text lacks, so a reworded line, or one that gains a marker, is read again, and a reviewed line cannot be swapped for a new declaration (the Codex review of PR #41). A B1 entry of kind \"copy\" must name a package or component that COPIED in scripts/license-inventory.mjs lists for the same file, which is what puts it in THIRD_PARTY.md §2. Kinds: copy (declares registered third-party material), kit (the owner's own design kit, NOTICE.md 'Source', review P05), provenance-tooling (licence and provenance tooling, its tests and records, which name third-party sources and notices in order to check them), not-a-copy (the words mean something else here).",
+  "markers": [
+    {
+      "file": "scripts/fetch-license-texts.mjs",
+      "line": "https://raw.githubusercontent.com/spdx/license-list-data/${SPDX_COMMIT}/text",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "The SPDX licence-list repository the licence texts at licenses/ are fetched from and hashed against (D36, D126), at the pinned commit (security audit F13, D194(c)); no code comes from it",
+      "decision": "D126"
+    },
+    {
+      "file": "test/unit/fetch-license-texts.test.ts",
+      "line": "https://raw.githubusercontent.com/spdx/license-list-data/${SPDX_COMMIT}/text/${entry.id}.txt",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "The addresses the test expects the licence texts to be fetched from, at the pinned SPDX commit (security audit F13, D194(c)); no code comes from it",
+      "decision": "D126"
+    },
+    {
+      "file": "scripts/license-evidence.json",
+      "line": "copyright 2013 Odysseas Tsatalos and oDesk Corporation",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "A licence evidence record quotes the copyright line of the licence file whose hash it pins (valid-url, D31)",
+      "decision": "D31"
+    },
+    {
+      "file": "scripts/license-inventory.mjs",
+      "line": "a line-for-line port of d3-dsv's parseRows",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "COPIED's description of the d3-dsv port in src/core/csv.ts (D182)",
+      "decision": "D182"
+    },
+    {
+      "file": "scripts/license-inventory.mjs",
+      "line": "marker: 'Adapted from d3-dsv 3.0.1 (ISC licence'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "COPIED's marker for the d3-dsv port: the text the inventory requires src/core/csv.ts to keep (D182)",
+      "decision": "D182"
+    },
+    {
+      "file": "scripts/license-inventory.mjs",
+      "line": "marker: 'copied from d3-format 3.1.2 and'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "COPIED's marker for D41's copy: the text the inventory requires src/core/charts.ts to keep",
+      "decision": "D125"
+    },
+    {
+      "file": "scripts/license-inventory.mjs",
+      "line": "marker: 'Adapted from markdown-it-footnote 4.0.0 (MIT licence'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "COPIED's marker for the footnote rewrite: the text the inventory requires src/core/markdown.ts to keep",
+      "decision": "D144"
+    },
+    {
+      "file": "scripts/native-reviews.json",
+      "line": "'Copyright 2013 Lovell Fuller and others.'",
+      "count": 8,
+      "kind": "provenance-tooling",
+      "reading": "The native distribution reviews quote the notice sharp's READMEs give; records about sharp's binaries, not code (D34, D36)",
+      "decision": "D36"
+    },
+    {
+      "file": "scripts/native-reviews.json",
+      "line": "https://github.com/lovell/sharp",
+      "count": 16,
+      "kind": "provenance-tooling",
+      "reading": "The native distribution reviews name the repository each package was built from, by its registry gitHead; records, not code (D36)",
+      "decision": "D36"
+    },
+    {
+      "file": "scripts/vendor-page-flip.mjs",
+      "line": "upstreamRepository: 'https://github.com/Nodlik/StPageFlip'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "The upstream the vendoring script verifies the pinned engine against; the engine itself is the vendored door, vendor/page-flip/ (D100)",
+      "decision": "D100"
+    },
+    {
+      "file": "src/core/charts.ts",
+      "line": "copied from d3-format 3.1.2 and",
+      "count": 1,
+      "kind": "copy",
+      "copy": {
+        "package": "d3-format",
+        "version": "3.1.2"
+      },
+      "reading": "D41's en-US and es-ES locale definitions from d3-format 3.1.2 and d3-time-format 4.1.0 (ISC); the comment names both and points at THIRD_PARTY.md §2 (issue 002 F2)",
+      "decision": "D41"
+    },
+    {
+      "file": "src/core/csv.ts",
+      "line": "line-for-line port of d3-dsv 3.0.1's",
+      "count": 1,
+      "kind": "copy",
+      "copy": {
+        "package": "d3-dsv",
+        "version": "3.0.1"
+      },
+      "reading": "The record scanner is a port of d3-dsv 3.0.1's parseRows token loop (ISC), with position bookkeeping added; found by this check's first run and registered by D182",
+      "decision": "D182"
+    },
+    {
+      "file": "src/core/csv.ts",
+      "line": "are copied from it) and records where every record starts",
+      "count": 1,
+      "kind": "copy",
+      "copy": {
+        "package": "d3-dsv",
+        "version": "3.0.1"
+      },
+      "reading": "scanRecords' own comment on the same port: its loop conditions are d3-dsv's",
+      "decision": "D182"
+    },
+    {
+      "file": "src/core/csv.ts",
+      "line": "Adapted from d3-dsv 3.0.1 (ISC licence, Copyright 2013-2021 Mike Bostock),",
+      "count": 1,
+      "kind": "copy",
+      "copy": {
+        "package": "d3-dsv",
+        "version": "3.0.1"
+      },
+      "reading": "The attribution D182 added for the same port: source, version, licence and copyright line, pointing at THIRD_PARTY.md §2",
+      "decision": "D182"
+    },
+    {
+      "file": "src/core/image-cache.ts",
+      "line": "a record that was edited, or copied from another key",
+      "count": 1,
+      "kind": "not-a-copy",
+      "reading": "A cache record copied from another key is damage the record check catches; about data, not code",
+      "decision": "D181"
+    },
+    {
+      "file": "src/core/image-cache.ts",
+      "line": "binds a record to its name, so one copied from",
+      "count": 1,
+      "kind": "not-a-copy",
+      "reading": "The same point about cache records, on the function that computes the check",
+      "decision": "D181"
+    },
+    {
+      "file": "src/core/markdown.ts",
+      "line": "rule, step for step, except that each",
+      "count": 1,
+      "kind": "copy",
+      "copy": {
+        "package": "markdown-it-footnote",
+        "version": "4.0.0"
+      },
+      "reading": "footnoteTail is D164(e)'s linear rewrite of markdown-it-footnote 4.0.0's footnote_tail rule (MIT), registered by D144",
+      "decision": "D144"
+    },
+    {
+      "file": "src/core/markdown.ts",
+      "line": "Adapted from markdown-it-footnote 4.0.0 (MIT licence, Copyright (c)",
+      "count": 1,
+      "kind": "copy",
+      "copy": {
+        "package": "markdown-it-footnote",
+        "version": "4.0.0"
+      },
+      "reading": "The attribution D144 added for the same rewrite: source, version, licence and copyright line",
+      "decision": "D144"
+    },
+    {
+      "file": "src/core/svg.ts",
+      "line": "Every table keyed by a name taken from the file is a Map",
+      "count": 1,
+      "kind": "not-a-copy",
+      "reading": "A name read from the SVG being checked; about input, not code",
+      "decision": "D181"
+    },
+    {
+      "file": "src/editor/app.ts",
+      "line": "the launch token is taken from the fragment",
+      "count": 1,
+      "kind": "not-a-copy",
+      "reading": "The launch token is read from the address's fragment at start (IC06, D192); about a value, not code",
+      "decision": "D181"
+    },
+    {
+      "file": "src/server/preview-origin.ts",
+      "line": "on a port of its own",
+      "count": 1,
+      "kind": "not-a-copy",
+      "reading": "A network port: the preview origin listens on its own loopback port (IC06)",
+      "decision": "D181"
+    },
+    {
+      "file": "templates/deck/client/deck.ts",
+      "line": "A port of the kit's theme/js/slides.js",
+      "count": 1,
+      "kind": "kit",
+      "reading": "The deck client started from the design kit's own slides.js, which is in the repository at theme/js/ (NOTICE.md 'Scripts' and 'Source'; review P05)",
+      "decision": "D181"
+    },
+    {
+      "file": "test/golden/brand-overview.allowlist.json",
+      "line": "Adapted from the Ross.moda design language",
+      "count": 1,
+      "kind": "kit",
+      "reading": "The reference deck's header markup, quoted so the golden comparison can leave it out; the header states the kit's own attribution (D55, D70)",
+      "decision": "D70"
+    },
+    {
+      "file": "test/integration/pipeline.test.ts",
+      "line": "Copyright 2020 The Poppins Project Authors",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "Asserts that a generation's THIRD_PARTY.md carries the Poppins copyright line (D127)",
+      "decision": "D127"
+    },
+    {
+      "file": "test/unit/core-loaders.test.ts",
+      "line": "the format taken from the bytes",
+      "count": 1,
+      "kind": "not-a-copy",
+      "reading": "An image's format is read from its bytes; about input, not code",
+      "decision": "D181"
+    },
+    {
+      "file": "test/unit/csv.test.ts",
+      "line": "a port of d3-dsv's token loop",
+      "count": 1,
+      "kind": "not-a-copy",
+      "reading": "Names the port in src/core/csv.ts to say this test's reference walk is written separately from it; the walk shares only d3-dsv's line-break conventions",
+      "decision": "D182"
+    },
+    {
+      "file": "test/unit/distribution.test.ts",
+      "line": "/Copyright 2026 Ross",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "Asserts NOTICE.md's own copyright line",
+      "decision": "D126"
+    },
+    {
+      "file": "test/unit/distribution.test.ts",
+      "line": "Copyright 2020 The ${family} Project Authors",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "Asserts each OFL text's Google Fonts copyright line (D126)",
+      "decision": "D126"
+    },
+    {
+      "file": "test/unit/distribution.test.ts",
+      "line": "'Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "Asserts the line the Inter files embed opens Inter-OFL.txt (issue 002 F3)",
+      "decision": "D129"
+    },
+    {
+      "file": "test/unit/gen-notice.test.ts",
+      "line": "`Copyright (c) 2026 ${name}`",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "A synthetic inventory record's copyright line for the notice generator's tests (D126)",
+      "decision": "D126"
+    },
+    {
+      "file": "test/unit/gen-notice.test.ts",
+      "line": "'Copyright (c) 2026 Engine'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "A synthetic vendored component's copyright line (D126)",
+      "decision": "D126"
+    },
+    {
+      "file": "test/unit/gen-notice.test.ts",
+      "line": "'Copyright 2026 The Face Project Authors'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "A synthetic font family's copyright line (D126)",
+      "decision": "D126"
+    },
+    {
+      "file": "test/unit/gen-notice.test.ts",
+      "line": "Copyright 2020 The Poppins Project Authors",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "Asserts the Poppins row the generated notice prints (D127)",
+      "decision": "D127"
+    },
+    {
+      "file": "test/unit/gen-notice.test.ts",
+      "line": "Copyright 2016 The Inter Project Authors",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "Asserts the Inter row the generated notice prints, with both copyright lines (D127)",
+      "decision": "D127"
+    },
+    {
+      "file": "test/unit/license-check.test.ts",
+      "line": "Copyright 2020 The ${family} Project Authors (https://example.org)",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "A synthetic OFL text for the font scope's fixtures (D125)",
+      "decision": "D125"
+    },
+    {
+      "file": "test/unit/license-inventory.test.ts",
+      "line": "Copyright (c) 2020 Nodlik",
+      "count": 2,
+      "kind": "provenance-tooling",
+      "reading": "The vendored engine's copyright line, as the inventory reads it and as the copyright reader is tested on (D125)",
+      "decision": "D125"
+    },
+    {
+      "file": "test/unit/license-inventory.test.ts",
+      "line": "'Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)'",
+      "count": 2,
+      "kind": "provenance-tooling",
+      "reading": "The line the Inter files embed, as the inventory reads it from their name tables (D125, issue 002 F3)",
+      "decision": "D125"
+    },
+    {
+      "file": "test/unit/license-inventory.test.ts",
+      "line": "'https://github.com/linebender/resvg'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "resvg's upstream, which the inventory records (issue 002 A6)",
+      "decision": "D129"
+    },
+    {
+      "file": "test/unit/license-inventory.test.ts",
+      "line": "Copyright (c) Isaac Z. Schlueter and Contributors",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "The ISC licence text the copyright reader is tested on (D125)",
+      "decision": "D125"
+    },
+    {
+      "file": "test/unit/license-inventory.test.ts",
+      "line": "Copyright (c) 1991 - 1995, Stichting Mathematisch Centrum Amsterdam",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "Python's licence text, which the copyright reader is tested on (D125)",
+      "decision": "D125"
+    },
+    {
+      "file": "test/unit/license-inventory.test.ts",
+      "line": "Copyright (c) 2001, 2002",
+      "count": 2,
+      "kind": "provenance-tooling",
+      "reading": "The PSF licence's retained-notice sentence, which the copyright reader is tested on (D125)",
+      "decision": "D125"
+    },
+    {
+      "file": "test/unit/license-inventory.test.ts",
+      "line": "'Copyright 2020 The Poppins Project Authors (https://github.com/itfoundry/Poppins)'",
+      "count": 1,
+      "kind": "provenance-tooling",
+      "reading": "The line the Poppins files embed, as the font reader reads it (D125)",
+      "decision": "D125"
+    },
+    {
+      "file": "theme/css/fonts.css",
+      "line": "Adapted from the Ross.moda design language kit",
+      "count": 1,
+      "kind": "kit",
+      "reading": "The theme's attribution to the owner's own design kit (NOTICE.md 'Source', D183; review P05)",
+      "decision": "D183"
+    },
+    {
+      "file": "theme/css/tokens.css",
+      "line": "Adapted from the Ross.moda design language kit",
+      "count": 1,
+      "kind": "kit",
+      "reading": "The same attribution in the token sheet",
+      "decision": "D183"
+    },
+    {
+      "file": "theme/design-tokens.json",
+      "line": "Adapted from the Ross.moda design language kit",
+      "count": 1,
+      "kind": "kit",
+      "reading": "The same attribution in the tokens' JSON form, generated from tokens.css",
+      "decision": "D183"
+    }
+  ],
+  "shapes": [
+    {
+      "pattern": "reference/**/*.html",
+      "count": 1,
+      "reading": "The design kit's brand-overview deck, the one reference page kept, as the deck suites' fixture (reference/README.md); it embeds the kit's minified stylesheet; never edited (reference/README.md), checked by MANIFEST.sha256's reference/ line (review M5), provenance the owner's statement (review P05). The rest of the kit stays in the development record, Dev_Papeleria",
+      "decision": "D181"
+    },
+    {
+      "file": "scripts/gen-manifest-reference.mjs",
+      "count": 1,
+      "reading": "Long prose strings the manifest reference prints; own code, generated nowhere",
+      "decision": "D181"
+    },
+    {
+      "pattern": "test/fixtures/**/*.html",
+      "count": 21,
+      "reading": "The renderers' own output, kept as snapshots by test/helpers/snapshot.ts (blocks, deck layouts, document, document blocks, comic page); one element a line",
+      "decision": "D181"
+    },
+    {
+      "file": "test/fixtures/charts/positive/five-series-daily-line/expected.svg",
+      "count": 1,
+      "reading": "The chart renderer's own output for a five-series line chart, kept as its snapshot by test/unit/charts.test.ts",
+      "decision": "D181"
+    },
+    {
+      "pattern": "test/fixtures/localization/comic/*/assets/images/pages/01.svg",
+      "count": 2,
+      "reading": "W5C's placeholder comic page, rectangles on one line, written for the localization fixtures (D133)",
+      "decision": "D133"
+    },
+    {
+      "file": "test/unit/comic-render.test.ts",
+      "count": 1,
+      "reading": "Expected comic markup written as regular expressions; own test code",
+      "decision": "D181"
+    },
+    {
+      "file": "theme/css/print.css",
+      "count": 1,
+      "reading": "The kit's print stylesheet, shipped minified; its readable copy is theme/css/readable/print.css, held to it by test/unit/theme-css.test.ts and test/browser/theme-css.test.ts (review P05)",
+      "decision": "D180"
+    },
+    {
+      "file": "theme/css/site.css",
+      "count": 1,
+      "reading": "The kit's main stylesheet, shipped mostly minified; its readable copy is theme/css/readable/site.css, held to it as above (review P05)",
+      "decision": "D180"
+    },
+    {
+      "file": "theme/css/slides.css",
+      "count": 1,
+      "reading": "The kit's deck stylesheet, shipped minified; its readable copy is theme/css/readable/slides.css, held to it as above (review P05)",
+      "decision": "D180"
+    }
+  ]
+}

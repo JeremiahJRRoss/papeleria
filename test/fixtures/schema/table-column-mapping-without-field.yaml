@@ -1,0 +1,7 @@
+schema: 1
+template: document
+title: Fixture.
+sections:
+  - heading: Hours
+    blocks:
+      - table: {data: assets/data/hours.csv, columns: [phase, {label: Hours}]}

@@ -1,0 +1,278 @@
+# Papeleria continuous integration.
+#
+# The application root is the repository root, so every run step works there.
+# The development record this workflow cites (the acceptance matrix, the release
+# status and the people's records) stays in the Dev_Papeleria repository; the
+# paths given for it are relative to Dev_Docs/ there.
+#
+# This workflow runs only the suites that exist. Do not add a job for work that
+# has not been written: a skipped or empty job reads as green and is exactly the
+# false assurance the acceptance matrix (Dev_Papeleria) forbids.
+#
+# Active suites (the acceptance matrix in Dev_Papeleria, "CI activation and
+# release evidence"):
+#
+#   M0  scaffold, types, unit tests, licences, brand, strings and the shared
+#       schema definitions
+#   M1  in `scaffold`: all three template schemas against every seeded
+#       manifest, the deck and shared chart tests, the production tarball
+#       proof, and the two deck examples built by `npm run examples`, with
+#       their A1, A3 and first-view budget tests in `npm test`. In `browser`:
+#       the deck client, the chart labels, the file:// smoke tests of built
+#       decks, the brand-overview DOM and visual golden tests (A4) and the
+#       first view's image selection (C23)
+#   M2  in `scaffold`'s npm test: server security (IC06 token, Host, Origin,
+#       paths, limits, message checks), save durability and conflicts
+#       (IC05), editor concurrency (superseded and out-of-order previews
+#       under controlled delays), and the edit and serve commands; in the
+#       tarball proof, edit and serve from the installed package. In
+#       `browser`: the editor, its schema completion and hover (DEP02), the
+#       preview bridge, serve's shell and the A9 preview timing, each in
+#       all three engines
+#   M3  in `scaffold`'s npm test: the document renderer and its blocks, the
+#       video reader and R16 on generated MP4 and WebM files, the report
+#       example (A2, A7's report), `new document` and its sample, and the
+#       print fixture catalog; `npm run examples` builds the report, and the
+#       tarball proof makes, builds and checks one. In `browser`: the
+#       document on screen in all three engines, and print verification
+#       (M3.5, M3.6): Chromium prints every document and deck print case to
+#       PDF, read back with poppler-utils (D91), and all three engines check
+#       the layout in print media, the deck overflow check included
+#   M4  in `scaffold`'s npm test: the comic renderer, R14's extent and R07's
+#       comic phone images, the reader bundle and the engine's admission
+#       (D109), the sample comic's generated art and `new comic`; `npm run
+#       examples` builds the sample comic, so all four examples build, and
+#       the tarball proof makes, builds and checks a comic. In `browser`: the
+#       comic reader at three viewports (A5, DEP05 on the real reader), its
+#       keyboard and accessibility tree (A13's automated share), the preview
+#       grid and pointer readout, the reduced-motion regression across deck,
+#       comic, document and editor (A14), each in all three engines, and the
+#       comic's print case (M4.5, test/fixtures/print/comic-transcript):
+#       Chromium prints it to PDF and all three engines check print media
+#   M5  in `scaffold`'s npm test: the user guide's links and rule coverage
+#       (W5A); the licence inventory, THIRD_PARTY.md and the notices in every
+#       example's dist/, each held current (W5B, D125-D127); the EN/ES rendering matrix and the withheld builds, which
+#       write nothing and leave an older dist/ as it was (W5C, D133); the
+#       checksum manifest's generator, the similarity scan of own code
+#       against the locked packages and the recorded source of every binary
+#       (W5D, D141, D144); `npm run examples` checks, then builds, all four
+#       examples and fails on a warning nobody has accepted (D139); the
+#       tarball proof installs the release tarball for production, makes,
+#       builds and checks all three templates and checks and builds all four
+#       examples with the installed CLI, and records the tarball's size and
+#       the installation's footprint (D140). In `browser`: the EN/ES matrix
+#       as a reader sees it, the one-slide and one-panel singulars included
+#       (W5C, test/browser/localization.test.ts); the release smoke, from the
+#       same installation as the tarball proof, drives `edit` and `serve` in
+#       Playwright and reads each built piece from file://, in all three
+#       engines (test/browser/release-smoke.test.ts)
+#
+# Publication gate (D32, D137): `npm run check:licenses:release` runs in no
+# job here. It runs in front of `npm publish`, as the package's
+# `prepublishOnly` script, and it fails today for a real reason: the native
+# distribution reviews wait for people (issue 002, section A).
+#
+# Pending, and people's to supply. No runner can give these, so no job stands
+# for them; each blocks the release claim until its record is filled in
+# (docs/RELEASE_STATUS.md in Dev_Papeleria):
+#
+#   M2  A10 only: the editor on Windows 11, macOS 14+ and Ubuntu 24.04 in
+#       branded browsers, run by a person and recorded in Dev_Papeleria's
+#       docs/user/a10-record.md; Playwright's engines supplement it, and no
+#       runner can give it
+#   M3  A6's human half only: a person reads the printed PDFs for reading
+#       order and tagging (the acceptance matrix's A6, in Dev_Papeleria), which
+#       no runner can give; the suites keep the PDFs where PAPELERIA_PRINT_OUT
+#       names
+#   M4  A13's human half only: actual screen-reader sessions, NVDA with
+#       Firefox on Windows 11 and VoiceOver with Safari on macOS 14+, run by a
+#       person and recorded in Dev_Papeleria's docs/user/accessibility-record.md;
+#       the accessibility-tree suite supplements them, and no runner can give
+#       them
+#   M5  people's evidence and decisions only: A1's timed novice run and A8's
+#       unaided Getting-started session, by a person new to Papeleria
+#       (Dev_Papeleria's docs/user/a8-record.md); A12's native Spanish review
+#       of every shipped string; the design maintainer's review of A4's screenshot
+#       baselines; reader QA's own look for A5 and a person's inspection of
+#       A14's reduced-motion recording; A9 timed on the reference machine;
+#       the release owner's licence decisions and the release maintainer's
+#       signatures on the sixteen native reviews, which
+#       check:licenses:release waits for, with the install-time check on
+#       win32 and macOS; font provenance, trademark clearance, and the
+#       owner's approval to publish
+#
+# Browser binaries are downloaded in one place only: the `browser` job's explicit
+# install step, added with the first browser suite at M1.6 (D51). The scaffold
+# job still skips the download (D23).
+
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+# There is deliberately no `concurrency` block. This repository receives
+# duplicate push and pull_request deliveries, so cancel-in-progress cancelled a
+# twin run of the same commit and left cancelled check runs on the head, which
+# GitHub reports as an unstable pull request. Letting both runs finish costs a
+# little CI time and keeps the status honest.
+
+jobs:
+  scaffold:
+    name: Scaffold, types, unit tests and M0 checks
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22.x
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Record the toolchain
+        run: |
+          node --version
+          npm --version
+          sha256sum package-lock.json
+
+      - name: Install from the lockfile
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Built CLI reports its version
+        run: node lib/src/cli/index.js --version
+
+      - name: Unit tests
+        run: npm test
+
+      # M1 (W2B, D72): builds every example whose template renders, in place,
+      # with the compiled CLI, and prints each report, warnings included. The
+      # report example joined at M3 (W3B, D99) and the sample comic at M4 (W4,
+      # D119), so all four examples build; the script still refuses any folder
+      # it does not know.
+      - name: Examples
+        run: npm run examples
+
+      - name: Licences
+        run: npm run check:licenses
+
+      # `npm run check:licenses:release` is deliberately NOT run here. It is the
+      # publication gate, and it fails today for an honest reason: the libvips
+      # native distribution obligations are still outstanding (issue 001, DEP06).
+      # Running it in CI would make every build red for work that is scheduled,
+      # not broken. W5D wired it in front of publication instead (D137): it is
+      # the package's `prepublishOnly` script, so `npm publish` runs it first
+      # and stops when it fails, where a failure means "do not publish" rather
+      # than "this commit is bad".
+
+      - name: Brand
+        run: npm run check:brand
+
+      # M1.9 content half (W1D, D56): the brand-overview piece against the
+      # reference deck's text. The browser golden test is W2B's.
+      - name: Brand-overview content
+        run: npm run check:brand-overview-content
+
+      - name: Strings
+        run: npm run check:strings
+
+      - name: Shared schema definitions
+        run: npm run check:schema-defs
+
+      # M1.8 (W2A, D68): npm pack, a production install of the tarball into an
+      # empty folder, then new, build and check with the installed CLI, from
+      # M2.6 (W3A) edit and serve started and stopped from it, from M3.7
+      # (W3B) a report and from M4.8 (W4) a comic made, built and checked, and
+      # from M5.5 (W5D, D140) all four examples checked and built with the
+      # installed CLI, and the tarball's size and footprint recorded. The
+      # install fetches the tarball's dependencies from the registry, which is
+      # why it has its own script and is not part of npm test.
+      - name: Package tarball
+        run: npm run test:package
+
+  browser:
+    name: Browser suites (deck client, charts, built decks, A4 golden, first view)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22.x
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install from the lockfile
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+        run: npm ci
+
+      - name: Record the toolchain
+        run: |
+          node --version
+          npm --version
+          npx playwright --version
+          sha256sum package-lock.json
+
+      # D51: Playwright's own builds of all three engines and the system
+      # libraries they need. There is no cache: Playwright advises that
+      # restoring one takes about as long as the download. Every engine runs
+      # here; the suite refuses PAPELERIA_BROWSERS under CI.
+      - name: Install Chromium, Firefox and WebKit
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      # D91 (M3.5, W3B): the print suites read Chromium's PDFs back with
+      # poppler-utils (pdfinfo, pdftotext, pdfimages, pdftoppm). Under CI a
+      # missing tool fails them; it never skips them.
+      - name: Install poppler-utils
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends poppler-utils
+          pdftotext -v
+
+      # Every file under test/browser/: the deck client, the chart labels and
+      # the file:// smoke tests in all three engines; the brand-overview DOM and
+      # visual golden tests (A4, D70) in Chromium, against the committed
+      # baselines; the first view's image selection (C23, D74); from M2
+      # (W3A), the editor, its schema help (DEP02), the preview bridge, serve's
+      # shell and the A9 timing in all three engines; and from M3 (W3B), the
+      # document on screen in all three engines and print verification: the
+      # PDFs Chromium prints of every print case, read with poppler-utils, and
+      # the print-media layout in all three engines (M3.5, M3.6, D98); and
+      # from M4 (W4), the comic reader, its keyboard and accessibility tree,
+      # the preview grid and reduced motion on every surface in all three
+      # engines, and the comic's print case (D115, D118); and from M5 (W5D),
+      # the release smoke: the release tarball packed and installed for
+      # production, then `edit`, `serve` and each built piece's file:// page
+      # from that installation, in all three engines (D140).
+      - name: Browser tests
+        env:
+          PAPELERIA_PRINT_OUT: test-results/print
+        run: npm run test:browser
+
+      # D70: when a visual comparison fails, its actual captures and difference
+      # images are kept for review, and from M3 (D98) the PDFs the print suites
+      # made. They are evidence, never baselines.
+      - name: Keep the visual comparison's captures and the printed PDFs when a suite fails
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: browser-evidence
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14

@@ -1,0 +1,1701 @@
+{
+  "description": "M1.2 schema cases. Each file is loaded and validated; its findings must equal exactly the list given, which is how the tests prove a dedicated rule is not also reported as R09. A location is marker text: the expected line and column are those of the marker's first character (or of its n-th occurrence) in the file, found independently of the parser. The three base manifests are the positive case for every constraint they exercise.",
+  "cases": [
+    {
+      "name": "valid deck: every field this template takes",
+      "constraint": "positive for C03, C04, C06-C11, C14-C16, C18, C19",
+      "file": "deck.yaml",
+      "findings": []
+    },
+    {
+      "name": "valid comic: every field this template takes",
+      "constraint": "positive for C03, C04, C06-C11, C14-C16, C18, C19",
+      "file": "comic.yaml",
+      "findings": []
+    },
+    {
+      "name": "valid document: every field this template takes",
+      "constraint": "positive for C03, C04, C06-C11, C14-C16, C18, C19",
+      "file": "document.yaml",
+      "findings": []
+    },
+    {
+      "name": "template missing",
+      "constraint": "C03",
+      "file": "template-missing.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "schema: 1",
+          "message": "The manifest has no template.",
+          "fix": "Add template: deck, template: comic or template: document.",
+          "detail": "Container location: the manifest starts here and has no template."
+        }
+      ]
+    },
+    {
+      "name": "template unknown",
+      "constraint": "C03",
+      "file": "template-unknown.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "slides",
+          "message": "\"slides\" is not a template.",
+          "fix": "Use deck, comic or document."
+        }
+      ]
+    },
+    {
+      "name": "template that is a list",
+      "constraint": "C03",
+      "file": "template-that-is-a-list.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "[deck]",
+          "message": "template must be deck, comic or document, not a list.",
+          "fix": "Use deck, comic or document."
+        }
+      ]
+    },
+    {
+      "name": "template that is a mapping",
+      "constraint": "C03",
+      "file": "template-that-is-a-mapping.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "{kind",
+          "message": "template must be deck, comic or document, not a mapping.",
+          "fix": "Use deck, comic or document."
+        }
+      ]
+    },
+    {
+      "name": "template empty",
+      "constraint": "C03",
+      "file": "template-empty.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\ntitle",
+          "message": "template is empty.",
+          "fix": "Use deck, comic or document."
+        }
+      ],
+      "note": "An empty value is located where it would start, right after the colon."
+    },
+    {
+      "name": "path with a parent segment",
+      "constraint": "C04",
+      "file": "path-with-a-parent-segment.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'../photo.jpg",
+          "message": "The path \"../photo.jpg\" uses a .. segment.",
+          "fix": "Write the path straight down from the piece folder, such as assets/images/photo.jpg."
+        }
+      ]
+    },
+    {
+      "name": "path with backslashes",
+      "constraint": "C04",
+      "file": "path-with-backslashes.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'assets\\images",
+          "message": "The path \"assets\\images\\photo.jpg\" uses a backslash.",
+          "fix": "Separate folders with forward slashes, such as assets/images/photo.jpg."
+        }
+      ]
+    },
+    {
+      "name": "absolute path",
+      "constraint": "C04",
+      "file": "absolute-path.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "/etc/hours.csv",
+          "message": "The path \"/etc/hours.csv\" is absolute.",
+          "fix": "Write the path from the piece folder, such as assets/data/hours.csv."
+        }
+      ]
+    },
+    {
+      "name": "drive path",
+      "constraint": "C04",
+      "file": "drive-path.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'C:/photos",
+          "message": "The path \"C:/photos/photo.jpg\" names a drive.",
+          "fix": "Copy the file into the piece and write its path, such as assets/images/photo.jpg."
+        }
+      ]
+    },
+    {
+      "name": "network share",
+      "constraint": "C04",
+      "file": "network-share.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'//server",
+          "message": "The path \"//server/share/photo.jpg\" names a network share.",
+          "fix": "Copy the file into the piece and write its path, such as assets/images/photo.jpg."
+        }
+      ]
+    },
+    {
+      "name": "remote URL as an asset",
+      "constraint": "C04",
+      "file": "remote-url-as-an-asset.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'https://example.com/loop.mp4",
+          "message": "The path \"https://example.com/loop.mp4\" is a URL; a piece only uses files inside its own folder.",
+          "fix": "Download the file into assets/video/ and write its path, such as assets/video/loop.mp4."
+        }
+      ]
+    },
+    {
+      "name": "percent-encoded path",
+      "constraint": "C04",
+      "file": "percent-encoded-path.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'assets/images/%2e",
+          "message": "The path \"assets/images/%2e%2e/photo.jpg\" contains a percent-encoded character.",
+          "fix": "Write the file name plainly; percent escapes are not decoded in manifest paths."
+        }
+      ]
+    },
+    {
+      "name": "image outside the images folder",
+      "constraint": "C04",
+      "file": "image-outside-the-images-folder.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'assets/data/photo.jpg",
+          "message": "The image \"assets/data/photo.jpg\" is not inside assets/images/.",
+          "fix": "Move the file into assets/images/ and write its path, such as assets/images/photo.jpg."
+        }
+      ]
+    },
+    {
+      "name": "image with an unsupported extension",
+      "constraint": "C04",
+      "file": "image-with-an-unsupported-extension.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'assets/images/photo.gif",
+          "message": "The image \"assets/images/photo.gif\" must end in .png, .jpg, .jpeg, .webp or .svg.",
+          "fix": "Use a file ending in .png, .jpg, .jpeg, .webp or .svg, in lower case."
+        }
+      ]
+    },
+    {
+      "name": "CSV in a sub-folder",
+      "constraint": "C04",
+      "file": "csv-in-a-sub-folder.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/data/q3/hours.csv",
+          "message": "The CSV file \"assets/data/q3/hours.csv\" is in a sub-folder; assets/data/ takes its files directly.",
+          "fix": "Move the file directly into assets/data/."
+        }
+      ]
+    },
+    {
+      "name": "logo outside the logos folder",
+      "constraint": "C04",
+      "file": "logo-outside-the-logos-folder.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/images/client.svg",
+          "message": "The logo \"assets/images/client.svg\" is not inside assets/images/logos/.",
+          "fix": "Move the file into assets/images/logos/ and write its path, such as assets/images/logos/photo.jpg."
+        }
+      ]
+    },
+    {
+      "name": "image with neither alt nor decorative",
+      "constraint": "C06 R03",
+      "file": "image-with-neither-alt-nor-decorative.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "image:",
+          "message": "An image has neither alt text nor a decorative mark.",
+          "fix": "Add alt: describing the image, or decorative: true if it adds nothing a reader needs.",
+          "detail": "Container location: the image on slide 1 starts here and has no alt."
+        }
+      ]
+    },
+    {
+      "name": "image with both alt and decorative",
+      "constraint": "C06 R03",
+      "file": "image-with-both-alt-and-decorative.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "image:",
+          "message": "An image has both alt text and a decorative mark.",
+          "fix": "Keep alt: if the image carries meaning, or keep decorative: true and remove alt:."
+        }
+      ]
+    },
+    {
+      "name": "image with blank alt",
+      "constraint": "C06 R03",
+      "file": "image-with-blank-alt.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "\"   \"",
+          "message": "The image's alt text is blank.",
+          "fix": "Add alt: describing the image, or decorative: true if it adds nothing a reader needs."
+        }
+      ]
+    },
+    {
+      "name": "image with alt that is not text",
+      "constraint": "C06 R03",
+      "file": "image-with-alt-that-is-not-text.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "42",
+          "message": "The image's alt text must be text.",
+          "fix": "Add alt: describing the image, or decorative: true if it adds nothing a reader needs."
+        }
+      ]
+    },
+    {
+      "name": "image with decorative false",
+      "constraint": "C06 R03",
+      "file": "image-with-decorative-false.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "false",
+          "message": "decorative accepts only true.",
+          "fix": "Set decorative: true, or remove it and describe the image in alt:."
+        }
+      ]
+    },
+    {
+      "name": "document image with neither",
+      "constraint": "C06 R03",
+      "file": "document-image-with-neither.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "image:",
+          "message": "An image has neither alt text nor a decorative mark.",
+          "fix": "Add alt: describing the image, or decorative: true if it adds nothing a reader needs.",
+          "detail": "Container location: the image in block 1 of section 1 starts here and has no alt."
+        }
+      ]
+    },
+    {
+      "name": "detail image with neither",
+      "constraint": "C06 R03",
+      "file": "detail-image-with-neither.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "image: {src",
+          "message": "An image has neither alt text nor a decorative mark.",
+          "fix": "Add alt: describing the image, or decorative: true if it adds nothing a reader needs.",
+          "detail": "Container location: the detail image of panel 1 on page 1 starts here and has no alt."
+        }
+      ]
+    },
+    {
+      "name": "logo without alt",
+      "constraint": "C06 R03",
+      "file": "logo-without-alt.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "logo:",
+          "message": "A logo has no alt text.",
+          "fix": "Name whose logo it is in alt:. A logo cannot be marked decorative.",
+          "detail": "Container location: the deck logo starts here and has no alt."
+        }
+      ]
+    },
+    {
+      "name": "logo marked decorative",
+      "constraint": "C06 R03",
+      "file": "logo-marked-decorative.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "decorative",
+          "message": "A logo cannot be marked decorative.",
+          "fix": "Remove decorative: and name whose logo it is in alt:."
+        }
+      ]
+    },
+    {
+      "name": "video on a slide",
+      "constraint": "C07",
+      "file": "video-on-a-slide.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "video:",
+          "message": "Video is allowed only in document sections.",
+          "fix": "Remove the video, or move it into a block of a document section; use an image here instead."
+        }
+      ]
+    },
+    {
+      "name": "video as a comic detail",
+      "constraint": "C07",
+      "file": "video-as-a-comic-detail.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "detail:",
+          "message": "The detail of panel 1 on page 1 has none of zoom, text, image and href.",
+          "fix": "Give the detail exactly one of zoom: true, text:, image: or href: with label:.",
+          "detail": "Container location: the detail of panel 1 on page 1 starts here and has no kind."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "video:",
+          "message": "Video is allowed only in document sections.",
+          "fix": "Remove the video, or move it into a block of a document section; use an image here instead."
+        }
+      ]
+    },
+    {
+      "name": "video without alt",
+      "constraint": "C07 R10",
+      "file": "video-without-alt.yaml",
+      "findings": [
+        {
+          "rule": "R10",
+          "severity": "error",
+          "at": "video:",
+          "message": "A video has no text alternative.",
+          "fix": "Add alt: describing the loop.",
+          "detail": "Container location: the video in block 1 of section 1 starts here and has no alt."
+        }
+      ]
+    },
+    {
+      "name": "video with blank alt",
+      "constraint": "C07 R10",
+      "file": "video-with-blank-alt.yaml",
+      "findings": [
+        {
+          "rule": "R10",
+          "severity": "error",
+          "at": "\"\"",
+          "message": "The video's text alternative is blank.",
+          "fix": "Add alt: describing the loop."
+        }
+      ]
+    },
+    {
+      "name": "video marked decorative",
+      "constraint": "C07 R10",
+      "file": "video-marked-decorative.yaml",
+      "findings": [
+        {
+          "rule": "R10",
+          "severity": "error",
+          "at": "decorative",
+          "message": "A video cannot be marked decorative.",
+          "fix": "Remove decorative: and describe the loop in alt:."
+        }
+      ]
+    },
+    {
+      "name": "video without poster",
+      "constraint": "C07",
+      "file": "video-without-poster.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "video:",
+          "message": "The video in block 1 of section 1 has no poster.",
+          "fix": "Add poster: to the video in block 1 of section 1.",
+          "detail": "Container location: the video in block 1 of section 1 starts here and has no poster."
+        }
+      ]
+    },
+    {
+      "name": "two layout with three columns",
+      "constraint": "C08 R15",
+      "file": "two-layout-with-three-columns.yaml",
+      "findings": [
+        {
+          "rule": "R15",
+          "severity": "error",
+          "at": "columns:",
+          "message": "A two slide takes exactly 2 columns; slide 1 has 3.",
+          "fix": "The two layout takes two columns, three takes three and four takes four; every other layout takes none."
+        }
+      ]
+    },
+    {
+      "name": "three layout with no columns",
+      "constraint": "C08 R15",
+      "file": "three-layout-with-no-columns.yaml",
+      "findings": [
+        {
+          "rule": "R15",
+          "severity": "error",
+          "at": "layout: three",
+          "message": "A three slide takes exactly 3 columns; slide 1 has none.",
+          "fix": "The two layout takes two columns, three takes three and four takes four; every other layout takes none.",
+          "detail": "Container location: slide 1 starts here and has no columns."
+        }
+      ]
+    },
+    {
+      "name": "four layout with two columns",
+      "constraint": "C08 R15",
+      "file": "four-layout-with-two-columns.yaml",
+      "findings": [
+        {
+          "rule": "R15",
+          "severity": "error",
+          "at": "columns:",
+          "message": "A four slide takes exactly 4 columns; slide 1 has 2.",
+          "fix": "The two layout takes two columns, three takes three and four takes four; every other layout takes none."
+        }
+      ]
+    },
+    {
+      "name": "statement layout with columns",
+      "constraint": "C08 R15",
+      "file": "statement-layout-with-columns.yaml",
+      "findings": [
+        {
+          "rule": "R15",
+          "severity": "error",
+          "at": "columns:",
+          "message": "A statement slide takes no columns.",
+          "fix": "Remove columns:, or change the layout to two, three or four."
+        }
+      ]
+    },
+    {
+      "name": "columns that are not a list stay R09",
+      "constraint": "C08",
+      "file": "columns-that-are-not-a-list-stay-r09.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "Context and basis",
+          "message": "columns must be a list.",
+          "fix": "Rewrite columns as a list."
+        }
+      ]
+    },
+    {
+      "name": "misspelled layout is one R09 and no R15",
+      "constraint": "C08",
+      "file": "misspelled-layout-is-one-r09-and-no-r15.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "tw0",
+          "message": "\"tw0\" is not a valid layout.",
+          "fix": "Use one of: cover, statement, closing, two, three, four, chart, image, attributes, palette, type, wordmark."
+        }
+      ]
+    },
+    {
+      "name": "chart slide with neither chart nor table",
+      "constraint": "C09",
+      "file": "chart-slide-with-neither-chart-nor-table.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "layout: chart",
+          "message": "A chart slide needs one chart or one table.",
+          "fix": "Add chart: or table:, not both.",
+          "detail": "Container location: slide 1 starts here and has no chart or table."
+        }
+      ]
+    },
+    {
+      "name": "chart slide with both chart and table",
+      "constraint": "C09",
+      "file": "chart-slide-with-both-chart-and-table.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "layout: chart",
+          "message": "A chart slide has both a chart and a table.",
+          "fix": "Keep exactly one of chart: and table:."
+        }
+      ]
+    },
+    {
+      "name": "chart on a cover slide",
+      "constraint": "C09",
+      "file": "chart-on-a-cover-slide.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "chart:",
+          "message": "chart belongs on a chart slide; slide 1 is a cover slide.",
+          "fix": "Remove chart:, or set layout: chart."
+        }
+      ]
+    },
+    {
+      "name": "image slide without an image",
+      "constraint": "layouts",
+      "file": "image-slide-without-an-image.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "layout: image",
+          "message": "An image slide needs an image.",
+          "fix": "Add image: with src: and alt:.",
+          "detail": "Container location: slide 1 starts here and has no image."
+        }
+      ]
+    },
+    {
+      "name": "image on a type slide",
+      "constraint": "layouts",
+      "file": "image-on-a-type-slide.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "image:",
+          "message": "image belongs on an image slide; slide 1 is a type slide.",
+          "fix": "Remove image:, or set layout: image."
+        }
+      ]
+    },
+    {
+      "name": "attributes slide without items",
+      "constraint": "layouts",
+      "file": "attributes-slide-without-items.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "layout: attributes",
+          "message": "An attributes slide needs items.",
+          "fix": "Add items:, each with label: and text:.",
+          "detail": "Container location: slide 1 starts here and has no items."
+        }
+      ]
+    },
+    {
+      "name": "attributes slide with an empty list",
+      "constraint": "layouts",
+      "file": "attributes-slide-with-an-empty-list.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "items:",
+          "message": "An attributes slide needs at least one item.",
+          "fix": "Add an item with label: and text:."
+        }
+      ]
+    },
+    {
+      "name": "items on a statement slide",
+      "constraint": "layouts",
+      "file": "items-on-a-statement-slide.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "items:",
+          "message": "items belongs on an attributes slide; slide 1 is a statement slide.",
+          "fix": "Remove items:, or set layout: attributes."
+        }
+      ]
+    },
+    {
+      "name": "palette slide without swatches",
+      "constraint": "layouts",
+      "file": "palette-slide-without-swatches.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "layout: palette",
+          "message": "A palette slide needs swatches.",
+          "fix": "Add swatches:, each with name: and value:.",
+          "detail": "Container location: slide 1 starts here and has no swatches."
+        }
+      ]
+    },
+    {
+      "name": "swatches on a wordmark slide",
+      "constraint": "layouts",
+      "file": "swatches-on-a-wordmark-slide.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "swatches:",
+          "message": "swatches belongs on a palette slide; slide 1 is a wordmark slide.",
+          "fix": "Remove swatches:, or set layout: palette."
+        }
+      ]
+    },
+    {
+      "name": "swatch colour that is not hex",
+      "constraint": "layouts",
+      "file": "swatch-colour-that-is-not-hex.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "black",
+          "message": "\"black\" is not a colour.",
+          "fix": "Write the colour as #rgb or #rrggbb, such as #2f7fbf."
+        }
+      ]
+    },
+    {
+      "name": "detail with two kinds",
+      "constraint": "C10",
+      "file": "detail-with-two-kinds.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "detail:",
+          "message": "The detail of panel 1 on page 1 has more than one of zoom, text, image and href: zoom and text.",
+          "fix": "Give the detail exactly one of zoom: true, text:, image: or href: with label:."
+        }
+      ]
+    },
+    {
+      "name": "detail with no kind",
+      "constraint": "C10",
+      "file": "detail-with-no-kind.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "detail:",
+          "message": "The detail of panel 1 on page 1 has none of zoom, text, image and href.",
+          "fix": "Give the detail exactly one of zoom: true, text:, image: or href: with label:.",
+          "detail": "Container location: the detail of panel 1 on page 1 starts here and has no kind."
+        }
+      ]
+    },
+    {
+      "name": "detail link without label",
+      "constraint": "C10",
+      "file": "detail-link-without-label.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "detail:",
+          "message": "The link in the detail of panel 1 on page 1 has no label.",
+          "fix": "Add label: with the link text.",
+          "detail": "Container location: the detail of panel 1 on page 1 starts here and has no label."
+        }
+      ]
+    },
+    {
+      "name": "label without a link",
+      "constraint": "C10",
+      "file": "label-without-a-link.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "label:",
+          "message": "label is used only with href.",
+          "fix": "Add href: with the link, or remove label:."
+        }
+      ]
+    },
+    {
+      "name": "detail link with a javascript URL",
+      "constraint": "C10",
+      "file": "detail-link-with-a-javascript-url.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"javascript",
+          "message": "The link \"javascript:alert(1)\" uses the javascript: scheme, which is not allowed.",
+          "fix": "Use an https, http, mailto or tel address, a relative link or a #fragment."
+        }
+      ]
+    },
+    {
+      "name": "detail link that is protocol relative with backslashes",
+      "constraint": "C10",
+      "file": "detail-link-with-backslashes.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'\\\\evil",
+          "message": "The link \"\\\\evil.example\" uses a protocol-relative address, which could load from any host.",
+          "fix": "Use an https, http, mailto or tel address, a relative link or a #fragment."
+        }
+      ]
+    },
+    {
+      "name": "text file reference with a parent segment; prose that mentions a path is text",
+      "constraint": "C04 C05",
+      "file": "text-file-path-with-a-parent-segment.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/text/../secret.md",
+          "message": "The path \"assets/text/../secret.md\" uses a .. segment.",
+          "fix": "Write the path straight down from the piece folder, such as assets/text/summary.md."
+        }
+      ]
+    },
+    {
+      "name": "caption file reference with a space in its name",
+      "constraint": "C04 C05",
+      "file": "caption-file-path-with-a-space.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/text/pier",
+          "message": "The path \"assets/text/pier caption.md\" uses a character that file paths in a piece do not allow.",
+          "fix": "Use only letters A–Z, digits, hyphens, underscores and dots in file and folder names, with no spaces, and do not end a name with a dot."
+        }
+      ]
+    },
+    {
+      "name": "zoom false",
+      "constraint": "C10",
+      "file": "zoom-false.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "false",
+          "message": "zoom accepts only true.",
+          "fix": "Set zoom: true, or remove it."
+        }
+      ]
+    },
+    {
+      "name": "panel width zero",
+      "constraint": "C11 R14",
+      "file": "panel-width-zero.yaml",
+      "findings": [
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": {
+            "marker": " 0,",
+            "occurrence": 1
+          },
+          "message": "The width of the box of panel 1 on page 1 is 0; it must be greater than 0.",
+          "fix": "Keep x and y from 0 to 100, width and height above 0, and x plus width and y plus height at most 100."
+        }
+      ]
+    },
+    {
+      "name": "panel x below zero",
+      "constraint": "C11 R14",
+      "file": "panel-x-below-zero.yaml",
+      "findings": [
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": "-5",
+          "message": "The x of the box of panel 1 on page 1 is -5, below 0.",
+          "fix": "Keep x and y from 0 to 100, width and height above 0, and x plus width and y plus height at most 100."
+        }
+      ]
+    },
+    {
+      "name": "panel height over 100",
+      "constraint": "C11 R14",
+      "file": "panel-height-over-100.yaml",
+      "findings": [
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": "101",
+          "message": "The height of the box of panel 1 on page 1 is 101, above 100.",
+          "fix": "Keep x and y from 0 to 100, width and height above 0, and x plus width and y plus height at most 100."
+        }
+      ]
+    },
+    {
+      "name": "panel x not finite",
+      "constraint": "C11 R14",
+      "file": "panel-x-not-finite.yaml",
+      "findings": [
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": ".nan",
+          "message": "The x of the box of panel 1 on page 1 is not a finite number.",
+          "fix": "Keep x and y from 0 to 100, width and height above 0, and x plus width and y plus height at most 100."
+        }
+      ]
+    },
+    {
+      "name": "panel y infinite",
+      "constraint": "C11 R14",
+      "file": "panel-y-infinite.yaml",
+      "findings": [
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": ".inf",
+          "message": "The y of the box of panel 1 on page 1 is not a finite number.",
+          "fix": "Keep x and y from 0 to 100, width and height above 0, and x plus width and y plus height at most 100."
+        }
+      ]
+    },
+    {
+      "name": "panel box with three numbers",
+      "constraint": "C11 R14",
+      "file": "panel-box-with-three-numbers.yaml",
+      "findings": [
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": "box:",
+          "message": "The box of panel 1 on page 1 has 3 numbers; it needs four: x, y, width and height.",
+          "fix": "Keep x and y from 0 to 100, width and height above 0, and x plus width and y plus height at most 100."
+        }
+      ]
+    },
+    {
+      "name": "panel box that is not a list",
+      "constraint": "C11 R14",
+      "file": "panel-box-that-is-not-a-list.yaml",
+      "findings": [
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": "box:",
+          "message": "The box of panel 1 on page 1 must be a list of four numbers: x, y, width and height.",
+          "fix": "Keep x and y from 0 to 100, width and height above 0, and x plus width and y plus height at most 100."
+        }
+      ]
+    },
+    {
+      "name": "panel without a box stays R09",
+      "constraint": "C11",
+      "file": "panel-without-a-box-stays-r09.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "transcript: T",
+          "message": "Panel 1 on page 1 has no box.",
+          "fix": "Add box: to panel 1 on page 1.",
+          "detail": "Container location: panel 1 on page 1 starts here and has no box."
+        }
+      ]
+    },
+    {
+      "name": "panel without transcript",
+      "constraint": "R04",
+      "file": "panel-without-transcript.yaml",
+      "findings": [
+        {
+          "rule": "R04",
+          "severity": "error",
+          "at": "box:",
+          "message": "A comic panel has no transcript.",
+          "fix": "Add transcript: with the words and action of the panel.",
+          "detail": "Container location: panel 1 on page 1 starts here and has no transcript."
+        }
+      ]
+    },
+    {
+      "name": "panel with blank transcript",
+      "constraint": "R04",
+      "file": "panel-with-blank-transcript.yaml",
+      "findings": [
+        {
+          "rule": "R04",
+          "severity": "error",
+          "at": "\"  \"",
+          "message": "The panel's transcript is blank.",
+          "fix": "Add transcript: with the words and action of the panel."
+        }
+      ]
+    },
+    {
+      "name": "line chart with orientation",
+      "constraint": "C14",
+      "file": "line-chart-with-orientation.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "orientation",
+          "message": "orientation applies only to bar charts.",
+          "fix": "Remove orientation: from this line chart, or set type: bar."
+        }
+      ]
+    },
+    {
+      "name": "chart without summary",
+      "constraint": "C15 R05",
+      "file": "chart-without-summary.yaml",
+      "findings": [
+        {
+          "rule": "R05",
+          "severity": "error",
+          "at": "chart:",
+          "message": "A chart has no summary.",
+          "fix": "Add summary: with the sentence the chart makes.",
+          "detail": "Container location: the chart on slide 1 starts here and has no summary."
+        }
+      ]
+    },
+    {
+      "name": "chart with blank summary",
+      "constraint": "C15 R05",
+      "file": "chart-with-blank-summary.yaml",
+      "findings": [
+        {
+          "rule": "R05",
+          "severity": "error",
+          "at": "\" \"",
+          "message": "The chart's summary is blank.",
+          "fix": "Add summary: with the sentence the chart makes."
+        }
+      ]
+    },
+    {
+      "name": "section without heading",
+      "constraint": "C16",
+      "file": "section-without-heading.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "blocks:",
+          "message": "Section 1 has no heading.",
+          "fix": "Add heading: to section 1.",
+          "detail": "Container location: section 1 starts here and has no heading."
+        }
+      ]
+    },
+    {
+      "name": "section with blank heading",
+      "constraint": "C16",
+      "file": "section-with-blank-heading.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"\"",
+          "message": "heading is blank.",
+          "fix": "Write the heading as visible text, or remove heading: if it is optional."
+        }
+      ]
+    },
+    {
+      "name": "section with no blocks",
+      "constraint": "C16",
+      "file": "section-with-no-blocks.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "blocks:",
+          "message": "Section 1 needs at least one block.",
+          "fix": "Add a block under blocks:, such as - text: followed by the words."
+        }
+      ]
+    },
+    {
+      "name": "section without blocks",
+      "constraint": "C16",
+      "file": "section-without-blocks.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "heading: Hours",
+          "message": "Section 1 has no blocks.",
+          "fix": "Add blocks: to section 1.",
+          "detail": "Container location: section 1 starts here and has no blocks."
+        }
+      ]
+    },
+    {
+      "name": "block with no kind",
+      "constraint": "blocks",
+      "file": "block-with-no-kind.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "{}",
+          "message": "Block 1 of section 1 names no block kind.",
+          "fix": "Write each block as exactly one of text, image, video, chart, table, quote, note, callout or logo."
+        }
+      ]
+    },
+    {
+      "name": "block with two kinds",
+      "constraint": "blocks",
+      "file": "block-with-two-kinds.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "{text",
+          "message": "Block 1 of section 1 names more than one kind: text and callout.",
+          "fix": "Write each block as exactly one of text, image, video, chart, table, quote, note, callout or logo."
+        }
+      ]
+    },
+    {
+      "name": "block with an unknown kind",
+      "constraint": "blocks",
+      "file": "block-with-an-unknown-kind.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "picture",
+          "message": "\"picture\" is not a field of block 1 of section 1.",
+          "fix": "Check the spelling. Block 1 of section 1 takes: text, image, video, chart, table, quote, note, callout, logo."
+        }
+      ]
+    },
+    {
+      "name": "image with its caption beside it instead of inside",
+      "constraint": "blocks",
+      "file": "image-with-caption-beside-it.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "caption",
+          "message": "\"caption\" is not a field of block 1 of section 1.",
+          "fix": "Check the spelling. Block 1 of section 1 takes: text, image, video, chart, table, quote, note, callout, logo."
+        }
+      ]
+    },
+    {
+      "name": "block with two kinds and a stray field names only the kinds",
+      "constraint": "blocks",
+      "file": "block-with-two-kinds-and-a-stray-field.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "{text",
+          "message": "Block 1 of section 1 names more than one kind: text and callout.",
+          "fix": "Write each block as exactly one of text, image, video, chart, table, quote, note, callout or logo."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "tone",
+          "message": "\"tone\" is not a field of block 1 of section 1.",
+          "fix": "Check the spelling. Block 1 of section 1 takes: text, image, video, chart, table, quote, note, callout, logo."
+        }
+      ]
+    },
+    {
+      "name": "table column mapping without field",
+      "constraint": "blocks",
+      "file": "table-column-mapping-without-field.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "{label",
+          "message": "Column 2 of the table in block 1 of section 1 has no field.",
+          "fix": "Write the CSV header name, or a mapping with field: and an optional label:."
+        }
+      ]
+    },
+    {
+      "name": "note with an unknown tone",
+      "constraint": "blocks",
+      "file": "note-with-an-unknown-tone.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "loud",
+          "message": "\"loud\" is not a valid tone.",
+          "fix": "Use one of: default, warning."
+        }
+      ]
+    },
+    {
+      "name": "focal point outside the image",
+      "constraint": "blocks",
+      "file": "focal-point-outside-the-image.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "150",
+          "message": "focal_point has 150, outside 0 to 100.",
+          "fix": "Write focal_point: [x, y] with percentages from 0 to 100, such as [50, 50]."
+        }
+      ]
+    },
+    {
+      "name": "focal point with three numbers",
+      "constraint": "blocks",
+      "file": "focal-point-with-three-numbers.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "focal_point",
+          "message": "focal_point needs two numbers, x and y.",
+          "fix": "Write focal_point: [x, y] with percentages from 0 to 100, such as [50, 50]."
+        }
+      ]
+    },
+    {
+      "name": "page without image",
+      "constraint": "C18",
+      "file": "page-without-image.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "alt: A page.",
+          "message": "Page 1 has no image.",
+          "fix": "Add image: to page 1.",
+          "detail": "Container location: page 1 starts here and has no image."
+        }
+      ]
+    },
+    {
+      "name": "page without alt",
+      "constraint": "C18 R03",
+      "file": "page-without-alt.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "image: assets",
+          "message": "A comic page has no alt text.",
+          "fix": "Describe the page art in alt:. A comic page cannot be marked decorative.",
+          "detail": "Container location: page 1 starts here and has no alt."
+        }
+      ]
+    },
+    {
+      "name": "page marked decorative",
+      "constraint": "C18 R03",
+      "file": "page-marked-decorative.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "decorative",
+          "message": "A comic page cannot be marked decorative.",
+          "fix": "Remove decorative: and describe the page art in alt:."
+        }
+      ]
+    },
+    {
+      "name": "page decorative instead of alt is one R03",
+      "constraint": "C18 R03",
+      "file": "page-decorative-instead-of-alt-is-one-r03.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "image: assets",
+          "message": "A comic page has no alt text.",
+          "fix": "Describe the page art in alt:. A comic page cannot be marked decorative.",
+          "detail": "Container location: page 1 starts here and has no alt."
+        }
+      ]
+    },
+    {
+      "name": "page with blank alt",
+      "constraint": "C18 R03",
+      "file": "page-with-blank-alt.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "\" \"",
+          "message": "The comic page's alt text is blank.",
+          "fix": "Describe the page art in alt:. A comic page cannot be marked decorative."
+        }
+      ]
+    },
+    {
+      "name": "deck with no slides",
+      "constraint": "C19",
+      "file": "deck-with-no-slides.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "slides:",
+          "message": "A deck needs at least one slide.",
+          "fix": "Add a slide under slides:."
+        }
+      ]
+    },
+    {
+      "name": "comic with no pages",
+      "constraint": "C19",
+      "file": "comic-with-no-pages.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "pages:",
+          "message": "A comic needs at least one page.",
+          "fix": "Add a page under pages:."
+        }
+      ]
+    },
+    {
+      "name": "document with no sections",
+      "constraint": "C19",
+      "file": "document-with-no-sections.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "sections:",
+          "message": "A document needs at least one section.",
+          "fix": "Add a section under sections:."
+        }
+      ]
+    },
+    {
+      "name": "deck without slides field",
+      "constraint": "C19",
+      "file": "deck-without-slides-field.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "schema: 1",
+          "message": "The manifest has no slides.",
+          "fix": "Add slides: to the manifest.",
+          "detail": "Container location: the manifest starts here and has no slides."
+        }
+      ]
+    },
+    {
+      "name": "unknown top-level field",
+      "constraint": "R09",
+      "file": "unknown-top-level-field.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "author",
+          "message": "\"author\" is not a field of the manifest.",
+          "fix": "Check the spelling. The manifest takes: schema, template, title, language, status, wordmark, credits, register, edition, logo, slides."
+        }
+      ]
+    },
+    {
+      "name": "misspelled slide field",
+      "constraint": "R09",
+      "file": "misspelled-slide-field.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "leed",
+          "message": "\"leed\" is not a field of slide 1.",
+          "fix": "Check the spelling. Slide 1 takes: layout, title, lead, footer, notes, columns, chart, table, image, items, swatches."
+        }
+      ]
+    },
+    {
+      "name": "slide without layout",
+      "constraint": "R09",
+      "file": "slide-without-layout.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "title: S",
+          "message": "Slide 1 has no layout.",
+          "fix": "Add layout: to slide 1.",
+          "detail": "Container location: slide 1 starts here and has no layout."
+        }
+      ]
+    },
+    {
+      "name": "title that is not text",
+      "constraint": "R09",
+      "file": "title-that-is-not-text.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "2026",
+          "message": "title must be text.",
+          "fix": "Rewrite title as text."
+        }
+      ]
+    },
+    {
+      "name": "title of invisible characters only",
+      "constraint": "R09",
+      "file": "title-of-invisible-characters.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"\\u2060",
+          "message": "title is blank.",
+          "fix": "Write the title as visible text, or remove title: if it is optional."
+        }
+      ]
+    },
+    {
+      "name": "image with alt of one zero-width space",
+      "constraint": "C06 R03",
+      "file": "image-with-invisible-alt.yaml",
+      "findings": [
+        {
+          "rule": "R03",
+          "severity": "error",
+          "at": "\"\\u200B\"",
+          "message": "The image's alt text is blank.",
+          "fix": "Add alt: describing the image, or decorative: true if it adds nothing a reader needs."
+        }
+      ]
+    },
+    {
+      "name": "panel with a transcript of one Hangul filler",
+      "constraint": "R04",
+      "file": "panel-with-invisible-transcript.yaml",
+      "findings": [
+        {
+          "rule": "R04",
+          "severity": "error",
+          "at": "\"\\u3164\"",
+          "message": "The panel's transcript is blank.",
+          "fix": "Add transcript: with the words and action of the panel."
+        }
+      ]
+    },
+    {
+      "name": "chart with a summary of one soft hyphen",
+      "constraint": "C15 R05",
+      "file": "chart-with-invisible-summary.yaml",
+      "findings": [
+        {
+          "rule": "R05",
+          "severity": "error",
+          "at": "\"\\u00AD\"",
+          "message": "The chart's summary is blank.",
+          "fix": "Add summary: with the sentence the chart makes."
+        }
+      ]
+    },
+    {
+      "name": "video with an alternative of the blank Braille pattern",
+      "constraint": "C07 R10",
+      "file": "video-with-invisible-alt.yaml",
+      "findings": [
+        {
+          "rule": "R10",
+          "severity": "error",
+          "at": "\"\\u2800\"",
+          "message": "The video's text alternative is blank.",
+          "fix": "Add alt: describing the loop."
+        }
+      ]
+    },
+    {
+      "name": "unknown status",
+      "constraint": "R09",
+      "file": "unknown-status.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "final",
+          "message": "\"final\" is not a valid status.",
+          "fix": "Use one of: draft, review, published, withheld."
+        }
+      ]
+    },
+    {
+      "name": "new_page that is not true or false",
+      "constraint": "R09",
+      "file": "new-page-that-is-not-true-or-false.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"yes\"",
+          "message": "new_page must be true or false.",
+          "fix": "Rewrite new_page as true or false."
+        }
+      ]
+    },
+    {
+      "name": "credit without name",
+      "constraint": "R09",
+      "file": "credit-without-name.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "{role",
+          "message": "Credit 1 has no name.",
+          "fix": "Add name: to credit 1.",
+          "detail": "Container location: credit 1 starts here and has no name."
+        }
+      ]
+    },
+    {
+      "name": "slide that is not a mapping",
+      "constraint": "R09",
+      "file": "slide-that-is-not-a-mapping.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "Just a sentence.",
+          "message": "Slide 1 must be a mapping of fields.",
+          "fix": "Rewrite slide 1 as a mapping of fields."
+        }
+      ]
+    },
+    {
+      "name": "chart that is a path, not a mapping: the type error alone",
+      "constraint": "R09",
+      "file": "chart-that-is-a-path.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/data/hours.csv",
+          "message": "chart must be a mapping of fields.",
+          "fix": "Rewrite chart as a mapping of fields."
+        }
+      ]
+    },
+    {
+      "name": "image that is a path, not a mapping: the type error alone, no R03",
+      "constraint": "R09",
+      "file": "image-that-is-a-path.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/images/pier.jpg",
+          "message": "image must be a mapping of fields.",
+          "fix": "Rewrite image as a mapping of fields."
+        }
+      ]
+    },
+    {
+      "name": "document chart and image blocks that are paths: one type error each",
+      "constraint": "R09",
+      "file": "document-blocks-that-are-paths.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/data/hours.csv",
+          "message": "chart must be a mapping of fields.",
+          "fix": "Rewrite chart as a mapping of fields."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/images/pier.jpg",
+          "message": "image must be a mapping of fields.",
+          "fix": "Rewrite image as a mapping of fields."
+        }
+      ]
+    },
+    {
+      "name": "detail that is a word, not a mapping: the type error alone",
+      "constraint": "R09",
+      "file": "detail-that-is-a-word.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "zoom",
+          "message": "detail must be a mapping of fields.",
+          "fix": "Rewrite detail as a mapping of fields."
+        }
+      ]
+    },
+    {
+      "name": "paths the pattern accepts are refused with the schema's errors: a dot-ended folder, reserved names, a C05 text path",
+      "constraint": "C04 C05",
+      "file": "paths-the-pattern-accepts-beside-an-unknown-field.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "author",
+          "message": "\"author\" is not a field of the manifest.",
+          "fix": "Check the spelling. The manifest takes: schema, template, title, language, status, wordmark, credits, register, edition, logo, slides."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/images/logos/old.",
+          "message": "The path \"assets/images/logos/old./mark.svg\" uses a character that file paths in a piece do not allow.",
+          "fix": "Use only letters A–Z, digits, hyphens, underscores and dots in file and folder names, with no spaces, and do not end a name with a dot."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/images/con.png",
+          "message": "The path \"assets/images/con.png\" uses the name con.png, which Windows reserves for a device.",
+          "fix": "Rename the file or folder."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/text/aux.md",
+          "message": "The path \"assets/text/aux.md\" uses the name aux.md, which Windows reserves for a device.",
+          "fix": "Rename the file or folder."
+        }
+      ]
+    },
+    {
+      "name": "a name over 255 characters, a path over 240 and a reserved name are refused with the schema's errors",
+      "constraint": "C04 C16",
+      "file": "paths-too-long-beside-a-missing-heading.yaml",
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "blocks:",
+          "message": "Section 1 has no heading.",
+          "fix": "Add heading: to section 1.",
+          "detail": "Container location: section 1 starts here and has no heading."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/video/",
+          "message": "The path \"assets/video/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.mp4\" (269 characters) has a file or folder name of 256 characters; names are limited to 255.",
+          "fix": "Shorten the file or folder name."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/images/",
+          "message": "The path \"assets/images/folder/folder/folder/folder/folder/folder/fold…older/folder/folder/folder/folder/folder/folder/folder/p.png\" is 250 characters long; paths are limited to 240 so the piece also opens on Windows.",
+          "fix": "Shorten the file and folder names, or use fewer sub-folders."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "assets/data/nul.csv",
+          "message": "The path \"assets/data/nul.csv\" uses the name nul.csv, which Windows reserves for a device.",
+          "fix": "Rename the file or folder."
+        }
+      ]
+    },
+    {
+      "name": "a panel box off the page is R14 with the schema's errors, and a box whose own number is refused says only that",
+      "constraint": "C11 R14 R04",
+      "file": "panel-off-the-page-beside-a-missing-transcript.yaml",
+      "findings": [
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": "[60, 10, 50, 20]",
+          "message": "Panel 1 on page 1 runs off the right of the page: x + width is 110, and each must be at most 100.",
+          "fix": "Make x + width at most 100, for example a width of 40 or less at x 60.",
+          "detail": "The box is [x, y, width, height] in percent of the page image: [60, 10, 50, 20]."
+        },
+        {
+          "rule": "R04",
+          "severity": "error",
+          "at": "box: [10, 10, 20, 20]",
+          "message": "A comic panel has no transcript.",
+          "fix": "Add transcript: with the words and action of the panel.",
+          "detail": "Container location: panel 2 on page 1 starts here and has no transcript."
+        },
+        {
+          "rule": "R14",
+          "severity": "error",
+          "at": "120",
+          "message": "The width of the box of panel 3 on page 1 is 120, above 100.",
+          "fix": "Keep x and y from 0 to 100, width and height above 0, and x plus width and y plus height at most 100."
+        }
+      ]
+    }
+  ]
+}

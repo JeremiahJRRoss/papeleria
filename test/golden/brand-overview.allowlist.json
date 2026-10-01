@@ -1,0 +1,155 @@
+{
+  "$comment": "A4 allowlist (M1.9, D70): every difference between examples/brand-overview, built by the CLI, and reference/decks/brand-overview.html that the structural golden (test/browser/golden/brand-overview.test.ts) may show. Each entry covers exactly `count` differences, no more and no fewer; a difference two entries could cover fails. Values are literals, or a strings key of the piece's language, the configured wordmark, the generator, a rewrite of the reference's own path, or the slide's manifest lines. Each entry is justified in docs/REFERENCE_COMPATIBILITY.md, section 'A4 allowlist'. Nothing in the notes' text and no style is allowed to differ.",
+  "baseline": "reference/decks/brand-overview.html",
+  "piece": "examples/brand-overview",
+  "entries": [
+    {
+      "id": "page-title",
+      "kind": "text",
+      "path": "html > head > title > #text",
+      "reference": "Brand overview · Papeleria slides",
+      "generated": "Craft with care. Build for the long view.",
+      "count": 1,
+      "record": "D69; the manifest title as plain text, its line break read as a space"
+    },
+    {
+      "id": "robots-meta",
+      "kind": "missing",
+      "path": "html > head > meta[name=\"robots\"]",
+      "attributes": {"name": "robots", "content": "noindex,nofollow"},
+      "count": 1,
+      "record": "Kit page chrome; a piece is published, so it carries no robots meta"
+    },
+    {
+      "id": "generator-meta",
+      "kind": "extra",
+      "path": "html > head > meta[name=\"generator\"]",
+      "attributes": {"name": "generator", "content": {"generator": true}},
+      "count": 1,
+      "record": "IC07, D69: every piece names its generator and version"
+    },
+    {
+      "id": "local-paths",
+      "kind": "attribute",
+      "path": "html > head > link[rel=\"*\"][href$=\"*\"]",
+      "name": "href",
+      "generated": {"from": "../../theme/", "to": "theme/"},
+      "count": 5,
+      "record": "CONTRACT §7, D62: the favicon and four kit stylesheets, the same files inside dist/"
+    },
+    {
+      "id": "base-stylesheet",
+      "kind": "extra",
+      "path": "html > head > link[rel=\"stylesheet\"][href$=\"base.css\"]",
+      "attributes": {"rel": "stylesheet", "href": "theme/css/base.css"},
+      "count": 1,
+      "record": "D62: templates/shared/base.css, linked after slides.css"
+    },
+    {
+      "id": "strings-block",
+      "kind": "extra",
+      "path": "html > head > script#papeleria-strings[type=\"application/json\"]",
+      "attributes": {"type": "application/json"},
+      "text": {"stringsJson": true},
+      "count": 1,
+      "record": "CONTRACT §4 and §7, IC02, C22: the piece's strings, inert JSON"
+    },
+    {
+      "id": "deck-script",
+      "kind": "attribute",
+      "path": "html > head > script",
+      "name": "src",
+      "reference": "../../theme/js/slides.js",
+      "generated": "deck.js",
+      "count": 1,
+      "record": "CONTRACT §7, D50, D62: the one classic script, lib/clients/deck.js"
+    },
+    {
+      "id": "skip-text",
+      "kind": "text",
+      "path": "html > body.deck-page > a.skip-link > #text",
+      "reference": "Skip to slides",
+      "generated": {"string": "skip"},
+      "count": 1,
+      "record": "CONTRACT §7: the skip string"
+    },
+    {
+      "id": "kit-header",
+      "kind": "missing",
+      "path": "html > body.deck-page > header.deck-header",
+      "markup": "<header class=\"deck-header\"><h1>Papeleria deck example · Brand overview</h1><a href=\"../../README.md\">Adapted from the Ross.moda design language kit, authored by JR (Jeremiah Ross).</a></header>",
+      "count": 1,
+      "record": "Kit page chrome (execution plan, refinement 5): omitted, with nothing in its place"
+    },
+    {
+      "id": "tool-button-type",
+      "kind": "attribute",
+      "path": "html > body.deck-page > div.deck-tools > button#*",
+      "name": "type",
+      "reference": null,
+      "generated": "button",
+      "count": 6,
+      "record": "D65: html-validate's no-implicit-button-type"
+    },
+    {
+      "id": "source-lines",
+      "kind": "attribute",
+      "path": "html > body.deck-page > main#deck-main.deck > article#slide-*.deck-slide.slide-layout-*",
+      "name": ["data-source-line-start", "data-source-line-end"],
+      "reference": null,
+      "generated": {"sourceLine": true},
+      "count": 32,
+      "record": "IC06, D65: each slide's own lines in papeleria.yaml"
+    },
+    {
+      "id": "title-tabindex",
+      "kind": "attribute",
+      "path": "html > body.deck-page > main#deck-main.deck > article#slide-*.deck-slide.slide-layout-* > div.slide-canvas > h2#title-*.slide-title",
+      "name": "tabindex",
+      "reference": null,
+      "generated": "-1",
+      "count": 16,
+      "record": "CONTRACT §2 and §7: focus moves to the title"
+    },
+    {
+      "id": "slide-status",
+      "kind": "extra",
+      "path": "html > body.deck-page > main#deck-main.deck > article#slide-*.deck-slide.slide-layout-* > div.slide-canvas > footer.slide-footer > span.slide-status",
+      "attributes": {},
+      "text": {"string": "status_review"},
+      "count": 16,
+      "record": "D61: the piece's status label in every footer"
+    },
+    {
+      "id": "notes-label-boundary",
+      "kind": "notes-boundary",
+      "path": "html > body.deck-page > main#deck-main.deck > article#slide-*.deck-slide.slide-layout-* > aside.slide-notes",
+      "reference": "\n",
+      "generated": " ",
+      "count": 14,
+      "record": "Notes label boundary: one space after the label where the kit has a newline (it has a space on slides 3 and 8)"
+    },
+    {
+      "id": "notes-paragraphs",
+      "kind": "notes-form",
+      "path": "html > body.deck-page > main#deck-main.deck > article#slide-*.deck-slide.slide-layout-* > aside.slide-notes",
+      "reference": "lines",
+      "generated": "paragraphs",
+      "count": 16,
+      "record": "Notes line structure, D55: one p per reference line; each line is still compared exactly"
+    },
+    {
+      "id": "configured-wordmark",
+      "kind": "text",
+      "path": [
+        "html > body.deck-page > main#deck-main.deck > article#slide-*.deck-slide.slide-layout-* > div.slide-canvas > div.slide-register > span.wordmark > #text",
+        "html > body.deck-page > main#deck-main.deck > article#slide-8.deck-slide.slide-layout-wordmark > div.slide-canvas > div.slide-content > div.slide-columns.two > div.mark-demo* > #text"
+      ],
+      "reference": "papeleria",
+      "generated": {"wordmark": true},
+      "count": 18,
+      "when": "configured-wordmark-differs",
+      "record": "D04, D05: the wordmark the tool is configured with; with the repository's defaults it is papeleria, the reference's, and this entry covers nothing"
+    }
+  ]
+}

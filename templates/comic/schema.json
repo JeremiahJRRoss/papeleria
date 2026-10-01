@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://papeleria.ross.moda/schema/1/comic/schema.json",
+  "title": "Papeleria comic manifest",
+  "description": "A web comic in the studio's Web Comics format, schema version 1: at least one page of art in reading order, each with its alternative text, credit and rights, and the panels a reader steps through. Every panel carries a transcript, so the story reaches a reader who cannot see the art.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "$ref": "../shared/schema-defs.json#/$defs/schema_version",
+      "description": "The manifest format this piece is written for. Write 1. A missing, non-integer or smaller value is a manifest error; a larger one needs a newer Papeleria."
+    },
+    "template": {
+      "type": "string",
+      "const": "comic",
+      "description": "Which template builds this piece. This schema describes the comic template, so the value is comic."
+    },
+    "title": {
+      "$ref": "../shared/schema-defs.json#/$defs/title",
+      "description": "The comic's title, shown in the register and used as the page title. Inline Markdown."
+    },
+    "language": {
+      "$ref": "../shared/schema-defs.json#/$defs/language",
+      "description": "en (the default) or es. Sets the page language and chooses English or Spanish control labels. The editor itself stays English."
+    },
+    "status": {
+      "$ref": "../shared/schema-defs.json#/$defs/status",
+      "description": "draft (the default), review, published or withheld. It is shown on the piece. published turns an unfilled [placeholder] into an error; withheld builds a private preview and writes nothing to dist/."
+    },
+    "wordmark": {
+      "$ref": "../shared/schema-defs.json#/$defs/wordmark",
+      "description": "The wordmark text for this piece. Leave it out to use the theme's, papeleria unless the owner has set another."
+    },
+    "credits": {
+      "$ref": "../shared/schema-defs.json#/$defs/credits",
+      "description": "The credits for the comic, shown on its last page in meta size."
+    },
+    "format": {
+      "$ref": "../shared/schema-defs.json#/$defs/non_empty_string",
+      "description": "The format label in the register. It defaults to Web Comics, or Web Cómics when the language is es."
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/page"
+      },
+      "minItems": 1,
+      "maxItems": 1000,
+      "description": "The pages in reading order, left to right: at least one and at most 1,000. Page N can be linked to as #page-N."
+    }
+  },
+  "required": [
+    "schema",
+    "template",
+    "title",
+    "pages"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "page": {
+      "type": "object",
+      "description": "One page of art. A page carries its image fields directly, because every page has exactly one image. It has alternative text and is never decorative.",
+      "properties": {
+        "image": {
+          "$ref": "../shared/schema-defs.json#/$defs/image_path",
+          "description": "The page art under assets/images/, for example assets/images/pages/01.png. The original is kept for zoom details."
+        },
+        "alt": {
+          "$ref": "../shared/schema-defs.json#/$defs/alt_text",
+          "description": "What the page shows, for a reader who cannot see it. A comic page cannot be marked decorative."
+        },
+        "credit": {
+          "$ref": "../shared/schema-defs.json#/$defs/credit_line",
+          "description": "Who made the page art. A missing credit is a warning, separate from missing rights."
+        },
+        "rights": {
+          "$ref": "../shared/schema-defs.json#/$defs/rights_line",
+          "description": "The terms you hold the page art under. Missing rights is a warning, separate from a missing credit."
+        },
+        "panels": {
+          "type": "array",
+          "items": {
+            "$ref": "../shared/schema-defs.json#/$defs/panel"
+          },
+          "description": "The panels in reading order. Screen readers and the guided view follow this order; panel M of page N can be linked to as #page-N-panel-M. A page may have none."
+        }
+      },
+      "required": [
+        "image",
+        "alt"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

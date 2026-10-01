@@ -1,0 +1,11 @@
+# A converter that ends every document with "..." may write one before it too.
+...
+schema: 1
+template: deck
+title: Craft with care.
+slides:
+  - layout: statement
+    title: One idea.
+...
+# Nothing follows.
+...

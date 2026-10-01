@@ -1,0 +1,24 @@
+# Dependabot keeps the npm baseline and the pinned GitHub Actions current.
+#
+# The application root is the repository root, so the npm ecosystem points there.
+# Updates arrive as pull requests, so CI and the licence check
+# (npm run check:licenses) still gate every bump; a dependency outside the
+# baseline in docs/DEPENDENCIES.md still needs its own decision before it is
+# merged. Actions are pinned to commit SHAs in the workflow, and Dependabot
+# bumps the SHA and its version comment together.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      npm-minor-and-patch:
+        update-types:
+          - minor
+          - patch
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

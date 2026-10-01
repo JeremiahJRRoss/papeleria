@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://papeleria.ross.moda/schema/1/document/schema.json",
+  "title": "Papeleria document manifest",
+  "description": "A printable document in the kit's project-report style, schema version 1: a takeaway title, labelled metadata, at least one section of blocks, and an optional source note. A section can start a new sheet; every section heading is a deep link. Video is allowed here, and only here.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "$ref": "../shared/schema-defs.json#/$defs/schema_version",
+      "description": "The manifest format this piece is written for. Write 1. A missing, non-integer or smaller value is a manifest error; a larger one needs a newer Papeleria."
+    },
+    "template": {
+      "type": "string",
+      "const": "document",
+      "description": "Which template builds this piece. This schema describes the document template, so the value is document."
+    },
+    "title": {
+      "$ref": "../shared/schema-defs.json#/$defs/title",
+      "description": "The document's takeaway: the one sentence the reader should leave with. Inline Markdown."
+    },
+    "language": {
+      "$ref": "../shared/schema-defs.json#/$defs/language",
+      "description": "en (the default) or es. Sets the page language and chooses English or Spanish control labels. The editor itself stays English."
+    },
+    "status": {
+      "$ref": "../shared/schema-defs.json#/$defs/status",
+      "description": "draft (the default), review, published or withheld. It is shown on the piece. published turns an unfilled [placeholder] into an error; withheld builds a private preview and writes nothing to dist/."
+    },
+    "wordmark": {
+      "$ref": "../shared/schema-defs.json#/$defs/wordmark",
+      "description": "The wordmark text for this piece. Leave it out to use the theme's, papeleria unless the owner has set another."
+    },
+    "credits": {
+      "$ref": "../shared/schema-defs.json#/$defs/credits",
+      "description": "The credits for the document, shown with its metadata."
+    },
+    "doc_type": {
+      "$ref": "../shared/schema-defs.json#/$defs/non_empty_string",
+      "description": "The label at the top of each sheet, such as Project report. It defaults to Document, or Documento when the language is es."
+    },
+    "metadata": {
+      "type": "array",
+      "items": {
+        "$ref": "../shared/schema-defs.json#/$defs/metadata_item"
+      },
+      "description": "Labelled facts shown under the title, such as Audience, Owner, Period and Version, in the order written."
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/section"
+      },
+      "minItems": 1,
+      "maxItems": 1000,
+      "description": "The sections in order: at least one and at most 1,000. Each heading's slug is the section's deep link, such as #hours-by-phase."
+    },
+    "source_note": {
+      "$ref": "../shared/schema-defs.json#/$defs/text_value",
+      "description": "Small print after the last section, such as the basis of the figures. Markdown written here or loaded from assets/text/."
+    },
+    "footer": {
+      "$ref": "../shared/schema-defs.json#/$defs/footer_text",
+      "description": "Footer text at the end of each logical sheet. The piece's status stays visible with it; no physical page number or total is generated."
+    }
+  },
+  "required": [
+    "schema",
+    "template",
+    "title",
+    "sections"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "section": {
+      "type": "object",
+      "description": "One section: a heading followed by at least one block. Any block kind is allowed, including video.",
+      "properties": {
+        "heading": {
+          "$ref": "../shared/schema-defs.json#/$defs/heading",
+          "description": "The section heading. Its slug becomes the section's deep link; a repeated heading gets -2, -3 in order."
+        },
+        "new_page": {
+          "type": "boolean",
+          "default": false,
+          "description": "Set to true to start this section on a new sheet on screen and a new page in print. Long content still flows on to further pages rather than being cut."
+        },
+        "blocks": {
+          "$ref": "../shared/schema-defs.json#/$defs/blocks",
+          "description": "The blocks of this section, in reading order: text, image, video, chart, table, quote, note, callout or logo."
+        }
+      },
+      "required": [
+        "heading",
+        "blocks"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

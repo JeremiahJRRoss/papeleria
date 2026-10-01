@@ -1,0 +1,7 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: image
+    title: S
+    image: {src: 'assets/images/%2e%2e/photo.jpg', alt: A pier.}

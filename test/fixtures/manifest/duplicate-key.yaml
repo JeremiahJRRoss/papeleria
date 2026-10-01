@@ -1,0 +1,7 @@
+schema: 1
+template: deck
+title: First
+title: Second
+slides:
+  - layout: statement
+    title: One idea.

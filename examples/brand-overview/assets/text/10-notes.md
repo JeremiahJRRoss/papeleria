@@ -1,0 +1,1 @@
+The proposed campaign “Make the work legible” includes a one-sheet, brochure, question-led posts, permissioned emails, a relative 30-day plan, and a 90-day review horizon. Metrics, budget, dates, reach, client results, and availability are not fabricated.

@@ -1,0 +1,6 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: chart
+    title: S

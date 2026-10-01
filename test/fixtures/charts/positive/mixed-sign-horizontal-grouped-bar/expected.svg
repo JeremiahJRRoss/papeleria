@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="chart chart-bar chart-horizontal" viewBox="0 0 640 186" width="640" height="186" role="img" aria-labelledby="chart-change-title" aria-describedby="chart-change-desc">
+<title id="chart-change-title">Cambio de horas por trimestre</title>
+<desc id="chart-change-desc">El estudio creció en el primer trimestre y bajó en el segundo; impresión hizo lo contrario.</desc>
+<g font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" font-variant="tabular-nums" fill="#1d1d1a">
+<g class="chart-legend">
+<rect x="8" y="8" width="12" height="12" fill="#1d1d1a"/>
+<text x="26" y="14" dy="0.35em">&#x2068;Studio&#x2069;</text>
+<rect x="86.25" y="8" width="12" height="12" fill="#5f5f57"/>
+<text x="104.25" y="14" dy="0.35em">&#x2068;Print&#x2069;</text>
+</g>
+<g class="chart-axes">
+<line x1="285.5" y1="34" x2="285.5" y2="178" stroke="#d8d8d1" stroke-width="1"/>
+</g>
+<g class="chart-marks">
+<rect x="285.44" y="41" width="260.06" height="16" fill="#1d1d1a"/>
+<rect x="217.82" y="59" width="67.62" height="16" fill="#5f5f57"/>
+<rect x="119" y="89" width="166.44" height="16" fill="#1d1d1a"/>
+<rect x="285.44" y="107" width="98.82" height="16" fill="#5f5f57"/>
+<rect x="285.44" y="137" width="0" height="16" fill="#1d1d1a"/>
+<rect x="254.23" y="155" width="31.21" height="16" fill="#5f5f57"/>
+</g>
+<g class="chart-labels">
+<text x="27" y="58" dy="0.35em" text-anchor="end">&#x2068;Q1&#x2069;</text>
+<text x="27" y="106" dy="0.35em" text-anchor="end">&#x2068;Q2&#x2069;</text>
+<text x="27" y="154" dy="0.35em" text-anchor="end">&#x2068;Q3&#x2069;</text>
+<text x="549.5" y="49" dy="0.35em" text-anchor="start">12,5<tspan dx="6" fill="#5f5f57">&#x2068;Studio&#x2069;</tspan></text>
+<text x="213.82" y="67" dy="0.35em" text-anchor="end"><tspan fill="#5f5f57">&#x2068;Print&#x2069;</tspan><tspan dx="6">−3,25</tspan></text>
+<text x="115" y="97" dy="0.35em" text-anchor="end">−8</text>
+<text x="388.26" y="115" dy="0.35em" text-anchor="start">4,75</text>
+<text x="289.44" y="145" dy="0.35em" text-anchor="start">0</text>
+<text x="250.23" y="163" dy="0.35em" text-anchor="end">−1,5</text>
+</g>
+</g>
+</svg>

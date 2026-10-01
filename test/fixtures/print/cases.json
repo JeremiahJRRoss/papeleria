@@ -1,0 +1,98 @@
+{
+  "document": [
+    {
+      "name": "seeded-report",
+      "piece": "examples/hours-report",
+      "sheets": 2,
+      "inOrder": [
+        "Review took the most hours.",
+        "Executive summary",
+        "Review took forty-one hours, build twenty-six and delivery nine.",
+        "Hours by phase",
+        "Review took the most hours and delivery the fewest.",
+        "Studio timesheets, Q3 2026",
+        "Hours by week",
+        "Review hours rose through the quarter while build hours fell.",
+        "Next action",
+        "The studio records the decision in the decision log and sets the next review date.",
+        "Warning",
+        "Sample data, for the example only.",
+        "Basis: sample timesheets. Not a signed approval."
+      ],
+      "startsSheet": ["Next action"]
+    },
+    {
+      "name": "long-section",
+      "piece": "test/fixtures/print/long-section",
+      "sheets": 2,
+      "minPages": 4,
+      "inOrderFile": "assets/text/long.md",
+      "startsSheet": ["After the long section"]
+    },
+    {
+      "name": "long-table",
+      "piece": "test/fixtures/print/long-table",
+      "sheets": 1,
+      "minPages": 3,
+      "table": {"header": ["ID", "ITEM", "NOTES"], "rowIds": 120, "tallRow": "Oversized row line", "tallRowLines": 80},
+      "inOrder": ["The table below runs over several pages", "One hundred and twenty rows.", "The paragraph after the table."]
+    },
+    {
+      "name": "tall-image",
+      "piece": "test/fixtures/print/tall-image",
+      "sheets": 1,
+      "generated": {"assets/images/tall.png": [800, 4000]},
+      "tallImage": {"width": 800, "height": 4000, "caption": "The tall image fits on one page."},
+      "inOrder": ["The image below is five times as tall as it is wide.", "The tall image fits on one page.", "The paragraph after the tall image."]
+    },
+    {
+      "name": "long-headings",
+      "piece": "test/fixtures/print/long-headings",
+      "sheets": 2,
+      "inOrder": [
+        "A takeaway long enough to wrap over several lines of the sheet",
+        "and still wraps inside the sheet",
+        "The first paragraph under the long heading.",
+        "The paragraph under the heading with one very long word.",
+        "Una sección con acentos, eñes y comillas «españolas»",
+        "The paragraph under the Spanish heading."
+      ],
+      "startsSheet": ["Una sección con acentos"]
+    },
+    {
+      "name": "every-block",
+      "piece": "test/fixtures/document/all-blocks",
+      "sheets": 2,
+      "generated": {"assets/images/photo.png": [1700, 900], "assets/images/poster.png": [1280, 720], "assets/video/loop.mp4": "mp4:6"},
+      "video": {"alternative": "A loop of the harbour at dawn.", "poster": [800, 450]},
+      "inOrder": ["The introduction, with a footnote.", "A heading in the text", "A considered label. A clear handoff.", "Warning", "A folder of text becomes a finished piece.", "Beta is the largest.", "A loop of the harbour at dawn.", "Names only.", "Basis: test data. Not a signed approval."],
+      "startsSheet": ["Numbers & <tails>"]
+    }
+  ],
+  "comic": [
+    {
+      "name": "comic-transcript",
+      "piece": "test/fixtures/print/comic-transcript",
+      "generated": {"assets/images/pages/01.png": [800, 1100], "assets/images/pages/02.png": [800, 1100]},
+      "comicPages": 2,
+      "minPages": 4,
+      "inOrder": [
+        "A long transcript.",
+        "Page 1 of 2",
+        "Panel 1 transcript sentence 01 continues",
+        "Panel 1 transcript sentence 20 continues",
+        "Panel 4 transcript sentence 20 continues",
+        "Panel 8 transcript sentence 01 continues",
+        "Panel 8 transcript sentence 20 continues",
+        "Page 2 of 2",
+        "Page 2 starts on a sheet of its own."
+      ],
+      "startsSheet": ["Page 2 of 2"]
+    }
+  ],
+  "deck": [
+    {"name": "starter-deck", "piece": "examples/starter-deck", "slides": 5, "overflowing": []},
+    {"name": "brand-overview", "piece": "examples/brand-overview", "slides": 16, "overflowing": []},
+    {"name": "deck-overflow", "piece": "test/fixtures/print/deck-overflow", "slides": 3, "overflowing": [2]}
+  ]
+}

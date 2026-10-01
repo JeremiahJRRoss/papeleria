@@ -1,0 +1,3 @@
+# The licence texts are kept byte for byte, as licenses/index.json records their SHA-256 (D126).
+# Git must not convert their line endings: loglevel's LICENSE-MIT is written with CRLF.
+* -text

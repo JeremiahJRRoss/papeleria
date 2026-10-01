@@ -1,0 +1,24 @@
+# M4.2 (W4): the comic rules' fixture (test/unit/comic-rules.test.ts). One
+# drawn page whose panel boxes R14 checks: three run off the page, one by a
+# millionth, and two end exactly at its edge. The tests edit a copy for R04.
+schema: 1
+template: comic
+title: Panel boxes
+pages:
+  - image: assets/images/page.svg
+    alt: A page for the panel box rules.
+    credit: Drawn for the tests
+    rights: Test fixture; no rights claimed
+    panels:
+      - box: [60, 4, 41, 28]
+        transcript: Off the right edge.
+      - box: [4, 80, 20, 21]
+        transcript: Off the bottom edge.
+      - box: [90, 90, 20, 20]
+        transcript: Off both edges.
+      - box: [70.1, 0, 29.9, 100]
+        transcript: At the right edge, as an author writes it.
+      - box: [0, 0, 100, 100]
+        transcript: The whole page.
+      - box: [50, 50, 50.000001, 10]
+        transcript: A millionth over.

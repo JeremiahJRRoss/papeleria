@@ -1,0 +1,694 @@
+{
+  "$comment": [
+    "Where corresponding source is published for each component inside the prebuilt libvips binaries (D36).",
+    "Component names and versions come from each package's own versions.json; the licence column is the package README's own table. The upstream URLs are recorded so a reviewer can follow them and are NOT an assertion that publishing upstream discharges the LGPL source obligation — that determination is the release owner's, recorded in scripts/native-reviews.json.",
+    "The combined build is produced by lovell/sharp-libvips, which holds the build scripts and the component pins; that repository is the natural corresponding-source point for the binary as shipped. Its wasm32 target delegates to kleisauke/wasm-vips (wasm32Build below).",
+    "Every URL is one a package README, a build script at a recorded commit, or the component's own repository at its tag states; nothing is inferred from memory. upstreamLicence records what a component's own licence file or manifest says where it was read at the version shipped (M5.3, D129), beside the README's name for it, which is what the attribution uses."
+  ],
+  "combinedBuild": {
+    "project": "sharp-libvips",
+    "repository": "https://github.com/lovell/sharp-libvips",
+    "version": "1.3.3",
+    "note": "Holds the build scripts and component pins for the prebuilt shared libraries shipped in the @img/sharp-libvips-* packages. Confirm the tag matching 1.3.3 and whether its contents constitute the Minimal Corresponding Source for the LGPL components.",
+    "confirmationRequired": true,
+    "doesNotCover": [
+      "@img/sharp-wasm32 is not built from sharp-libvips' shared libraries: sharp compiles its own code to WebAssembly against the static wasm32 libraries sharp-libvips publishes as @img/sharp-libvips-dev-wasm32, which its build/wasm.sh makes with kleisauke/wasm-vips. See wasm32Build.",
+      "libvips-42.dll in the @img/sharp-win32-* packages: sharp-libvips' build/win.sh packages the prebuilt libraries of libvips/build-win64-mxe v8.18.6 rather than building them. See windowsBuild."
+    ]
+  },
+  "weakCopyleftComponentCount": 9,
+  "wasm32Build": {
+    "package": "@img/sharp-wasm32",
+    "version": "0.35.4",
+    "identifiedOn": "2026-09-28",
+    "identifiedBy": "W5B (M5.3), from the npm registry, raw files at the recorded commits, and the wasm-vips history over git; issue 002 A5",
+    "steps": [
+      "npm registry: @img/sharp-wasm32@0.35.4 has gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp, repository.directory npm/wasm32, published by GitHub Actions trusted publishing.",
+      "lovell/sharp at 7f1a0a22cc285fe180766f4935d50b55af6e8432: .github/workflows/ci.yml job build-emscripten ('build-wasm32 [package]') runs in the container emscripten/emsdk:6.0.8, builds sharp with emmake against @img/sharp-libvips-dev-wasm32 1.3.3 (a devDependency in that commit's package.json), checks the two emscripten versions match, and packages npm/wasm32.",
+      "npm registry: @img/sharp-libvips-dev-wasm32@1.3.3 (\"Header files and static wasm32 libraries for libvips and dependencies to build sharp as wasm32\", LGPL-3.0-or-later) has gitHead 6e5971d333377743163edc3ad9e5d0b897abcbc9 in https://github.com/lovell/sharp-libvips, directory npm/dev-wasm32 — the commit the other 1.3.3 libvips packages were published from.",
+      "lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9: build.sh dev-wasm32 runs build/wasm.sh, which downloads https://github.com/kleisauke/wasm-vips/archive/HEAD.tar.gz (not pinned), refuses a libvips version other than versions.properties' 8.18.6, and runs that tree's build.sh --disable-bindings --disable-modules --disable-jxl --enable-libvips-cpp in its own Docker image.",
+      "kleisauke/wasm-vips at 79103664d21ce00982e80571cf12f58bd3dcc5f3 (2026-08-25, \"Upgrade to libvips v8.18.6\"): every version pinned in its build.sh equals the shipped versions.json (aom 3.14.1, cgif 0.5.3, exif 0.6.26, expat 2.8.3, ffi 3.8.0, glib 2.89.4, heif 1.23.2, highway 1.4.0, imagequant 2.4.1, lcms 2.19.1, mozjpeg 0826579, png 1.6.58, resvg 0.48.1, tiff 4.7.2, uhdr 2.0.2, vips 8.18.6, webp 1.6.0, zlib-ng 2.3.3), and its Dockerfile is emscripten/emsdk:6.0.8. The next commits change the Docker image to 6.0.9 and aom and libheif (2026-09-02)."
+    ],
+    "identifiesRevision": "kleisauke/wasm-vips 79103664d21ce00982e80571cf12f58bd3dcc5f3, identified by those matching versions, not by a pin: sharp-libvips downloads wasm-vips at HEAD, so no file records which revision it was",
+    "confirmationRequired": true
+  },
+  "windowsBuild": {
+    "packages": [
+      "@img/sharp-win32-arm64",
+      "@img/sharp-win32-x64"
+    ],
+    "version": "0.35.4",
+    "identifiedOn": "2026-09-28",
+    "identifiedBy": "W5B (M5.3), from the npm registry, raw files at the recorded commits and the published tarballs (D129)",
+    "steps": [
+      "npm registry: @img/sharp-win32-arm64@0.35.4 and @img/sharp-win32-x64@0.35.4 have gitHead 7f1a0a22cc285fe180766f4935d50b55af6e8432 in https://github.com/lovell/sharp; that commit's package.json lists @img/sharp-libvips-win32-arm64, -ia32 and -x64 1.3.3 as devDependencies.",
+      "Each package's lib/libvips-42.dll is byte for byte the one in @img/sharp-libvips-win32-x64@1.3.3 (SHA-256 e6cc51bbc763e7deda536c6f56ce96b4c51ea769690ce4f4ed07607527b81dae, 18,614,784 bytes) or @img/sharp-libvips-win32-arm64@1.3.3 (5c73dcac80d514315b234e45b7ffeea6e70f677fed95906c02c77693938c3f41, 15,809,024 bytes), both published from lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9. libvips-cpp-8.18.6.dll and the .node addon are sharp's own build.",
+      "lovell/sharp-libvips at 6e5971d333377743163edc3ad9e5d0b897abcbc9: build/win.sh does not compile the libraries; it downloads vips-dev-<arch>-web-8.18.6-static.zip from https://github.com/libvips/build-win64-mxe/releases/download/v8.18.6/ and packages its DLLs. The component versions are that project's pins, which is why the Windows packages list aom 3.14.1 where versions.properties, and every other platform, have 3.15.0."
+    ],
+    "correspondingSourcePoint": "https://github.com/libvips/build-win64-mxe at its v8.18.6 release, not sharp-libvips, for libvips-42.dll",
+    "confirmationRequired": true
+  },
+  "components": [
+    {
+      "component": "aom",
+      "version": "3.14.1",
+      "licenseFromPackageReadme": "BSD 2-Clause + Alliance for Open Media Patent License 1.0",
+      "upstream": "https://aomedia.googlesource.com/aom",
+      "inPackages": [
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "aom",
+      "version": "3.15.0",
+      "licenseFromPackageReadme": "BSD 2-Clause + Alliance for Open Media Patent License 1.0",
+      "upstream": "https://aomedia.googlesource.com/aom",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64"
+      ]
+    },
+    {
+      "component": "archive",
+      "version": "3.8.9",
+      "licenseFromPackageReadme": "BSD 2-Clause",
+      "upstream": "https://github.com/libarchive/libarchive",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "cairo",
+      "version": "1.18.4",
+      "licenseFromPackageReadme": "Mozilla Public License 2.0",
+      "upstream": "https://gitlab.freedesktop.org/cairo/cairo",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "cgif",
+      "version": "0.5.3",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://github.com/dloebl/cgif",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "emscripten",
+      "version": "6.0.8",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://github.com/emscripten-core/emscripten",
+      "inPackages": [
+        "@img/sharp-wasm32"
+      ],
+      "upstreamSource": "the @img/sharp-wasm32 README links its licence at github.com/emscripten-core/emscripten/blob/main/LICENSE; the repository root is recorded here",
+      "upstreamLicence": "MIT OR NCSA: LICENSE at tag 6.0.8 offers the MIT licence and the University of Illinois/NCSA Open Source License (\"Copyright (c) 2010-2014 Emscripten authors\")",
+      "notEnumerated": "The runtime libraries Emscripten compiles into a module (its libc, libc++ and compiler runtime among them) carry their own notices, which Emscripten's LICENSE lists; which of them the module holds is not enumerated here, and no package in the tree lists them."
+    },
+    {
+      "component": "exif",
+      "version": "0.6.26",
+      "licenseFromPackageReadme": "LGPLv3",
+      "upstream": "https://github.com/libexif/libexif",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "expat",
+      "version": "2.8.3",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://github.com/libexpat/libexpat",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "ffi",
+      "version": "3.8.0",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://github.com/libffi/libffi",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "fontconfig",
+      "version": "2.18.3",
+      "licenseFromPackageReadme": "fontconfig License (BSD-like)",
+      "upstream": "https://gitlab.freedesktop.org/fontconfig/fontconfig",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "freetype",
+      "version": "2.14.3",
+      "licenseFromPackageReadme": "freetype License (BSD-like)",
+      "upstream": "https://gitlab.freedesktop.org/freetype/freetype",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "fribidi",
+      "version": "1.0.16",
+      "licenseFromPackageReadme": "LGPLv3",
+      "upstream": "https://github.com/fribidi/fribidi",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "glib",
+      "version": "2.89.4",
+      "licenseFromPackageReadme": "LGPLv3",
+      "upstream": "https://gitlab.gnome.org/GNOME/glib",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "harfbuzz",
+      "version": "14.3.1",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://github.com/harfbuzz/harfbuzz",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "heif",
+      "version": "1.23.2",
+      "licenseFromPackageReadme": "LGPLv3",
+      "upstream": "https://github.com/strukturag/libheif",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "highway",
+      "version": "1.4.0",
+      "licenseFromPackageReadme": "BSD 3-Clause",
+      "upstream": "https://github.com/google/highway",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "imagequant",
+      "version": "2.4.1",
+      "licenseFromPackageReadme": "BSD 2-Clause",
+      "upstream": "https://github.com/lovell/libimagequant",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "lcms",
+      "version": "2.19.1",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://github.com/mm2/Little-CMS",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "mozjpeg",
+      "version": "0826579",
+      "licenseFromPackageReadme": "zlib License, IJG License, BSD 3-Clause",
+      "upstream": "https://github.com/mozilla/mozjpeg",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "pango",
+      "version": "1.58.2",
+      "licenseFromPackageReadme": "LGPLv3",
+      "upstream": "https://gitlab.gnome.org/GNOME/pango",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "pixman",
+      "version": "0.46.4",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://gitlab.freedesktop.org/pixman/pixman",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "png",
+      "version": "1.6.58",
+      "licenseFromPackageReadme": "libpng License",
+      "upstream": "https://github.com/pnggroup/libpng",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "proxy-libintl",
+      "version": "0.5",
+      "licenseFromPackageReadme": "LGPLv3",
+      "upstream": "https://github.com/frida/proxy-libintl",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "resvg",
+      "version": "0.48.1",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://github.com/linebender/resvg",
+      "inPackages": [
+        "@img/sharp-wasm32"
+      ],
+      "upstreamSource": "kleisauke/wasm-vips build.sh at 79103664d21ce00982e80571cf12f58bd3dcc5f3 pins VERSION_RESVG=0.48.1 with the comment https://github.com/linebender/resvg and downloads https://github.com/linebender/resvg/releases/download/v0.48.1/resvg-0.48.1.tar.xz; resvg's crates/resvg/Cargo.toml at tag v0.48.1 gives repository = \"https://github.com/linebender/resvg\" (issue 002 A6)",
+      "upstreamLicence": "Apache-2.0 OR MIT: the workspace Cargo.toml at v0.48.1 declares license = \"Apache-2.0 OR MIT\"; LICENSE-MIT reads \"Copyright 2017 the Resvg Authors\". The README names the MIT half",
+      "notEnumerated": "wasm-vips builds resvg's C API with cargo --locked --no-default-features --features=svgz,raster-images and -Zbuild-std, so the Rust crates that feature set selects from resvg's Cargo.lock, and the Rust standard library, are compiled into the module too. Which crates those are is not enumerated here, and no package in the tree lists their licences."
+    },
+    {
+      "component": "rsvg",
+      "version": "2.62.91",
+      "licenseFromPackageReadme": "LGPLv3",
+      "upstream": "https://gitlab.gnome.org/GNOME/librsvg",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "tiff",
+      "version": "4.7.2",
+      "licenseFromPackageReadme": "libtiff License (BSD-like)",
+      "upstream": "https://gitlab.com/libtiff/libtiff",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "uhdr",
+      "version": "2.0.2",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://github.com/google/libultrahdr",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ],
+      "readmeRow": "libultrahdr",
+      "upstreamLicence": "MIT and Apache-2.0: LICENSE at tag v2.0.2 says the software \"is distributed under the terms of both the MIT license and the Apache License (Version 2.0)\"; its MIT part reads \"Copyright (c) 2022 The Android Open Source Project\". The README names MIT"
+    },
+    {
+      "component": "vips",
+      "version": "8.18.6",
+      "licenseFromPackageReadme": "LGPLv3",
+      "upstream": "https://github.com/libvips/libvips",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ],
+      "upstreamLicence": "LGPL-2.1-or-later: LICENSE at tag v8.18.6 is the LGPL-2.1 text; the READMEs use it under the LGPLv3 \"via the 'any later version' clause of the LGPLv2 or LGPLv2.1\"",
+      "includes": "libnsgif (MIT, NetSurf, https://www.netsurf-browser.org/projects/libnsgif/), compiled from libvips' own source tree (libvips/foreign/libnsgif/ at v8.18.6, \"Copyright 2004 Richard Wilson\", \"Copyright 2008 Sean Fox\", \"Copyright 2013-2022 Michael Drake\"). The READMEs list it as its own library; versions.json does not, because it has no version apart from libvips'"
+    },
+    {
+      "component": "webp",
+      "version": "1.6.0",
+      "licenseFromPackageReadme": "New BSD License",
+      "upstream": "https://chromium.googlesource.com/webm/libwebp",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "xml2",
+      "version": "2.15.3",
+      "licenseFromPackageReadme": "MIT License",
+      "upstream": "https://gitlab.gnome.org/GNOME/libxml2",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    },
+    {
+      "component": "zlib-ng",
+      "version": "2.3.3",
+      "licenseFromPackageReadme": "zlib License",
+      "upstream": "https://github.com/zlib-ng/zlib-ng",
+      "inPackages": [
+        "@img/sharp-libvips-darwin-arm64",
+        "@img/sharp-libvips-darwin-x64",
+        "@img/sharp-libvips-linux-arm",
+        "@img/sharp-libvips-linux-arm64",
+        "@img/sharp-libvips-linux-ppc64",
+        "@img/sharp-libvips-linux-riscv64",
+        "@img/sharp-libvips-linux-s390x",
+        "@img/sharp-libvips-linux-x64",
+        "@img/sharp-libvips-linuxmusl-arm64",
+        "@img/sharp-libvips-linuxmusl-x64",
+        "@img/sharp-wasm32",
+        "@img/sharp-win32-arm64",
+        "@img/sharp-win32-ia32",
+        "@img/sharp-win32-x64"
+      ]
+    }
+  ]
+}

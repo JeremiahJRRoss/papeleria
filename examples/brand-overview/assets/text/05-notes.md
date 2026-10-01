@@ -1,0 +1,1 @@
+Each attribute has a behavioral consequence. Considered is not aloof; practical is not jargon-heavy; curious is not novelty-driven; durable is not trend-dependent; accountable is not absolute. See the complete profile for anti-attributes and examples.

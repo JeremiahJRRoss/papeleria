@@ -1,0 +1,7 @@
+schema: 1
+template: document
+title: Fixture.
+sections:
+  - heading: Hours
+    blocks:
+      - chart: {type: line, orientation: horizontal, data: assets/data/weeks.csv, x: week, y: hours, summary: Review rose.}

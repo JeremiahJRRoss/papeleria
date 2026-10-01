@@ -1,0 +1,41 @@
+# W5C (M5.4): the English deck of the localization matrix. Its author text is
+# English and holds no control-string value of either language as a whole word;
+# test/integration/localization.test.ts checks that before it builds anything.
+# The tests write the other three statuses over `status: draft`.
+schema: 1
+template: deck
+title: Quiet craft, kept in view.
+language: en
+status: draft
+register: Studio brief / Autumn
+edition: Edition 3 / 2026-09-28
+credits:
+  - { role: Author, name: Rosa Marín }
+
+slides:
+  - layout: cover
+    title: Quiet craft, kept in view.
+    lead: A short brief for the studio
+    notes: assets/text/cover-notes.md
+
+  - layout: three
+    title: Three habits worth keeping.
+    lead: Each one leaves a record behind.
+    columns:
+      - heading: Label
+        text: Name the owner and the date.
+      - heading: Source
+        text: Link the [studio guide](https://example.com/guide) beside the claim.
+      - heading: Handoff
+        text: Say who acts, and by when.
+
+  - layout: chart
+    title: Hours logged by team.
+    table:
+      data: assets/data/hours.csv
+      caption: Hours per team, with one blank entry.
+
+  - layout: closing
+    title: Keep the source close.
+    lead: Share it, and say what changed.
+    notes: Thank the room, then take questions.

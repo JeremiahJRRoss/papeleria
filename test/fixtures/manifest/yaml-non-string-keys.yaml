@@ -1,0 +1,8 @@
+schema: 1
+template: deck
+title: Craft with care.
+1: one
+true: yes
+? [a, b]
+: pair
+slides: []

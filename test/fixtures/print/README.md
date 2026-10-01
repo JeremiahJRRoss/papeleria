@@ -1,0 +1,18 @@
+# Print fixtures (IC08, M3.5, M3.6 and M4.5)
+
+The release print fixtures IC08 names, the deck print cases of M3.6 and the comic's of M4.5. `cases.json` lists every case and what the print suites expect of it; `test/browser/print-document.test.ts`, `print-deck.test.ts` and `print-comic.test.ts` read it, so a case listed here is a case tested, and a case whose renderer does not exist yet says so under `pending` (none does since M4).
+
+| Case | Piece | What it proves |
+| --- | --- | --- |
+| `seeded-report` | `examples/hours-report` | The report prints to A4 portrait with 18 mm margins; "Next action" (`new_page`) starts a sheet; charts print with their summaries and source; the status closes each sheet |
+| `long-section` | `long-section/` | A section about three pages long flows over them with nothing lost, in order: every sentence names its paragraph and its place; the next section still starts a sheet of its own |
+| `long-table` | `long-table/` | A table over several pages repeats its header on each; row R061 is taller than a page and splits without losing a line; no column is squeezed to single letters |
+| `tall-image` | `tall-image/` | An image five times as tall as it is wide prints whole on one page, its caption with it. The PNG (800 × 4,000 px) is made when the test runs |
+| `long-headings` | `long-headings/` | A takeaway and headings over several lines, one a single word of 120 letters with no space or hyphen, wrap inside the sheet and stay with the text after them |
+| `every-block` | `../document/all-blocks/` | Every block kind in print: the video prints as its poster with its alternative beneath, never an empty rectangle. The photograph, poster and video are made when the test runs |
+| `comic-transcript` | `comic-transcript/` | A comic page whose transcripts run longer than a sheet, then a second page that must start a sheet of its own (M4.5, W4). In Chromium's PDF page 1's transcript runs over printed pages 2 to 5 in order and page 2 opens printed page 6. The manifest is valid against the comic schema (`test/unit/print-fixtures.test.ts`); the comic print test generates the two page images |
+| `sample-comic` | `examples/sample-comic` | Defined in `print-comic.test.ts`, not in `cases.json`: printed from a spread in guided view, each of the eight comic pages starts a printed page with all its art (D115) |
+| `starter-deck`, `brand-overview` | `examples/` | One A4 landscape page per slide, and no slide overflowing its printed page (M3.6) |
+| `deck-overflow` | `deck-overflow/` | A slide holding more than a printed slide can: the overflow check names slide 2 and only slide 2, the authoring defect IC08 says the print checks must catch |
+
+How print is verified (D91, D98): Chromium prints each piece with `page.pdf`, honouring the stylesheets' `@page` size and margins. The PDF is read with poppler-utils — `pdfinfo` for the page count and size, `pdftotext -bbox` for every word and where it stands, `pdfimages -list` for the images and the size they print at, and `pdftoppm` to render each page and look for ink in its margins. Firefox and WebKit, which Playwright cannot print to PDF, are checked in print media from the page itself: sheet breaks, repeated table headers, nothing wider than the printed page, the video replaced by its poster. A comic prints as it reads without JavaScript: the reader steps aside on `beforeprint` and resumes after (D115), and its print test opens the pages from `file://`, since a page image the reader released comes back for print only from the browser's cache. The reading order and tagging of the PDF need a person and stay pending (A6).

@@ -1,0 +1,689 @@
+{
+  "$comment": [
+    "Licence texts retained for distribution (D36, D126). Presence of a text is a fact. Whether retaining it",
+    "discharges an obligation is a review, recorded by a person in scripts/native-reviews.json. This file decides nothing.",
+    "licenses: SPDX texts, fetched by scripts/fetch-license-texts.mjs. packages: the licence files of npm packages",
+    "whose code or data the npm package ships, copied by scripts/gen-notice.mjs. Each script keeps the other's section.",
+    "THIRD_PARTY.md is generated from this index and the licence inventory (docs/evidence/license-inventory.json)."
+  ],
+  "source": "SPDX license-list-data",
+  "licenses": [
+    {
+      "spdxId": "LGPL-3.0-or-later",
+      "file": "LGPL-3.0-or-later.txt",
+      "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1",
+      "bytes": 42098,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/LGPL-3.0-or-later.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "declared by the four in-scope @img/sharp-libvips-* packages, and by libvips, glib, pango, librsvg, libexif, libheif, fribidi and proxy-libintl inside the bundled library"
+    },
+    {
+      "spdxId": "GPL-3.0-or-later",
+      "file": "GPL-3.0-or-later.txt",
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "bytes": 34674,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/GPL-3.0-or-later.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "the LGPL-3.0 is written as a set of additional permissions on top of the GPL-3.0 and incorporates it by reference, so the GPL text has to travel with it"
+    },
+    {
+      "spdxId": "MPL-2.0",
+      "file": "MPL-2.0.txt",
+      "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172",
+      "bytes": 16727,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/MPL-2.0.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "cairo, inside the bundled shared library"
+    },
+    {
+      "spdxId": "Apache-2.0",
+      "file": "Apache-2.0.txt",
+      "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+      "bytes": 10280,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/Apache-2.0.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "sharp itself and the @img/sharp-<platform> binaries"
+    },
+    {
+      "spdxId": "MIT",
+      "file": "MIT.txt",
+      "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+      "bytes": 1078,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/MIT.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "cgif, expat, harfbuzz, lcms, libffi, libnsgif, libultrahdr, libxml2, pixman and others inside the bundled library"
+    },
+    {
+      "spdxId": "BSD-2-Clause",
+      "file": "BSD-2-Clause.txt",
+      "sha256": "f32fb3b417a194167cfad068223fc975ba96c5960513a10f66a3c28720aec1df",
+      "bytes": 1267,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/BSD-2-Clause.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "libarchive, libimagequant and the aom terms"
+    },
+    {
+      "spdxId": "BSD-3-Clause",
+      "file": "BSD-3-Clause.txt",
+      "sha256": "5a93d5831e1297ab10fe643e1a631e83be392896da14ee2951285a79012df69d",
+      "bytes": 1460,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/BSD-3-Clause.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "highway, libwebp and part of mozjpeg"
+    },
+    {
+      "spdxId": "Zlib",
+      "file": "Zlib.txt",
+      "sha256": "bfb1112d49db5b1daecdfef24bd7e2f3ea0bafb33aa67aa0ab51e2bf8407c03d",
+      "bytes": 838,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/Zlib.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "zlib-ng and part of mozjpeg"
+    },
+    {
+      "spdxId": "libpng-2.0",
+      "file": "libpng-2.0.txt",
+      "sha256": "f207d0f7375b977f76ce2437962c1c12a646f15cda3df48d5472ac95eb68e8ff",
+      "bytes": 1551,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/libpng-2.0.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "libpng"
+    },
+    {
+      "spdxId": "FTL",
+      "file": "FTL.txt",
+      "sha256": "ced6622122ce451cb1ea0c3c3f507a640e2a44c075c04900ddd9fae8acb5369f",
+      "bytes": 5979,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/FTL.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "freetype"
+    },
+    {
+      "spdxId": "ISC",
+      "file": "ISC.txt",
+      "sha256": "521c6f0ed8e64736684f89843d16a4df6b4b7449acbcfc6ca6630a3037ca8c53",
+      "bytes": 737,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/ISC.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "several author-runtime npm dependencies"
+    },
+    {
+      "spdxId": "0BSD",
+      "file": "0BSD.txt",
+      "sha256": "e3f18c71e10d673590eb9856c1d79dd3b4b0d65404efb5e8584dbede7edd608b",
+      "bytes": 643,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/0BSD.txt",
+      "retrievedOn": "2026-09-22",
+      "why": "tslib, reached through the sharp WebAssembly build"
+    },
+    {
+      "spdxId": "IJG",
+      "file": "IJG.txt",
+      "sha256": "7658542977bfdced9e1059a6c934ce4281de76d103b831007b825917dc62511a",
+      "bytes": 4244,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/IJG.txt",
+      "retrievedOn": "2026-09-28",
+      "why": "part of mozjpeg, which its README lists under the zlib, IJG and BSD 3-Clause licences"
+    },
+    {
+      "spdxId": "libtiff",
+      "file": "libtiff.txt",
+      "sha256": "a6ecaa20c8c1b7a8215ed05e5f58764f821596e36d31acc05282c6154cf0dc44",
+      "bytes": 1139,
+      "retrievedFrom": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/libtiff.txt",
+      "retrievedOn": "2026-09-28",
+      "why": "libtiff, which the package READMEs list under the libtiff License"
+    }
+  ],
+  "packages": [
+    {
+      "package": "@codemirror/autocomplete",
+      "version": "6.20.3",
+      "file": "packages/@codemirror/autocomplete@6.20.3/LICENSE",
+      "sha256": "05c6130cda97e7600ca91427a41e8a065efcf82365fc0293e7de80faec494c07",
+      "bytes": 1118,
+      "copiedFrom": "node_modules/@codemirror/autocomplete/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@codemirror/commands",
+      "version": "6.11.1",
+      "file": "packages/@codemirror/commands@6.11.1/LICENSE",
+      "sha256": "05c6130cda97e7600ca91427a41e8a065efcf82365fc0293e7de80faec494c07",
+      "bytes": 1118,
+      "copiedFrom": "node_modules/@codemirror/commands/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@codemirror/lang-json",
+      "version": "6.0.2",
+      "file": "packages/@codemirror/lang-json@6.0.2/LICENSE",
+      "sha256": "05c6130cda97e7600ca91427a41e8a065efcf82365fc0293e7de80faec494c07",
+      "bytes": 1118,
+      "copiedFrom": "node_modules/@codemirror/lang-json/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@codemirror/lang-yaml",
+      "version": "6.1.3",
+      "file": "packages/@codemirror/lang-yaml@6.1.3/LICENSE",
+      "sha256": "8ac9cfc9c82c397298c2139028d2474d8e0470f2092a97edddccf353bc5d4d36",
+      "bytes": 1113,
+      "copiedFrom": "node_modules/@codemirror/lang-yaml/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@codemirror/language",
+      "version": "6.12.4",
+      "file": "packages/@codemirror/language@6.12.4/LICENSE",
+      "sha256": "05c6130cda97e7600ca91427a41e8a065efcf82365fc0293e7de80faec494c07",
+      "bytes": 1118,
+      "copiedFrom": "node_modules/@codemirror/language/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@codemirror/lint",
+      "version": "6.9.7",
+      "file": "packages/@codemirror/lint@6.9.7/LICENSE",
+      "sha256": "05c6130cda97e7600ca91427a41e8a065efcf82365fc0293e7de80faec494c07",
+      "bytes": 1118,
+      "copiedFrom": "node_modules/@codemirror/lint/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@codemirror/state",
+      "version": "6.7.6",
+      "file": "packages/@codemirror/state@6.7.6/LICENSE",
+      "sha256": "05c6130cda97e7600ca91427a41e8a065efcf82365fc0293e7de80faec494c07",
+      "bytes": 1118,
+      "copiedFrom": "node_modules/@codemirror/state/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@codemirror/view",
+      "version": "6.43.13",
+      "file": "packages/@codemirror/view@6.43.13/LICENSE",
+      "sha256": "05c6130cda97e7600ca91427a41e8a065efcf82365fc0293e7de80faec494c07",
+      "bytes": 1118,
+      "copiedFrom": "node_modules/@codemirror/view/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@lezer/common",
+      "version": "1.5.3",
+      "file": "packages/@lezer/common@1.5.3/LICENSE",
+      "sha256": "568902fb66eaf1f11750e966b33fd7b5d7c618e65af09f35ef843635bcf5f1ba",
+      "bytes": 1113,
+      "copiedFrom": "node_modules/@lezer/common/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@lezer/highlight",
+      "version": "1.2.4",
+      "file": "packages/@lezer/highlight@1.2.4/LICENSE",
+      "sha256": "568902fb66eaf1f11750e966b33fd7b5d7c618e65af09f35ef843635bcf5f1ba",
+      "bytes": 1113,
+      "copiedFrom": "node_modules/@lezer/highlight/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@lezer/json",
+      "version": "1.0.3",
+      "file": "packages/@lezer/json@1.0.3/LICENSE",
+      "sha256": "7e744ae18ef84389d576469a5781172b0d50b7981111109f6da7cbc6b4188288",
+      "bytes": 1150,
+      "copiedFrom": "node_modules/@lezer/json/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@lezer/lr",
+      "version": "1.4.10",
+      "file": "packages/@lezer/lr@1.4.10/LICENSE",
+      "sha256": "568902fb66eaf1f11750e966b33fd7b5d7c618e65af09f35ef843635bcf5f1ba",
+      "bytes": 1113,
+      "copiedFrom": "node_modules/@lezer/lr/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@lezer/yaml",
+      "version": "1.0.4",
+      "file": "packages/@lezer/yaml@1.0.4/LICENSE",
+      "sha256": "8cb910abd2a5463466b7c31958b39d6787ebf9e9f299598266b814bc90dd076b",
+      "bytes": 1106,
+      "copiedFrom": "node_modules/@lezer/yaml/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@marijn/find-cluster-break",
+      "version": "1.0.4",
+      "file": "packages/@marijn/find-cluster-break@1.0.4/LICENSE",
+      "sha256": "9360b00fdd091f05c783b568bdd46c679c41b72415599252de98949462ea1acb",
+      "bytes": 1102,
+      "copiedFrom": "node_modules/@marijn/find-cluster-break/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@sagold/json-pointer",
+      "version": "5.1.2",
+      "file": "packages/@sagold/json-pointer@5.1.2/LICENSE.md",
+      "sha256": "26bf5d00c15eb14fb20eb0361d07bb65cf16b88a0d6204a8838fc98fc982f45b",
+      "bytes": 1097,
+      "copiedFrom": "node_modules/@sagold/json-pointer/LICENSE.md",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@sagold/json-query",
+      "version": "6.2.0",
+      "file": "packages/@sagold/json-query@6.2.0/LICENSE.md",
+      "sha256": "26bf5d00c15eb14fb20eb0361d07bb65cf16b88a0d6204a8838fc98fc982f45b",
+      "bytes": 1097,
+      "copiedFrom": "node_modules/@sagold/json-query/LICENSE.md",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@shikijs/core",
+      "version": "1.29.2",
+      "file": "packages/@shikijs/core@1.29.2/LICENSE",
+      "sha256": "7a9d8d01038aeacf9e5bcdabbddf2a7815200dce9fc1118468cc553e00ae3eee",
+      "bytes": 1121,
+      "copiedFrom": "node_modules/@shikijs/core/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@shikijs/engine-oniguruma",
+      "version": "1.29.2",
+      "file": "packages/@shikijs/engine-oniguruma@1.29.2/LICENSE",
+      "sha256": "7a9d8d01038aeacf9e5bcdabbddf2a7815200dce9fc1118468cc553e00ae3eee",
+      "bytes": 1121,
+      "copiedFrom": "node_modules/@shikijs/engine-oniguruma/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@shikijs/langs",
+      "version": "1.29.2",
+      "file": "packages/@shikijs/langs@1.29.2/LICENSE",
+      "sha256": "7a9d8d01038aeacf9e5bcdabbddf2a7815200dce9fc1118468cc553e00ae3eee",
+      "bytes": 1121,
+      "copiedFrom": "node_modules/@shikijs/langs/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@shikijs/markdown-it",
+      "version": "1.29.2",
+      "file": "packages/@shikijs/markdown-it@1.29.2/LICENSE",
+      "sha256": "7a9d8d01038aeacf9e5bcdabbddf2a7815200dce9fc1118468cc553e00ae3eee",
+      "bytes": 1121,
+      "copiedFrom": "node_modules/@shikijs/markdown-it/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@shikijs/themes",
+      "version": "1.29.2",
+      "file": "packages/@shikijs/themes@1.29.2/LICENSE",
+      "sha256": "7a9d8d01038aeacf9e5bcdabbddf2a7815200dce9fc1118468cc553e00ae3eee",
+      "bytes": 1121,
+      "copiedFrom": "node_modules/@shikijs/themes/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@shikijs/types",
+      "version": "1.29.2",
+      "file": "packages/@shikijs/types@1.29.2/LICENSE",
+      "sha256": "7a9d8d01038aeacf9e5bcdabbddf2a7815200dce9fc1118468cc553e00ae3eee",
+      "bytes": 1121,
+      "copiedFrom": "node_modules/@shikijs/types/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "@shikijs/vscode-textmate",
+      "version": "10.0.2",
+      "file": "packages/@shikijs/vscode-textmate@10.0.2/LICENSE.md",
+      "sha256": "b5cb7ff7859e7d282d98fc43ab081b0dda5dc659dc3385cf65740c759a7e6a6c",
+      "bytes": 1083,
+      "copiedFrom": "node_modules/@shikijs/vscode-textmate/LICENSE.md",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "best-effort-json-parser",
+      "version": "1.5.1",
+      "file": "packages/best-effort-json-parser@1.5.1/LICENSE",
+      "sha256": "1ddada5aa9c44773ecb6c4c6524a19edc5b95ab61f77e2b316b5482f0534fce7",
+      "bytes": 1344,
+      "copiedFrom": "node_modules/best-effort-json-parser/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "ccount",
+      "version": "2.0.1",
+      "file": "packages/ccount@2.0.1/license",
+      "sha256": "63cb98b3f6abfb3c3592c16f88253c1bdc834087bf52671e8ce5609e4eb693cf",
+      "bytes": 1099,
+      "copiedFrom": "node_modules/ccount/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "character-entities-html4",
+      "version": "2.1.0",
+      "file": "packages/character-entities-html4@2.1.0/license",
+      "sha256": "63cb98b3f6abfb3c3592c16f88253c1bdc834087bf52671e8ce5609e4eb693cf",
+      "bytes": 1099,
+      "copiedFrom": "node_modules/character-entities-html4/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "character-entities-legacy",
+      "version": "3.0.0",
+      "file": "packages/character-entities-legacy@3.0.0/license",
+      "sha256": "63cb98b3f6abfb3c3592c16f88253c1bdc834087bf52671e8ce5609e4eb693cf",
+      "bytes": 1099,
+      "copiedFrom": "node_modules/character-entities-legacy/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "codemirror-json-schema",
+      "version": "0.8.1",
+      "file": "packages/codemirror-json-schema@0.8.1/LICENSE",
+      "sha256": "6a753377ad3646e8c139ae2cb49cff89f38d8d025e40ee7f8f9a909f461b4df7",
+      "bytes": 1070,
+      "copiedFrom": "node_modules/codemirror-json-schema/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "comma-separated-tokens",
+      "version": "2.0.3",
+      "file": "packages/comma-separated-tokens@2.0.3/license",
+      "sha256": "ca4662cb5d1b738fbe5350c0d5485ba11773b4b7208974082ae6e129a52d631d",
+      "bytes": 1099,
+      "copiedFrom": "node_modules/comma-separated-tokens/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "crelt",
+      "version": "1.0.7",
+      "file": "packages/crelt@1.0.7/LICENSE",
+      "sha256": "23852ebf6aef7fadffc92514b3c5df163a8651f2c3ed0dbb494cb49d93bd5de5",
+      "bytes": 1089,
+      "copiedFrom": "node_modules/crelt/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "d3-dsv",
+      "version": "3.0.1",
+      "file": "packages/d3-dsv@3.0.1/LICENSE",
+      "sha256": "7842a82012622e5a37bfe4f6c1b67cd3bae6350716b5bf87f36cea0bdc1319dc",
+      "bytes": 731,
+      "copiedFrom": "node_modules/d3-dsv/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js; copied into src/core/csv.ts"
+    },
+    {
+      "package": "d3-format",
+      "version": "3.1.2",
+      "file": "packages/d3-format@3.1.2/LICENSE",
+      "sha256": "2a6d2d5f32ba0b755ddbc1c833f766e30cdbe6ebe9a6d4e3e24427721f0b63d3",
+      "bytes": 731,
+      "copiedFrom": "node_modules/d3-format/LICENSE",
+      "why": "copied into src/core/charts.ts"
+    },
+    {
+      "package": "d3-time-format",
+      "version": "4.1.0",
+      "file": "packages/d3-time-format@4.1.0/LICENSE",
+      "sha256": "e008c5e25a6be382593089c29bfabbc553c6378eee02895aec46ce396cc404ee",
+      "bytes": 731,
+      "copiedFrom": "node_modules/d3-time-format/LICENSE",
+      "why": "copied into src/core/charts.ts"
+    },
+    {
+      "package": "deepmerge",
+      "version": "4.3.1",
+      "file": "packages/deepmerge@4.3.1/license.txt",
+      "sha256": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b",
+      "bytes": 1116,
+      "copiedFrom": "node_modules/deepmerge/license.txt",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "ebnf",
+      "version": "1.9.1",
+      "file": "packages/ebnf@1.9.1/LICENSE",
+      "sha256": "36537da46754dd68eb7f9c223d3b1fe3f07a6e23ffb4d02dd704d0e052f63bd3",
+      "bytes": 1071,
+      "copiedFrom": "node_modules/ebnf/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "entities",
+      "version": "4.5.0",
+      "file": "packages/entities@4.5.0/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164",
+      "bytes": 1260,
+      "copiedFrom": "node_modules/codemirror-json-schema/node_modules/entities/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "fast-copy",
+      "version": "3.1.0",
+      "file": "packages/fast-copy@3.1.0/LICENSE",
+      "sha256": "13d1abb8d9ebb8a8a725c7b462928ddb063b03c2c353fa61408648882a10fea9",
+      "bytes": 1069,
+      "copiedFrom": "node_modules/fast-copy/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "fast-deep-equal",
+      "version": "3.1.3",
+      "file": "packages/fast-deep-equal@3.1.3/LICENSE",
+      "sha256": "7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a",
+      "bytes": 1074,
+      "copiedFrom": "node_modules/fast-deep-equal/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "hast-util-to-html",
+      "version": "9.0.5",
+      "file": "packages/hast-util-to-html@9.0.5/license",
+      "sha256": "dd1081884a92952802f4803110a6bb543acea9a814c786d58605b4c1219b5ebb",
+      "bytes": 1094,
+      "copiedFrom": "node_modules/hast-util-to-html/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "hast-util-whitespace",
+      "version": "3.0.0",
+      "file": "packages/hast-util-whitespace@3.0.0/license",
+      "sha256": "ca4662cb5d1b738fbe5350c0d5485ba11773b4b7208974082ae6e129a52d631d",
+      "bytes": 1099,
+      "copiedFrom": "node_modules/hast-util-whitespace/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "html-void-elements",
+      "version": "3.0.0",
+      "file": "packages/html-void-elements@3.0.0/license",
+      "sha256": "ca4662cb5d1b738fbe5350c0d5485ba11773b4b7208974082ae6e129a52d631d",
+      "bytes": 1099,
+      "copiedFrom": "node_modules/html-void-elements/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "json-schema-library",
+      "version": "9.3.5",
+      "file": "packages/json-schema-library@9.3.5/LICENSE.md",
+      "sha256": "26bf5d00c15eb14fb20eb0361d07bb65cf16b88a0d6204a8838fc98fc982f45b",
+      "bytes": 1097,
+      "copiedFrom": "node_modules/json-schema-library/LICENSE.md",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "json5",
+      "version": "2.2.3",
+      "file": "packages/json5@2.2.3/LICENSE.md",
+      "sha256": "53e59feb13058722d977c699eb0407c7bce2f93c949b681bbd2ff31698535927",
+      "bytes": 1145,
+      "copiedFrom": "node_modules/json5/LICENSE.md",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "linkify-it",
+      "version": "5.0.2",
+      "file": "packages/linkify-it@5.0.2/LICENSE",
+      "sha256": "95e3f7f0e81e9b4940cdfaa1956aaff5e4dfd2fb1565041e7c78eb9a606f23e3",
+      "bytes": 1058,
+      "copiedFrom": "node_modules/codemirror-json-schema/node_modules/linkify-it/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "loglevel",
+      "version": "1.9.2",
+      "file": "packages/loglevel@1.9.2/LICENSE-MIT",
+      "sha256": "18e8cf5f0dbaf13d9562e93b9bef79aff2acff18fab698c2d589d2159375a1f9",
+      "bytes": 1075,
+      "copiedFrom": "node_modules/loglevel/LICENSE-MIT",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "markdown-it-footnote",
+      "version": "4.0.0",
+      "file": "packages/markdown-it-footnote@4.0.0/LICENSE",
+      "sha256": "81d61236a5f25294b2dad0c866d4ad6a40b865148b28df9a71f49ba771a6c54b",
+      "bytes": 1078,
+      "copiedFrom": "node_modules/markdown-it-footnote/LICENSE",
+      "why": "copied into src/core/markdown.ts"
+    },
+    {
+      "package": "markdown-it",
+      "version": "14.3.2",
+      "file": "packages/markdown-it@14.3.2/LICENSE",
+      "sha256": "792c48c5a849a15fdf9e37e8bcf9e6d1dd13b32b46c642a748a0a46a9919d473",
+      "bytes": 1073,
+      "copiedFrom": "node_modules/codemirror-json-schema/node_modules/markdown-it/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "mdurl",
+      "version": "2.1.0",
+      "file": "packages/mdurl@2.1.0/LICENSE",
+      "sha256": "6b6a356c4337e2446841f30f3cdf7e7023af8c5260b5e347c0f987b9f6aa2644",
+      "bytes": 2303,
+      "copiedFrom": "node_modules/mdurl/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "nearley",
+      "version": "2.20.1",
+      "file": "packages/nearley@2.20.1/LICENSE.txt",
+      "sha256": "f0fcba18e7d0bc4c22f58a33566f27a0f26184d4e02827371a0ed84ea56a26e9",
+      "bytes": 1123,
+      "copiedFrom": "node_modules/nearley/LICENSE.txt",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "property-information",
+      "version": "7.2.0",
+      "file": "packages/property-information@7.2.0/license",
+      "sha256": "5d0698266086f217bb11ea0499d33453e401fe479fb9126ad04e625e63d3557b",
+      "bytes": 1101,
+      "copiedFrom": "node_modules/property-information/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "punycode.js",
+      "version": "2.3.1",
+      "file": "packages/punycode.js@2.3.1/LICENSE-MIT.txt",
+      "sha256": "483acb265f182907d1caf6cff9c16c96f31325ed23792832cc5d8b12d5f88c8a",
+      "bytes": 1077,
+      "copiedFrom": "node_modules/punycode.js/LICENSE-MIT.txt",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "shiki",
+      "version": "1.29.2",
+      "file": "packages/shiki@1.29.2/LICENSE",
+      "sha256": "7a9d8d01038aeacf9e5bcdabbddf2a7815200dce9fc1118468cc553e00ae3eee",
+      "bytes": 1121,
+      "copiedFrom": "node_modules/shiki/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "smtp-address-parser",
+      "version": "1.0.10",
+      "file": "packages/smtp-address-parser@1.0.10/LICENSE",
+      "sha256": "79195953f83b16fc7c04ce5d78720c86af1d970b9c6c736053da26f0879c595f",
+      "bytes": 1071,
+      "copiedFrom": "node_modules/smtp-address-parser/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "space-separated-tokens",
+      "version": "2.0.2",
+      "file": "packages/space-separated-tokens@2.0.2/license",
+      "sha256": "ca4662cb5d1b738fbe5350c0d5485ba11773b4b7208974082ae6e129a52d631d",
+      "bytes": 1099,
+      "copiedFrom": "node_modules/space-separated-tokens/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "stringify-entities",
+      "version": "4.0.4",
+      "file": "packages/stringify-entities@4.0.4/license",
+      "sha256": "9f084fac69d8cf1e6ce983ba5a3499c7695ed74a26ec625c38f0fd19fddd5e10",
+      "bytes": 1106,
+      "copiedFrom": "node_modules/stringify-entities/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "style-mod",
+      "version": "4.1.4",
+      "file": "packages/style-mod@4.1.4/LICENSE",
+      "sha256": "cb4474e26547397169061d3586c00022cda5330a1b64fa13e872319f3b63aff1",
+      "bytes": 1100,
+      "copiedFrom": "node_modules/style-mod/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "uc.micro",
+      "version": "2.1.0",
+      "file": "packages/uc.micro@2.1.0/LICENSE.txt",
+      "sha256": "483acb265f182907d1caf6cff9c16c96f31325ed23792832cc5d8b12d5f88c8a",
+      "bytes": 1077,
+      "copiedFrom": "node_modules/codemirror-json-schema/node_modules/uc.micro/LICENSE.txt",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "valid-url",
+      "version": "1.0.9",
+      "file": "packages/valid-url@1.0.9/LICENSE",
+      "sha256": "c48a681e53bfcd0a2b3ee2ea476e6d031fe7563f9eaa68f763bce0e3fb279a46",
+      "bytes": 1083,
+      "copiedFrom": "node_modules/valid-url/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "w3c-keyname",
+      "version": "2.2.8",
+      "file": "packages/w3c-keyname@2.2.8/LICENSE",
+      "sha256": "869c30f368eb08735e779027b9f4bc9fea2f39624351856aebe42741f0bc0884",
+      "bytes": 1100,
+      "copiedFrom": "node_modules/w3c-keyname/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "yaml",
+      "version": "2.9.1",
+      "file": "packages/yaml@2.9.1/LICENSE",
+      "sha256": "5bba27375d93e9119f76c1015f7672cf9ad5f70952296e0842fb2243d6376869",
+      "bytes": 738,
+      "copiedFrom": "node_modules/yaml/LICENSE",
+      "why": "bundled into lib/clients/editor/editor.js"
+    },
+    {
+      "package": "zwitch",
+      "version": "2.0.4",
+      "file": "packages/zwitch@2.0.4/license",
+      "sha256": "ca4662cb5d1b738fbe5350c0d5485ba11773b4b7208974082ae6e129a52d631d",
+      "bytes": 1099,
+      "copiedFrom": "node_modules/zwitch/license",
+      "why": "bundled into lib/clients/editor/editor.js"
+    }
+  ]
+}

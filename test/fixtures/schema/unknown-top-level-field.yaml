@@ -1,0 +1,7 @@
+schema: 1
+template: deck
+title: Fixture.
+author: Studio
+slides:
+  - layout: statement
+    title: S

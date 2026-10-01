@@ -1,0 +1,7 @@
+# Core-schema tags are accepted (D146): !!str keeps 2026 as text.
+schema: 1
+template: deck
+title: !!str 2026
+slides:
+  - layout: statement
+    title: One idea.

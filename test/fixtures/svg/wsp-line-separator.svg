@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100&#x2028;50" preserveAspectRatio="xMidYMid&#x2028;slice">
+  <line x1="1&#x2028;" y1="0" x2="10" y2="10" stroke="black"/>
+  <rect width="&#x2028;10" height="10" opacity="0.5&#x2028;"/>
+  <polyline points="0 0&#x2028; 10 10" fill="none" stroke="black"/>
+  <text x="1&#x2028;2" y="20">A</text>
+  <path d="M0 0&#x2028;L10 10" stroke="black"/>
+  <g transform="translate(1&#x2028;2)"/>
+  <g transform="translate(1 2)&#x2028;scale(2)"/>
+  <rect width="10" height="10" stroke="black" stroke-dasharray="1&#x2028;2" stroke-linecap="round&#x2028;"/>
+  <text y="30" font-family="&#x2028;Inter">B</text>
+</svg>

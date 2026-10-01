@@ -1,0 +1,8 @@
+/* Papeleria serve: the read-only preview shell. Own code under Apache-2.0; see LICENSE and NOTICE.md. */
+html, body { height: 100%; margin: 0; }
+body.serve-page { display: flex; flex-direction: column; background: var(--color-ground); color: var(--color-text); font: 400 .9375rem/1.5 system-ui, sans-serif; }
+.serve-note { margin: 0; padding: 8px 16px; background: var(--color-surface); border-bottom: 1px solid var(--color-rule); border-left: 3px solid var(--semantic-warning); font-weight: 700; }
+.serve-stage { position: relative; flex: 1; min-height: 0; }
+.serve-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: var(--color-ground); }
+.serve-frame.is-loading { visibility: hidden; }
+.serve-empty { margin: 32px auto; max-width: 30rem; padding: 0 16px; color: var(--color-text-muted); }

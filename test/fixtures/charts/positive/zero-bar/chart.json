@@ -1,0 +1,8 @@
+{
+  "id": "chart-zero",
+  "type": "bar",
+  "x": "phase",
+  "y": "hours",
+  "summary": "No hours were logged in any phase.",
+  "locale": "en"
+}

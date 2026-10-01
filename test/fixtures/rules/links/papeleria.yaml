@@ -1,0 +1,18 @@
+# R08 link-target fixture (D172, W5E): a relative link that stays in the
+# output must name a file the build wrote and a fragment something on the page;
+# a link that leaves the output folder is allowed and not verified.
+schema: 1
+template: deck
+title: Links
+
+slides:
+  - layout: cover
+    title: Where links lead
+    lead: '[the notes](assets/text/notes.md), [a gone part](#nowhere) and [the next piece](../other-piece/)'
+    notes: assets/text/notes.md
+
+  # The notes again: the page shows their links twice, and each is one finding where it is written.
+  - layout: closing
+    title: Links that lead somewhere
+    lead: '[back](#slide-1), [the top](#top), [the notices](THIRD_PARTY.md) and [this title](index.html#title-2)'
+    notes: assets/text/notes.md

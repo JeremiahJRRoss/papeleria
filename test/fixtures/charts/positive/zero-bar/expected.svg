@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="chart chart-bar chart-vertical" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="chart-zero-title">
+<title id="chart-zero-title">No hours were logged in any phase.</title>
+<g font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" font-variant="tabular-nums" fill="#1d1d1a">
+<g class="chart-axes">
+<line x1="8" y1="177.5" x2="632" y2="177.5" stroke="#d8d8d1" stroke-width="1"/>
+</g>
+<g class="chart-marks">
+<rect x="100" y="177" width="24" height="0" fill="#1d1d1a"/>
+<rect x="308" y="177" width="24" height="0" fill="#1d1d1a"/>
+<rect x="516" y="177" width="24" height="0" fill="#1d1d1a"/>
+</g>
+<g class="chart-labels">
+<text x="112" y="173" text-anchor="middle">0</text>
+<text x="320" y="173" text-anchor="middle">0</text>
+<text x="528" y="173" text-anchor="middle">0</text>
+<text x="112" y="336" dy="0.71em" text-anchor="middle">&#x2068;Review&#x2069;</text>
+<text x="320" y="336" dy="0.71em" text-anchor="middle">&#x2068;Build&#x2069;</text>
+<text x="528" y="336" dy="0.71em" text-anchor="middle">&#x2068;Delivery&#x2069;</text>
+</g>
+</g>
+</svg>

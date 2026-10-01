@@ -1,0 +1,20 @@
+# IC08 release fixture: headings long enough to wrap over several lines, one
+# a single word of 120 letters, with no space or hyphen to break at, longer
+# than the page is wide; each kept with the text after it.
+schema: 1
+template: document
+title: A takeaway long enough to wrap over several lines of the sheet, because authors sometimes write their whole finding into the title and it must still print whole.
+language: en
+status: draft
+doc_type: Print fixture
+sections:
+  - heading: A section heading that goes on and on, naming every phase, every owner, every date and every caveat the author could think of before the review, and still wraps inside the sheet
+    blocks:
+      - text: The first paragraph under the long heading.
+  - heading: Supercalifragilisticexpialidociousandthensomemorelettersaddedsothatnospaceorhyphenanywhereletsthislinebreakanywhereatall
+    blocks:
+      - text: The paragraph under the heading with one very long word.
+  - heading: Una sección con acentos, eñes y comillas «españolas» que también ha de ajustarse al ancho de la hoja impresa
+    new_page: true
+    blocks:
+      - text: The paragraph under the Spanish heading.

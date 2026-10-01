@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50">
+  <defs>
+    <linearGradient id="g"><stop offset="0" stop-color="red"/></linearGradient>
+    <clipPath id="c"><rect width="10" height="10"/></clipPath>
+    <mask id="m"><rect width="10" height="10" fill="white"/></mask>
+  </defs>
+  <rect width="10" height="10" fill="url(&#xA0;#g)"/>
+  <rect width="10" height="10" stroke="url(&#xA0;#g)"/>
+  <rect width="10" height="10" clip-path="url(&#xA0;#c)"/>
+  <rect width="10" height="10" mask="url(&#xA0;#m)"/>
+</svg>

@@ -1,0 +1,487 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://papeleria.ross.moda/schema/1/shared/schema-defs.json",
+  "title": "Papeleria shared manifest definitions",
+  "description": "Common manifest fields, shared value types and every content block, for schema version 1. The deck, comic and document schemas reference these definitions; the editor uses the descriptions as hover help and the generated manifest reference is built from them. A JSON Schema expresses shape, not meaning: finite coordinates and panel extents are R14, file existence is R02, CSV column names are R13 and placeholder or rights text is R01 and R06.",
+  "$defs": {
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "[^\\p{White_Space}\\p{Default_Ignorable_Code_Point}\\p{Cc}\\u115f\\u1160\\u2800\\u3164\\uffa0]",
+      "description": "Text that contains at least one visible character. A value of \"\" or \"   \" is rejected, and so is one made only of characters that show nothing: a zero-width space or joiner, a word joiner, a soft hyphen, a byte-order mark, a control character, a Hangul filler or the blank Braille pattern. A blank title, alternative text, transcript, summary, heading, label or name is the same as a missing one."
+    },
+    "inline_markdown": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "One line of Markdown for emphasis, code spans and links. Headings and lists are not allowed here; they belong in a text block. A line break is two trailing spaces or a backslash. Raw HTML is shown as visible text, never executed."
+    },
+    "text_value": {
+      "$ref": "#/$defs/non_empty_string",
+      "$comment": "C05: a value is a file reference exactly when it starts with assets/text/ and ends with .md, and only then is it held to the text path syntax.",
+      "if": {"type": "string", "pattern": "^assets/text/[\\s\\S]*\\.md$"},
+      "then": {"$ref": "#/$defs/text_file_path"},
+      "description": "Either Markdown written directly in the manifest, or the path of a Markdown file. A value that starts with assets/text/ and ends with .md loads that file, and must then be a well-formed path, like every file path in a manifest; every other value is the text itself. Markdown image syntax is rejected, so that alternative text, credit and rights stay explicit: use an image block."
+    },
+    "text_file_path": {
+      "type": "string",
+      "pattern": "^assets/text/(?:[A-Za-z0-9_-][A-Za-z0-9._-]*/)*[A-Za-z0-9_-][A-Za-z0-9._-]*\\.md$",
+      "description": "A Markdown file inside assets/text/, written with forward slashes, for example assets/text/summary.md. Folders are allowed. Absolute paths, drive letters, backslashes, .. segments and names starting with a dot are rejected."
+    },
+    "image_path": {
+      "type": "string",
+      "pattern": "^assets/images/(?:[A-Za-z0-9_-][A-Za-z0-9._-]*/)*[A-Za-z0-9_-][A-Za-z0-9._-]*\\.(?:png|jpg|jpeg|webp|svg)$",
+      "description": "An image inside assets/images/, for example assets/images/pier.jpg. Allowed extensions are .png, .jpg, .jpeg, .webp and .svg. An SVG is copied unchanged only after it passes the restricted profile; a raster image is resized at build time."
+    },
+    "logo_path": {
+      "type": "string",
+      "pattern": "^assets/images/logos/(?:[A-Za-z0-9_-][A-Za-z0-9._-]*/)*[A-Za-z0-9_-][A-Za-z0-9._-]*\\.(?:png|jpg|jpeg|webp|svg)$",
+      "description": "A logo inside assets/images/logos/, for example assets/images/logos/client.svg. Keeping logos in their own folder is what allows a client's mark to travel with the piece while owner marks stay out of it."
+    },
+    "data_path": {
+      "type": "string",
+      "pattern": "^assets/data/[A-Za-z0-9_-][A-Za-z0-9._-]*\\.csv$",
+      "description": "A CSV file directly inside assets/data/, for example assets/data/hours-by-phase.csv. The file is UTF-8, comma separated, uses a decimal point, and its first row is the header."
+    },
+    "video_path": {
+      "type": "string",
+      "pattern": "^assets/video/[A-Za-z0-9_-][A-Za-z0-9._-]*\\.(?:mp4|webm)$",
+      "description": "A video directly inside assets/video/, for example assets/video/loop.mp4. Allowed extensions are .mp4 and .webm. The measured duration must be greater than zero and at most 15 seconds."
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The manifest format this piece is written for. Schema 1 is the only version this release understands: a missing, non-integer or smaller value is a manifest error, and a larger one means the piece needs a newer Papeleria."
+    },
+    "template_name": {
+      "type": "string",
+      "enum": ["deck", "comic", "document"],
+      "description": "Which of the three templates builds this piece: deck for slides, comic for pages of art with panels, document for a printable report."
+    },
+    "title": {
+      "$ref": "#/$defs/inline_markdown",
+      "description": "The piece's title: the deck's cover title, the comic's title, or the document's takeaway. Required, and it must contain visible text."
+    },
+    "language": {
+      "type": "string",
+      "enum": ["en", "es"],
+      "default": "en",
+      "description": "The language of the published piece. It sets the page language and selects the English or Spanish control strings. The editor's own chrome stays English."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "review", "published", "withheld"],
+      "default": "draft",
+      "description": "Where the piece stands. It is shown in the register and the footer. published turns an unresolved placeholder into an error; withheld builds a private preview and writes nothing to dist/, leaving any earlier build untouched."
+    },
+    "wordmark": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "The wordmark text shown in registers and headers. When it is absent the theme's default is used."
+    },
+    "credit": {
+      "type": "object",
+      "description": "One person or organisation and what they did. Credits appear on a deck cover, on a comic's last page and in a document's metadata.",
+      "properties": {
+        "role": {
+          "$ref": "#/$defs/non_empty_string",
+          "description": "What they did, in your own words: Author, Art, Letters, Review."
+        },
+        "name": {
+          "$ref": "#/$defs/non_empty_string",
+          "description": "Who they are, as you want it printed."
+        }
+      },
+      "required": ["role", "name"],
+      "additionalProperties": false
+    },
+    "credits": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/credit"},
+      "description": "The credits for the whole piece, in the order you want them shown."
+    },
+    "alt_text": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "What the image shows, for a reader who cannot see it. Describe the content, not the file. A blank value is treated as missing."
+    },
+    "transcript": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "Everything said and shown in this panel, read out in order by a screen reader and printed under the page. It carries the story for anyone who cannot see the art, so a blank value is treated as missing."
+    },
+    "summary": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "One sentence saying what the chart shows, written by you. It is never generated from the data, and it stays exactly as you wrote it when the data changes."
+    },
+    "heading": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "The heading of this section. Its slug becomes the section's deep link."
+    },
+    "caption": {
+      "$ref": "#/$defs/text_value",
+      "description": "A caption printed with the figure. Inline Markdown or a Markdown file path."
+    },
+    "credit_line": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "Who made or supplied this asset. Missing credit is reported as a separate warning from missing rights."
+    },
+    "rights_line": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "The terms you hold this asset under, for example \"Studio photograph\" or a licence name. Missing rights is reported as a separate warning from missing credit."
+    },
+    "source_line": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "Where the numbers came from, printed under the chart or table. It stays visible in print."
+    },
+    "notes": {
+      "$ref": "#/$defs/text_value",
+      "description": "Speaker notes for this slide. They are shown only when notes are turned on, and they are never presented as slide content."
+    },
+    "footer_text": {
+      "$ref": "#/$defs/non_empty_string",
+      "description": "Footer text. The piece's status stays visible alongside it, and no page number is generated for you."
+    },
+    "hex_color": {
+      "type": "string",
+      "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$",
+      "description": "A colour written as #rgb or #rrggbb, for example #2f7fbf."
+    },
+    "focal_point": {
+      "type": "array",
+      "description": "The part of the image to keep in view when a layout crops it, as x and y percentages of the image. The default, the middle, is [50, 50].",
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Horizontal position, 0 at the left edge and 100 at the right."
+        },
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Vertical position, 0 at the top edge and 100 at the bottom."
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2,
+      "default": [50, 50]
+    },
+    "panel_box": {
+      "type": "array",
+      "description": "Where this panel sits on the page image: x, y, width and height as percentages of the image. x and y may be 0; width and height must be greater than 0. The box must stay inside the page, which the panel geometry rule checks in full, together with the requirement that every number be finite.",
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Distance from the left edge of the page image, as a percentage."
+        },
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Distance from the top edge of the page image, as a percentage."
+        },
+        {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "description": "Width of the panel, as a percentage of the page image. A panel with no width cannot be read, so 0 is rejected."
+        },
+        {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "description": "Height of the panel, as a percentage of the page image. A panel with no height cannot be read, so 0 is rejected."
+        }
+      ],
+      "items": false,
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "detail_href": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?:https://\\S+|http://\\S+|mailto:\\S+|tel:\\S+|(?![\\\\/])[^:\\s]+)$",
+      "description": "Where the panel's link goes when the reader chooses it: an https, http, mailto or tel address, a page-relative target, or a fragment such as #page-3. Anything else, including javascript:, data:, //host forms written with any mix of slashes and backslashes and a /path from the root of the site, is rejected. Write the scheme in lower case; the full check happens when the piece is built."
+    },
+    "detail": {
+      "type": "object",
+      "description": "What a panel opens when the reader chooses it: a tap or click on the panel, Enter or Space when it has focus, or Detail in guided view. A panel whose detail is a link is that link, followed on a tap, a click or Enter, as any link is. Exactly one of zoom, text, image and href is present. A panel with no detail is still a focusable transcript button; it shows no detail hint and opens no empty dialog.",
+      "properties": {
+        "zoom": {
+          "const": true,
+          "description": "Set to true to pan and zoom into this panel's area of the original page image."
+        },
+        "text": {
+          "$ref": "#/$defs/text_value",
+          "description": "Extra text to show, written here or loaded from a Markdown file."
+        },
+        "image": {
+          "$ref": "#/$defs/image_block",
+          "description": "Another image to show, with its own alternative text, credit and rights."
+        },
+        "href": {
+          "$ref": "#/$defs/detail_href",
+          "description": "A link for the reader to follow. It needs a label, and it opens only when the reader chooses it."
+        },
+        "label": {
+          "$ref": "#/$defs/non_empty_string",
+          "description": "The link text. Required with href, and allowed only with href."
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {"required": ["zoom"]},
+        {"required": ["text"]},
+        {"required": ["image"]},
+        {"required": ["href"]}
+      ],
+      "allOf": [
+        {"if": {"required": ["href"]}, "then": {"required": ["label"]}},
+        {"if": {"required": ["label"]}, "then": {"required": ["href"]}}
+      ]
+    },
+    "panel": {
+      "type": "object",
+      "description": "One panel of a comic page, in reading order. Each panel is a button over its box, named by its transcript, or a link when its detail is a link, and it can be linked to directly.",
+      "properties": {
+        "box": {
+          "$ref": "#/$defs/panel_box",
+          "description": "Where the panel sits on the page image."
+        },
+        "transcript": {
+          "$ref": "#/$defs/transcript",
+          "description": "Everything said and shown in this panel."
+        },
+        "detail": {
+          "$ref": "#/$defs/detail",
+          "description": "What opens when the reader chooses this panel. Leave it out for a transcript-only panel."
+        }
+      },
+      "required": ["box", "transcript"],
+      "additionalProperties": false
+    },
+    "metadata_item": {
+      "type": "object",
+      "description": "One labelled fact in a document's metadata block, such as Audience, Owner, Period or Version.",
+      "properties": {
+        "label": {"$ref": "#/$defs/non_empty_string", "description": "What the fact is called."},
+        "value": {"$ref": "#/$defs/non_empty_string", "description": "The fact itself."}
+      },
+      "required": ["label", "value"],
+      "additionalProperties": false
+    },
+    "item": {
+      "type": "object",
+      "description": "One labelled line on an attributes slide.",
+      "properties": {
+        "label": {"$ref": "#/$defs/non_empty_string", "description": "The short label on the left."},
+        "text": {"$ref": "#/$defs/non_empty_string", "description": "What it says."}
+      },
+      "required": ["label", "text"],
+      "additionalProperties": false
+    },
+    "swatch": {
+      "type": "object",
+      "description": "One colour on a palette slide.",
+      "properties": {
+        "name": {"$ref": "#/$defs/non_empty_string", "description": "What the colour is called, such as \"Process cyan\"."},
+        "value": {"$ref": "#/$defs/hex_color", "description": "The colour itself, as #rgb or #rrggbb."},
+        "use": {"$ref": "#/$defs/non_empty_string", "description": "Where it is used, such as \"section rail\"."}
+      },
+      "required": ["name", "value"],
+      "additionalProperties": false
+    },
+    "column": {
+      "type": "object",
+      "description": "One column on a two, three or four column slide.",
+      "properties": {
+        "heading": {"$ref": "#/$defs/non_empty_string", "description": "The column heading."},
+        "text": {"$ref": "#/$defs/text_value", "description": "The column text, written here or loaded from a Markdown file."}
+      },
+      "required": ["heading", "text"],
+      "additionalProperties": false
+    },
+    "table_column": {
+      "description": "One column of a table. Write the CSV header name on its own, or a map with field and label when the printed heading should differ from the header in the file.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/non_empty_string",
+          "description": "The CSV header name, matched exactly, including case."
+        },
+        {
+          "type": "object",
+          "description": "A CSV column shown under a different heading.",
+          "properties": {
+            "field": {"$ref": "#/$defs/non_empty_string", "description": "The CSV header name, matched exactly, including case."},
+            "label": {"$ref": "#/$defs/non_empty_string", "description": "The heading to print instead of the header name."}
+          },
+          "required": ["field"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "text_block": {
+      "$ref": "#/$defs/text_value",
+      "description": "A block of prose. Write the Markdown directly, or give the path of a file under assets/text/. Headings inside it are rebased to the section or slide that contains it."
+    },
+    "image_block": {
+      "type": "object",
+      "description": "A picture. Give it either alternative text or a decorative mark, never both and never neither.",
+      "properties": {
+        "src": {"$ref": "#/$defs/image_path", "description": "The image file under assets/images/."},
+        "alt": {"$ref": "#/$defs/alt_text", "description": "What the image shows, for a reader who cannot see it."},
+        "decorative": {
+          "const": true,
+          "description": "Set to true when the image adds nothing a reader needs, so it is hidden from screen readers. Use it instead of alt, never as well."
+        },
+        "caption": {"$ref": "#/$defs/caption", "description": "A caption printed with the picture."},
+        "credit": {"$ref": "#/$defs/credit_line", "description": "Who made or supplied the picture."},
+        "rights": {"$ref": "#/$defs/rights_line", "description": "The terms you hold the picture under."},
+        "focal_point": {"$ref": "#/$defs/focal_point", "description": "The part to keep in view when a layout crops the picture."}
+      },
+      "required": ["src"],
+      "additionalProperties": false,
+      "oneOf": [
+        {"required": ["alt"]},
+        {"required": ["decorative"]}
+      ]
+    },
+    "video_block": {
+      "type": "object",
+      "description": "A short silent loop, allowed only inside a document section. It never starts by itself: the reader presses Play, and the controls stay available. In print the poster and the alternative are shown instead.",
+      "properties": {
+        "src": {"$ref": "#/$defs/video_path", "description": "The video file under assets/video/, at most 15 seconds long."},
+        "poster": {"$ref": "#/$defs/image_path", "description": "The still shown before play and in print."},
+        "alt": {"$ref": "#/$defs/alt_text", "description": "What the loop shows, for a reader who cannot watch it."},
+        "caption": {"$ref": "#/$defs/caption", "description": "A caption printed with the video."},
+        "credit": {"$ref": "#/$defs/credit_line", "description": "Who made or supplied the video."},
+        "rights": {"$ref": "#/$defs/rights_line", "description": "The terms you hold the video under."}
+      },
+      "required": ["src", "poster", "alt"],
+      "additionalProperties": false
+    },
+    "chart_block": {
+      "type": "object",
+      "description": "A bar or line chart drawn from a CSV file at build time. The picture is generated; the summary is yours.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["bar", "line"],
+          "description": "bar compares categories; line follows a number or a date across a run."
+        },
+        "orientation": {
+          "type": "string",
+          "enum": ["vertical", "horizontal"],
+          "default": "vertical",
+          "description": "Which way the bars run. Horizontal suits long category names. Bar charts only: a line chart must not set it."
+        },
+        "data": {"$ref": "#/$defs/data_path", "description": "The CSV file under assets/data/."},
+        "x": {"$ref": "#/$defs/non_empty_string", "description": "The CSV header to read along the bottom, matched exactly."},
+        "y": {"$ref": "#/$defs/non_empty_string", "description": "The CSV header to read up the side, matched exactly. Every value in it must be a finite number."},
+        "series": {"$ref": "#/$defs/non_empty_string", "description": "A CSV header whose distinct values become one line or one bar group each."},
+        "summary": {"$ref": "#/$defs/summary", "description": "One sentence saying what the chart shows."},
+        "show_table": {
+          "type": "boolean",
+          "default": false,
+          "description": "Set to true to print the same numbers as a table beneath the chart."
+        },
+        "caption": {"$ref": "#/$defs/caption", "description": "A caption printed with the chart."},
+        "source": {"$ref": "#/$defs/source_line", "description": "Where the numbers came from."}
+      },
+      "required": ["type", "data", "x", "y", "summary"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$comment": "ERD CHART: orientation is a bar setting. A line chart must not carry it.",
+          "if": {"properties": {"type": {"const": "line"}}, "required": ["type"]},
+          "then": {"not": {"required": ["orientation"]}}
+        }
+      ]
+    },
+    "table_block": {
+      "type": "object",
+      "description": "The contents of a CSV file shown as a table. Cells keep the text exactly as the file has it; an empty cell prints an em dash and is announced as having no value.",
+      "properties": {
+        "data": {"$ref": "#/$defs/data_path", "description": "The CSV file under assets/data/."},
+        "columns": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/table_column"},
+          "minItems": 1,
+          "description": "Which columns to show, in the order you want them. Leave it out to show every column in file order."
+        },
+        "caption": {"$ref": "#/$defs/caption", "description": "A caption printed with the table."},
+        "source": {"$ref": "#/$defs/source_line", "description": "Where the numbers came from."}
+      },
+      "required": ["data"],
+      "additionalProperties": false
+    },
+    "quote_block": {
+      "type": "object",
+      "description": "A quotation, set apart from the surrounding text.",
+      "properties": {
+        "text": {"$ref": "#/$defs/text_value", "description": "The quotation itself."},
+        "attribution": {"$ref": "#/$defs/non_empty_string", "description": "Who said it, and where, if you want it shown."}
+      },
+      "required": ["text"],
+      "additionalProperties": false
+    },
+    "note_block": {
+      "type": "object",
+      "description": "An aside next to the main text, labelled Note or Warning in the piece's language.",
+      "properties": {
+        "text": {"$ref": "#/$defs/text_value", "description": "What the note says."},
+        "tone": {
+          "type": "string",
+          "enum": ["default", "warning"],
+          "default": "default",
+          "description": "default for an ordinary aside, warning for something the reader must not miss."
+        }
+      },
+      "required": ["text"],
+      "additionalProperties": false
+    },
+    "callout_block": {
+      "type": "object",
+      "description": "A short statement pulled out and set in the display face.",
+      "properties": {
+        "text": {"$ref": "#/$defs/text_value", "description": "The statement."}
+      },
+      "required": ["text"],
+      "additionalProperties": false
+    },
+    "logo_block": {
+      "type": "object",
+      "description": "A logo, shown in a register or in the flow of a document.",
+      "properties": {
+        "src": {"$ref": "#/$defs/logo_path", "description": "The logo file under assets/images/logos/."},
+        "alt": {"$ref": "#/$defs/alt_text", "description": "Whose logo it is, for a reader who cannot see it."}
+      },
+      "required": ["src", "alt"],
+      "additionalProperties": false
+    },
+    "block": {
+      "type": "object",
+      "description": "One content block, written as its kind with that kind's fields. Exactly one kind key is present: a block with none says nothing, and a block with two does not say which one to draw. Which kinds a container accepts is set by its own schema; video is a document section block only.",
+      "properties": {
+        "text": {"$ref": "#/$defs/text_block", "description": "Prose, written here or loaded from assets/text/."},
+        "image": {"$ref": "#/$defs/image_block", "description": "A picture with alternative text or a decorative mark."},
+        "video": {"$ref": "#/$defs/video_block", "description": "A short silent loop. Document sections only."},
+        "chart": {"$ref": "#/$defs/chart_block", "description": "A bar or line chart drawn from a CSV file."},
+        "table": {"$ref": "#/$defs/table_block", "description": "A CSV file shown as a table."},
+        "quote": {"$ref": "#/$defs/quote_block", "description": "A quotation."},
+        "note": {"$ref": "#/$defs/note_block", "description": "An aside, ordinary or a warning."},
+        "callout": {"$ref": "#/$defs/callout_block", "description": "A short statement in the display face."},
+        "logo": {"$ref": "#/$defs/logo_block", "description": "A logo from assets/images/logos/."}
+      },
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1
+    },
+    "blocks": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/block"},
+      "minItems": 1,
+      "description": "The blocks of a section, in the order they are read. A section needs at least one."
+    }
+  }
+}

@@ -1,0 +1,31 @@
+# Valid: pages with every detail kind, a page without panels, and the edge box (C10, C11, C18 positives).
+schema: 1
+template: comic
+title: The ferry
+format: Web Comics
+language: es
+status: review
+credits:
+  - {role: Art, name: Studio}
+pages:
+  - image: assets/images/pages/01.png
+    alt: A harbor at dawn.
+    credit: Studio
+    rights: Studio art
+    panels:
+      - box: [0, 0, 100, 100]
+        transcript: "Narration: the whole page."
+        detail: {zoom: true}
+      - box: [64, 4, 32, 28]
+        transcript: A gull on a bollard.
+        detail: {text: assets/text/gull-note.md}
+      - box: [4, 36, 92, 26]
+        transcript: Wide shot of the harbor.
+        detail: {image: {src: assets/images/detail.png, alt: "The gull, closer."}}
+      - box: [4, 66, 44, 30]
+        transcript: "Speech: Is it always like this?"
+        detail: {href: "https://example.com/ferry", label: The ferry timetable}
+      - box: [52, 66, 44, 30]
+        transcript: The ferry appears through the fog.
+  - image: assets/images/pages/02.svg
+    alt: The ferry leaves; the pier is empty.

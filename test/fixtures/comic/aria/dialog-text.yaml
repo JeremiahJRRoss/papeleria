@@ -1,0 +1,16 @@
+- dialog "Panel 2 of 5 on page 1":
+  - heading "Panel 2 of 5 on page 1" [level=2]
+  - button "Close"
+  - heading "A heading in the note" [level=4]
+  - paragraph:
+    - text: The note's first paragraph, with
+    - emphasis: emphasis
+    - text: ", a link to"
+    - link "the last page":
+      - /url: "#page-5"
+    - text: and one to
+    - link "an address outside (External link)":
+      - /url: https://example.com/outside
+    - text: .
+  - paragraph: A second paragraph.
+  - paragraph: Panel two opens a note.

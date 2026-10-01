@@ -1,0 +1,8 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: chart
+    title: S
+    chart: {type: bar, data: assets/data/hours.csv, x: phase, y: hours, summary: Review took longest.}
+    table: {data: assets/data/hours.csv}

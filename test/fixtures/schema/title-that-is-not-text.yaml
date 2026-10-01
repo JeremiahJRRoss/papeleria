@@ -1,0 +1,6 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: statement
+    title: 2026

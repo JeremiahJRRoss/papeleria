@@ -1,0 +1,48 @@
+# The starter deck: the piece that `papeleria new deck` copies.
+schema: 1
+template: deck
+title: Craft with care. Build for the long view.
+language: en
+status: draft
+register: Starter deck / Draft
+edition: Version 0.1 / 2026-09-21
+credits:
+  - { role: Author, name: Ross.moda studio }
+
+slides:
+  - layout: cover
+    title: Craft with care. Build for the long view.
+    lead: Papeleria templates
+    notes: assets/text/01-cover-notes.md
+
+  - layout: statement
+    title: Care should be visible in the work.
+    lead: A considered label. A clear handoff. A source you can inspect. A record you can continue.
+    footer: Proposed brand principle
+
+  - layout: three
+    title: The record should outlast the meeting.
+    lead: Professional documents share a durable information structure.
+    columns:
+      - heading: Context
+        text: Audience, purpose, scope, version, and owner.
+      - heading: Basis
+        text: Evidence, assumptions, limitations, and terms.
+      - heading: Next action
+        text: A clear decision, responsibility, and record.
+    footer: Adapted / S06–S07
+
+  - layout: chart
+    title: Where the hours went.
+    chart:
+      type: bar
+      data: assets/data/hours-by-phase.csv
+      x: phase
+      y: hours
+      summary: Review took the most hours and delivery the fewest.
+    footer: Sample data
+
+  - layout: closing
+    title: Build a practice people can carry forward.
+    lead: Use the system. Keep the source. Make the next decision clear.
+    footer: Draft / approval pending

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="papeleria-style-nonce" content="__PAPELERIA_STYLE_NONCE__">
+<meta name="referrer" content="no-referrer">
+<title>Papeleria editor</title>
+<link rel="icon" href="theme/marks/papeleria-favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="theme/css/fonts.css">
+<link rel="stylesheet" href="theme/css/tokens.css">
+<link rel="stylesheet" href="theme/css/site.css">
+<link rel="stylesheet" href="editor.css">
+<script src="editor.js" defer></script>
+</head>
+<body class="editor-page">
+<a class="skip-link" href="#source">Skip to the source</a>
+<header class="editor-header">
+  <span class="wordmark editor-wordmark" id="wordmark">papeleria</span>
+  <span class="editor-tool">Papeleria™</span>
+  <p class="editor-piece" id="piece-line">Opening the piece…</p>
+  <div class="editor-actions">
+    <button type="button" class="button secondary" id="save" disabled>Save</button>
+    <button type="button" class="button secondary" id="save-all" disabled>Save all</button>
+    <button type="button" class="button" id="build" aria-describedby="build-hint">Build</button>
+    <button type="button" class="button secondary" id="check" title="Checks the manifest and every unsaved Markdown buffer; writes nothing to dist/">Check</button>
+    <details class="editor-keys">
+      <summary>Keys</summary>
+      <dl>
+        <dt>Ctrl S, Cmd S</dt><dd>Save the current file</dd>
+        <dt>Ctrl B, Cmd B</dt><dd>Build saved files to dist/</dd>
+        <dt>Ctrl Space</dt><dd>Complete a field from the schema</dd>
+        <dt>Escape</dt><dd>Close completion. In the preview: close a detail, then leave guided view, then leave full screen, then return to the source where you were</dd>
+        <dt>Arrow keys on the divider</dt><dd>Resize the editor and the preview</dd>
+      </dl>
+    </details>
+  </div>
+  <p class="editor-hint" id="build-hint" hidden>Save all changed files before building.</p>
+</header>
+<div class="editor-banner" id="banner" role="alert" hidden>
+  <p id="banner-text"></p>
+  <div class="editor-banner-actions">
+    <button type="button" class="button secondary" id="banner-reload">Reload</button>
+    <button type="button" class="button secondary" id="banner-keep">Keep mine</button>
+  </div>
+</div>
+<main class="editor-main" id="editor-main">
+  <section class="editor-source" id="source" aria-label="Editor" tabindex="-1">
+    <div class="editor-tabbar">
+      <div class="editor-tabs" role="tablist" aria-label="Open files" id="tabs"></div>
+      <div class="editor-files">
+        <button type="button" class="editor-files-toggle" id="files-toggle" aria-expanded="false" aria-controls="files">Open a file</button>
+        <div class="editor-files-list" id="files" hidden></div>
+      </div>
+    </div>
+    <div class="editor-panels" id="panels"></div>
+  </section>
+  <div class="editor-divider" id="divider" role="separator" aria-orientation="vertical" aria-label="Resize the editor and the preview" aria-valuemin="30" aria-valuemax="70" aria-valuenow="50" tabindex="0"></div>
+  <section class="editor-preview" id="preview" aria-label="Preview">
+    <div class="preview-toolbar">
+      <div class="preview-widths" role="group" aria-label="Preview width">
+        <button type="button" aria-pressed="false" data-width="390">Phone</button>
+        <button type="button" aria-pressed="false" data-width="834">Tablet</button>
+        <button type="button" aria-pressed="true" data-width="1280">Desktop</button>
+      </div>
+      <button type="button" aria-pressed="true" id="follow">Follow</button>
+      <button type="button" aria-pressed="false" id="grid" hidden>Grid</button>
+      <span class="preview-readout" id="pointer-readout" hidden></span>
+      <button type="button" id="open-tab" disabled>Open in a new tab</button>
+    </div>
+    <div class="preview-stage" id="stage">
+      <p class="preview-empty" id="preview-empty">Building the preview…</p>
+      <p class="preview-stale" id="preview-stale" hidden>Preview is from before the error</p>
+    </div>
+    <p class="editor-status" id="status" role="status" aria-live="polite"><span id="status-preview"></span><span id="status-note"></span></p>
+  </section>
+</main>
+<aside class="editor-diagnostics" id="diagnostics" aria-label="Diagnostics">
+  <div class="diagnostics-bar">
+    <button type="button" class="diagnostics-count" id="count-errors" aria-expanded="false" aria-controls="diagnostics-list">✕ 0 errors</button>
+    <button type="button" class="diagnostics-count" id="count-warnings" aria-expanded="false" aria-controls="diagnostics-list">⚠ 0 warnings</button>
+    <p class="diagnostics-cursor" id="cursor-message"></p>
+  </div>
+  <div class="diagnostics-list" id="diagnostics-list" hidden></div>
+</aside>
+</body>
+</html>

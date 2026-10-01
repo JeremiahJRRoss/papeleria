@@ -1,0 +1,26 @@
+# R06 fixture (M1.7): credit and rights are separate warnings, each at the
+# image that lacks it. A deck logo has neither field and is never reported.
+schema: 1
+template: deck
+title: Credits and rights
+logo: {src: assets/images/logos/client.svg, alt: Client}
+
+slides:
+  - layout: image
+    title: Neither
+    image: {src: assets/images/mark.svg, alt: A mark}
+
+  - layout: image
+    title: Credit only
+    image: {src: assets/images/mark.svg, alt: A mark, credit: Studio}
+
+  - layout: image
+    title: Rights only, decorative
+    image:
+      src: assets/images/mark.svg
+      decorative: true
+      rights: CC BY 4.0
+
+  - layout: image
+    title: Both
+    image: {src: assets/images/mark.svg, alt: A mark, credit: Studio, rights: CC BY 4.0}

@@ -1,0 +1,57 @@
+# R01 fixture (M1.7): every kind of author string that can hold a placeholder,
+# and every form IC01 says is not one. test/unit/rules.test.ts builds it as a
+# draft and again as published, and expects each placeholder where it is written.
+schema: 1
+template: deck
+title: '[Deck title] for the client'
+status: draft
+register: '[Client] / Draft'
+edition: 'Edition \[Draft] of [1, 2]'
+credits:
+  - {role: Author, name: '[Author name]'}
+
+slides:
+  - layout: cover
+    title: Welcome, [Nombre del cliente]
+    lead: See `[not this]`, [a link](https://example.com/x) and \[escaped\]
+    notes: assets/text/notes.md
+
+  - layout: two
+    title: Two columns
+    lead: 'Eighty-one characters make no placeholder: [ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc]'
+    footer: 'Nor in plain text: [ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd]'
+    columns:
+      - heading: '[Heading]'
+        text: 'Inline text with [Ärger], [1] and [^note]'
+      - heading: Second
+        text: |-
+          First line
+          [Twice] then [Twice]
+
+  - layout: chart
+    title: A table
+    table:
+      data: assets/data/hours.csv
+      columns:
+        - {field: phase, label: '[Phase label]'}
+        - hours
+
+  - layout: image
+    title: A picture
+    image:
+      src: assets/images/mark.svg
+      alt: '[Describe the image]'
+      caption: '[Caption]'
+      credit: '[Photographer]'
+      rights: '[Licence]'
+
+  - layout: palette
+    title: Colours
+    swatches:
+      - {name: '[Colour name]', value: '#0f766e', use: 'Use for [purpose]'}
+
+  # Footnote syntax exists in block text alone: a title, a lead and plain text print it.
+  - layout: statement
+    title: Results [^draft]
+    lead: 'Shown as written: [^lead note]'
+    footer: 'Printed too: [^footer note]'

@@ -1,0 +1,1 @@
+Adapted slide. In the source kit this slide proposed the two paths of the studio’s website. It now shows Papeleria’s three template families from the PRD. Source: the Ross.moda design language kit, authored by JR (Jeremiah Ross).

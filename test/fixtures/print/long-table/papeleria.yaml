@@ -1,0 +1,15 @@
+# IC08 release fixture: a table over several printed pages whose header must
+# repeat on each, with one row (R061) taller than a page, which may split but
+# must lose nothing.
+schema: 1
+template: document
+title: A table over several pages.
+language: en
+status: draft
+doc_type: Print fixture
+sections:
+  - heading: The long table
+    blocks:
+      - text: The table below runs over several pages; its header repeats on each.
+      - table: { data: assets/data/rows.csv, caption: One hundred and twenty rows., source: Test data }
+      - text: The paragraph after the table.

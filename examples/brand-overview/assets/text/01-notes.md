@@ -1,0 +1,1 @@
+This is a proposed cross-media brand system prepared for Papeleria. The connective line is newly authored. The live website and repository represent different directions; no brand approval, client outcomes, service catalog, or public deployment is implied. Source register is in the accompanying HTML library.

@@ -1,0 +1,8 @@
+# The summary is one soft hyphen, which shows only where a word breaks.
+schema: 1
+template: document
+title: Fixture.
+sections:
+  - heading: Hours
+    blocks:
+      - chart: {type: bar, data: assets/data/hours.csv, x: phase, y: hours, summary: "\u00AD"}

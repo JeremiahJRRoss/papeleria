@@ -1,0 +1,8 @@
+{
+  "id": "chart-stages",
+  "type": "bar",
+  "x": "stage",
+  "y": "hours",
+  "summary": "Production artwork took the most hours.",
+  "locale": "en"
+}

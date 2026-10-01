@@ -1,0 +1,5 @@
+schema: 1
+template: document
+title: Fixture.
+sections:
+  - heading: Hours

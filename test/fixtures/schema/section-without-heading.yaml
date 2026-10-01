@@ -1,0 +1,6 @@
+schema: 1
+template: document
+title: Fixture.
+sections:
+  - blocks:
+      - text: Words.

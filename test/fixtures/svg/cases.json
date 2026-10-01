@@ -1,0 +1,775 @@
+{
+  "description": "IC02 bounded SVG profile. Each rejected file lists every problem it must produce, in order, located by marker text in that file (the marker's first character, or its n-th occurrence). valid.svg exercises every allowed element and attribute kind and must be accepted with its viewBox size.",
+  "cases": [
+    {
+      "file": "valid.svg",
+      "valid": true,
+      "width": 800,
+      "height": 1200
+    },
+    {
+      "file": "doctype.svg",
+      "expect": [
+        {
+          "at": "<!DOCTYPE",
+          "message": "The SVG has a DOCTYPE; document type and entity declarations are not allowed.",
+          "fix": "Remove the <!DOCTYPE …> declaration."
+        },
+        {
+          "at": "&boom;",
+          "message": "The SVG is not well-formed XML: undefined entity.",
+          "fix": "Fix the XML, or export the SVG again."
+        }
+      ],
+      "note": "saxes reads no internal subset, so the entity it declares stays undefined and is reported where it is used"
+    },
+    {
+      "file": "undefined-entity.svg",
+      "expect": [
+        {
+          "at": "&nbsp;",
+          "message": "The SVG is not well-formed XML: undefined entity.",
+          "fix": "Fix the XML, or export the SVG again."
+        }
+      ],
+      "note": "only the five XML entities and character references exist without a DTD"
+    },
+    {
+      "file": "script.svg",
+      "expect": [
+        {
+          "at": "<script>",
+          "message": "Scripts are not allowed in an SVG.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ],
+      "note": "the refused element is reported once; its content is not reported again"
+    },
+    {
+      "file": "foreign-object.svg",
+      "expect": [
+        {
+          "at": "<foreignObject",
+          "message": "foreignObject is not allowed in an SVG.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ]
+    },
+    {
+      "file": "style-element.svg",
+      "expect": [
+        {
+          "at": "<style>",
+          "message": "Style elements are not allowed in an SVG; use presentation attributes such as fill and stroke.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ],
+      "note": "the refused element is reported once; its CSS content is not reported again"
+    },
+    {
+      "file": "style-attribute.svg",
+      "expect": [
+        {
+          "at": "style=",
+          "message": "The style attribute is not allowed in an SVG.",
+          "fix": "Write each property as its own attribute, such as fill=\"#1d1d1a\"."
+        }
+      ]
+    },
+    {
+      "file": "event-attribute.svg",
+      "expect": [
+        {
+          "at": "onclick",
+          "message": "The event attribute onclick is not allowed in an SVG.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ]
+    },
+    {
+      "file": "xlink-href.svg",
+      "expect": [
+        {
+          "at": "xmlns:xlink",
+          "message": "The namespaced attribute xmlns:xlink is not allowed.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        },
+        {
+          "at": "xlink:href",
+          "message": "The attribute xlink:href links outside the SVG and is not allowed.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ]
+    },
+    {
+      "file": "href.svg",
+      "expect": [
+        {
+          "at": "href=",
+          "message": "The href attribute is not allowed in an SVG.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ]
+    },
+    {
+      "file": "external-url.svg",
+      "expect": [
+        {
+          "at": "fill=",
+          "message": "The fill value \"url(https://example.com/pattern.svg#p)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the fill value."
+        }
+      ]
+    },
+    {
+      "file": "url-no-break-space.svg",
+      "expect": [
+        {
+          "at": "fill=\"url(",
+          "message": "The fill value \"url( #g)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the fill value."
+        },
+        {
+          "at": "stroke=\"url(",
+          "message": "The stroke value \"url( #g)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the stroke value."
+        },
+        {
+          "at": "clip-path=\"url(",
+          "message": "The clip-path value \"url( #c)\" must be none or url(#id), naming an element in this file.",
+          "fix": "Correct the clip-path value."
+        },
+        {
+          "at": "mask=\"url(",
+          "message": "The mask value \"url( #m)\" must be none or url(#id), naming an element in this file.",
+          "fix": "Correct the mask value."
+        }
+      ],
+      "note": "CSS whitespace is only space, tab, line feed, carriage return and form feed; a browser reads url(<U+00A0>#g) as the relative URL %C2%A0#g and requests it when the SVG is opened directly (D154)"
+    },
+    {
+      "file": "url-ideographic-space.svg",
+      "expect": [
+        {
+          "at": "fill=\"url(",
+          "message": "The fill value \"url(　#g)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the fill value."
+        },
+        {
+          "at": "stroke=\"url(",
+          "message": "The stroke value \"url(　#g)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the stroke value."
+        },
+        {
+          "at": "clip-path=\"url(",
+          "message": "The clip-path value \"url(　#c)\" must be none or url(#id), naming an element in this file.",
+          "fix": "Correct the clip-path value."
+        },
+        {
+          "at": "mask=\"url(",
+          "message": "The mask value \"url(　#m)\" must be none or url(#id), naming an element in this file.",
+          "fix": "Correct the mask value."
+        }
+      ],
+      "note": "U+3000 is Unicode whitespace but not CSS whitespace, so it is part of the URL"
+    },
+    {
+      "file": "url-line-separator.svg",
+      "expect": [
+        {
+          "at": "fill=\"url(",
+          "message": "The fill value \"url(\\u2028#g)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the fill value."
+        },
+        {
+          "at": "stroke=\"url(",
+          "message": "The stroke value \"url(\\u2028#g)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the stroke value."
+        },
+        {
+          "at": "clip-path=\"url(",
+          "message": "The clip-path value \"url(\\u2028#c)\" must be none or url(#id), naming an element in this file.",
+          "fix": "Correct the clip-path value."
+        },
+        {
+          "at": "mask=\"url(",
+          "message": "The mask value \"url(\\u2028#m)\" must be none or url(#id), naming an element in this file.",
+          "fix": "Correct the mask value."
+        }
+      ],
+      "note": "U+2028 is a JavaScript line terminator but not CSS whitespace, so it is part of the URL"
+    },
+    {
+      "file": "url-byte-order-mark.svg",
+      "expect": [
+        {
+          "at": "fill=\"url(",
+          "message": "The fill value \"url(\\ufeff#g)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the fill value."
+        },
+        {
+          "at": "stroke=\"url(",
+          "message": "The stroke value \"url(\\ufeff#g)\" may use url() only as url(#id), naming an element in this file.",
+          "fix": "Correct the stroke value."
+        },
+        {
+          "at": "clip-path=\"url(",
+          "message": "The clip-path value \"url(\\ufeff#c)\" must be none or url(#id), naming an element in this file.",
+          "fix": "Correct the clip-path value."
+        },
+        {
+          "at": "mask=\"url(",
+          "message": "The mask value \"url(\\ufeff#m)\" must be none or url(#id), naming an element in this file.",
+          "fix": "Correct the mask value."
+        }
+      ],
+      "note": "String.prototype.trim removes U+FEFF, CSS does not, so it is part of the URL"
+    },
+    {
+      "file": "wsp-no-break-space.svg",
+      "expect": [
+        {
+          "at": "viewBox=\"",
+          "message": "The viewBox value \"0 0 100 50\" must be four numbers: min-x, min-y, width and height.",
+          "fix": "Correct the viewBox value."
+        },
+        {
+          "at": "preserveAspectRatio=\"",
+          "message": "The preserveAspectRatio value \"xMidYMid slice\" must be none, or xMinYMin to xMaxYMax, optionally followed by meet or slice.",
+          "fix": "Correct the preserveAspectRatio value."
+        },
+        {
+          "at": "x1=\"",
+          "message": "The x1 value \"1 \" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the x1 value."
+        },
+        {
+          "at": {
+            "marker": "width=\"",
+            "occurrence": 1
+          },
+          "message": "The width value \" 10\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the width value."
+        },
+        {
+          "at": "opacity=\"",
+          "message": "The opacity value \"0.5 \" must be a finite number or a percentage.",
+          "fix": "Correct the opacity value."
+        },
+        {
+          "at": "points=\"",
+          "message": "The points value \"0 0  10 10\" must list numbers.",
+          "fix": "Correct the points value."
+        },
+        {
+          "at": "x=\"1",
+          "message": "The x value \"1 2\" must list lengths.",
+          "fix": "Correct the x value."
+        },
+        {
+          "at": "d=\"",
+          "message": "The d value \"M0 0 L10 10\" has a M command without its 2 numbers.",
+          "fix": "Correct the d value."
+        },
+        {
+          "at": {
+            "marker": "transform=\"",
+            "occurrence": 1
+          },
+          "message": "The transform value \"translate(1 2)\" has an invalid translate().",
+          "fix": "Correct the transform value."
+        },
+        {
+          "at": {
+            "marker": "transform=\"",
+            "occurrence": 2
+          },
+          "message": "The transform value \"translate(1 2) scale(2)\" must be a list of matrix(), translate(), scale(), rotate(), skewX() and skewY().",
+          "fix": "Correct the transform value."
+        },
+        {
+          "at": "stroke-dasharray=\"",
+          "message": "The stroke-dasharray value \"1 2\" must list non-negative lengths.",
+          "fix": "Correct the stroke-dasharray value."
+        },
+        {
+          "at": "stroke-linecap=\"",
+          "message": "The stroke-linecap value \"round \" must be one of butt, round, square.",
+          "fix": "Correct the stroke-linecap value."
+        },
+        {
+          "at": "font-family=\"",
+          "message": "The font-family value \" Inter\" must be a list of font names, with no brackets, colons, slashes or other punctuation.",
+          "fix": "Correct the font-family value."
+        }
+      ],
+      "note": "SVG's wsp and CSS whitespace are space, tab, line feed and carriage return (and form feed, which XML 1.0 cannot hold); U+00A0 NO-BREAK SPACE is part of the value in every number, list, path, transform, viewBox and keyword grammar, as a browser reads it, so each value that holds one is refused (W5R-22)"
+    },
+    {
+      "file": "wsp-ideographic-space.svg",
+      "expect": [
+        {
+          "at": "viewBox=\"",
+          "message": "The viewBox value \"0 0 100　50\" must be four numbers: min-x, min-y, width and height.",
+          "fix": "Correct the viewBox value."
+        },
+        {
+          "at": "preserveAspectRatio=\"",
+          "message": "The preserveAspectRatio value \"xMidYMid　slice\" must be none, or xMinYMin to xMaxYMax, optionally followed by meet or slice.",
+          "fix": "Correct the preserveAspectRatio value."
+        },
+        {
+          "at": "x1=\"",
+          "message": "The x1 value \"1　\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the x1 value."
+        },
+        {
+          "at": {
+            "marker": "width=\"",
+            "occurrence": 1
+          },
+          "message": "The width value \"　10\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the width value."
+        },
+        {
+          "at": "opacity=\"",
+          "message": "The opacity value \"0.5　\" must be a finite number or a percentage.",
+          "fix": "Correct the opacity value."
+        },
+        {
+          "at": "points=\"",
+          "message": "The points value \"0 0　 10 10\" must list numbers.",
+          "fix": "Correct the points value."
+        },
+        {
+          "at": "x=\"1",
+          "message": "The x value \"1　2\" must list lengths.",
+          "fix": "Correct the x value."
+        },
+        {
+          "at": "d=\"",
+          "message": "The d value \"M0 0　L10 10\" has a M command without its 2 numbers.",
+          "fix": "Correct the d value."
+        },
+        {
+          "at": {
+            "marker": "transform=\"",
+            "occurrence": 1
+          },
+          "message": "The transform value \"translate(1　2)\" has an invalid translate().",
+          "fix": "Correct the transform value."
+        },
+        {
+          "at": {
+            "marker": "transform=\"",
+            "occurrence": 2
+          },
+          "message": "The transform value \"translate(1 2)　scale(2)\" must be a list of matrix(), translate(), scale(), rotate(), skewX() and skewY().",
+          "fix": "Correct the transform value."
+        },
+        {
+          "at": "stroke-dasharray=\"",
+          "message": "The stroke-dasharray value \"1　2\" must list non-negative lengths.",
+          "fix": "Correct the stroke-dasharray value."
+        },
+        {
+          "at": "stroke-linecap=\"",
+          "message": "The stroke-linecap value \"round　\" must be one of butt, round, square.",
+          "fix": "Correct the stroke-linecap value."
+        },
+        {
+          "at": "font-family=\"",
+          "message": "The font-family value \"　Inter\" must be a list of font names, with no brackets, colons, slashes or other punctuation.",
+          "fix": "Correct the font-family value."
+        }
+      ],
+      "note": "SVG's wsp and CSS whitespace are space, tab, line feed and carriage return (and form feed, which XML 1.0 cannot hold); U+3000 IDEOGRAPHIC SPACE is part of the value in every number, list, path, transform, viewBox and keyword grammar, as a browser reads it, so each value that holds one is refused (W5R-22)"
+    },
+    {
+      "file": "wsp-line-separator.svg",
+      "expect": [
+        {
+          "at": "viewBox=\"",
+          "message": "The viewBox value \"0 0 100\\u202850\" must be four numbers: min-x, min-y, width and height.",
+          "fix": "Correct the viewBox value."
+        },
+        {
+          "at": "preserveAspectRatio=\"",
+          "message": "The preserveAspectRatio value \"xMidYMid\\u2028slice\" must be none, or xMinYMin to xMaxYMax, optionally followed by meet or slice.",
+          "fix": "Correct the preserveAspectRatio value."
+        },
+        {
+          "at": "x1=\"",
+          "message": "The x1 value \"1\\u2028\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the x1 value."
+        },
+        {
+          "at": {
+            "marker": "width=\"",
+            "occurrence": 1
+          },
+          "message": "The width value \"\\u202810\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the width value."
+        },
+        {
+          "at": "opacity=\"",
+          "message": "The opacity value \"0.5\\u2028\" must be a finite number or a percentage.",
+          "fix": "Correct the opacity value."
+        },
+        {
+          "at": "points=\"",
+          "message": "The points value \"0 0\\u2028 10 10\" must list numbers.",
+          "fix": "Correct the points value."
+        },
+        {
+          "at": "x=\"1",
+          "message": "The x value \"1\\u20282\" must list lengths.",
+          "fix": "Correct the x value."
+        },
+        {
+          "at": "d=\"",
+          "message": "The d value \"M0 0\\u2028L10 10\" has a M command without its 2 numbers.",
+          "fix": "Correct the d value."
+        },
+        {
+          "at": {
+            "marker": "transform=\"",
+            "occurrence": 1
+          },
+          "message": "The transform value \"translate(1\\u20282)\" has an invalid translate().",
+          "fix": "Correct the transform value."
+        },
+        {
+          "at": {
+            "marker": "transform=\"",
+            "occurrence": 2
+          },
+          "message": "The transform value \"translate(1 2)\\u2028scale(2)\" must be a list of matrix(), translate(), scale(), rotate(), skewX() and skewY().",
+          "fix": "Correct the transform value."
+        },
+        {
+          "at": "stroke-dasharray=\"",
+          "message": "The stroke-dasharray value \"1\\u20282\" must list non-negative lengths.",
+          "fix": "Correct the stroke-dasharray value."
+        },
+        {
+          "at": "stroke-linecap=\"",
+          "message": "The stroke-linecap value \"round\\u2028\" must be one of butt, round, square.",
+          "fix": "Correct the stroke-linecap value."
+        },
+        {
+          "at": "font-family=\"",
+          "message": "The font-family value \"\\u2028Inter\" must be a list of font names, with no brackets, colons, slashes or other punctuation.",
+          "fix": "Correct the font-family value."
+        }
+      ],
+      "note": "SVG's wsp and CSS whitespace are space, tab, line feed and carriage return (and form feed, which XML 1.0 cannot hold); U+2028 LINE SEPARATOR is part of the value in every number, list, path, transform, viewBox and keyword grammar, as a browser reads it, so each value that holds one is refused (W5R-22)"
+    },
+    {
+      "file": "wsp-byte-order-mark.svg",
+      "expect": [
+        {
+          "at": "viewBox=\"",
+          "message": "The viewBox value \"0 0 100\\ufeff50\" must be four numbers: min-x, min-y, width and height.",
+          "fix": "Correct the viewBox value."
+        },
+        {
+          "at": "preserveAspectRatio=\"",
+          "message": "The preserveAspectRatio value \"xMidYMid\\ufeffslice\" must be none, or xMinYMin to xMaxYMax, optionally followed by meet or slice.",
+          "fix": "Correct the preserveAspectRatio value."
+        },
+        {
+          "at": "x1=\"",
+          "message": "The x1 value \"1\\ufeff\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the x1 value."
+        },
+        {
+          "at": {
+            "marker": "width=\"",
+            "occurrence": 1
+          },
+          "message": "The width value \"\\ufeff10\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the width value."
+        },
+        {
+          "at": "opacity=\"",
+          "message": "The opacity value \"0.5\\ufeff\" must be a finite number or a percentage.",
+          "fix": "Correct the opacity value."
+        },
+        {
+          "at": "points=\"",
+          "message": "The points value \"0 0\\ufeff 10 10\" must list numbers.",
+          "fix": "Correct the points value."
+        },
+        {
+          "at": "x=\"1",
+          "message": "The x value \"1\\ufeff2\" must list lengths.",
+          "fix": "Correct the x value."
+        },
+        {
+          "at": "d=\"",
+          "message": "The d value \"M0 0\\ufeffL10 10\" has a M command without its 2 numbers.",
+          "fix": "Correct the d value."
+        },
+        {
+          "at": {
+            "marker": "transform=\"",
+            "occurrence": 1
+          },
+          "message": "The transform value \"translate(1\\ufeff2)\" has an invalid translate().",
+          "fix": "Correct the transform value."
+        },
+        {
+          "at": {
+            "marker": "transform=\"",
+            "occurrence": 2
+          },
+          "message": "The transform value \"translate(1 2)\\ufeffscale(2)\" must be a list of matrix(), translate(), scale(), rotate(), skewX() and skewY().",
+          "fix": "Correct the transform value."
+        },
+        {
+          "at": "stroke-dasharray=\"",
+          "message": "The stroke-dasharray value \"1\\ufeff2\" must list non-negative lengths.",
+          "fix": "Correct the stroke-dasharray value."
+        },
+        {
+          "at": "stroke-linecap=\"",
+          "message": "The stroke-linecap value \"round\\ufeff\" must be one of butt, round, square.",
+          "fix": "Correct the stroke-linecap value."
+        },
+        {
+          "at": "font-family=\"",
+          "message": "The font-family value \"\\ufeffInter\" must be a list of font names, with no brackets, colons, slashes or other punctuation.",
+          "fix": "Correct the font-family value."
+        }
+      ],
+      "note": "SVG's wsp and CSS whitespace are space, tab, line feed and carriage return (and form feed, which XML 1.0 cannot hold); U+FEFF, the byte-order mark is part of the value in every number, list, path, transform, viewBox and keyword grammar, as a browser reads it, so each value that holds one is refused (W5R-22)"
+    },
+    {
+      "file": "unresolved-reference.svg",
+      "expect": [
+        {
+          "at": "fill=",
+          "message": "The fill reference url(#missing) names no element in this file.",
+          "fix": "Point it at the id of an element in this file, or remove it."
+        }
+      ]
+    },
+    {
+      "file": "wrong-reference-kind.svg",
+      "expect": [
+        {
+          "at": "fill=",
+          "message": "The fill reference url(#c) names a clipPath, not a linearGradient or radialGradient.",
+          "fix": "Point it at an element of the right kind."
+        }
+      ]
+    },
+    {
+      "file": "url-in-text.svg",
+      "expect": [
+        {
+          "at": "@import",
+          "message": "Text in the text element contains url( or @import, which the profile does not allow.",
+          "fix": "Rewrite the text without url( or @import."
+        }
+      ]
+    },
+    {
+      "file": "font-family-url.svg",
+      "expect": [
+        {
+          "at": "font-family",
+          "message": "The font-family value \"url(https://example.com/f.woff)\" must be a list of font names, with no brackets, colons, slashes or other punctuation.",
+          "fix": "Correct the font-family value."
+        }
+      ]
+    },
+    {
+      "file": "processing-instruction.svg",
+      "expect": [
+        {
+          "at": "<?xml-stylesheet",
+          "message": "The SVG has a <?xml-stylesheet ?> instruction, which is not allowed.",
+          "fix": "Remove the processing instruction."
+        }
+      ]
+    },
+    {
+      "file": "image-element.svg",
+      "expect": [
+        {
+          "at": "<image",
+          "message": "Embedded or linked images are not allowed in an SVG; use a raster image block instead.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ]
+    },
+    {
+      "file": "use-element.svg",
+      "expect": [
+        {
+          "at": "<use",
+          "message": "use elements are not allowed; draw the shape where it appears.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ]
+    },
+    {
+      "file": "no-namespace.svg",
+      "expect": [
+        {
+          "at": "<svg",
+          "message": "The root svg element does not declare the SVG namespace.",
+          "fix": "Add xmlns=\"http://www.w3.org/2000/svg\" to the root svg element."
+        }
+      ]
+    },
+    {
+      "file": "prefixed-element.svg",
+      "expect": [
+        {
+          "at": "<x:rect",
+          "message": "The element x:rect is outside the SVG namespace.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        },
+        {
+          "at": "xmlns:x",
+          "message": "The namespaced attribute xmlns:x is not allowed.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ]
+    },
+    {
+      "file": "no-viewbox.svg",
+      "expect": [
+        {
+          "at": "<svg",
+          "message": "The SVG has no viewBox, so its size is unknown.",
+          "fix": "Add viewBox=\"0 0 width height\" to the root svg element."
+        }
+      ]
+    },
+    {
+      "file": "zero-viewbox.svg",
+      "expect": [
+        {
+          "at": "viewBox",
+          "message": "The viewBox value \"0 0 0 50\" must have a width and height greater than 0.",
+          "fix": "Correct the viewBox value."
+        }
+      ]
+    },
+    {
+      "file": "bad-path.svg",
+      "expect": [
+        {
+          "at": "d=",
+          "message": "The d value \"M0 0 L 10\" has a L command without its 2 numbers.",
+          "fix": "Correct the d value."
+        }
+      ]
+    },
+    {
+      "file": "bad-number.svg",
+      "expect": [
+        {
+          "at": "width=",
+          "message": "The width value \"Infinity\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the width value."
+        },
+        {
+          "at": "height=",
+          "message": "The height value \"1e999\" must be a finite length, such as 12, 12px or 50%.",
+          "fix": "Correct the height value."
+        }
+      ]
+    },
+    {
+      "file": "latin1-declaration.svg",
+      "expect": [
+        {
+          "at": "<?xml",
+          "message": "The SVG declares the ISO-8859-1 encoding; only UTF-8 is accepted.",
+          "fix": "Save the file as UTF-8 and declare encoding=\"UTF-8\", or leave the encoding out."
+        }
+      ]
+    },
+    {
+      "file": "xml-1.1-declaration.svg",
+      "expect": [
+        {
+          "at": "<?xml",
+          "message": "The SVG declares XML version 1.1; only version 1.0 is accepted.",
+          "fix": "Declare version=\"1.0\", or leave the XML declaration out."
+        }
+      ],
+      "note": "saxes reads a file declared as anything but 1.0 with XML 1.1's character rules"
+    },
+    {
+      "file": "xml-1.1-control-reference.svg",
+      "expect": [
+        {
+          "at": "<?xml",
+          "message": "The SVG declares XML version 1.1; only version 1.0 is accepted.",
+          "fix": "Declare version=\"1.0\", or leave the XML declaration out."
+        }
+      ],
+      "note": "XML 1.1 allows the &#x1; reference that 1.0 refuses; Chromium shows such a file as a broken image"
+    },
+    {
+      "file": "stray-text.svg",
+      "expect": [
+        {
+          "at": "stray",
+          "message": "Text is only allowed inside text, tspan, title and desc.",
+          "fix": "Remove the stray text, or put it in a text element."
+        }
+      ]
+    },
+    {
+      "file": "duplicate-id.svg",
+      "expect": [
+        {
+          "at": {
+            "marker": "id=",
+            "occurrence": 2
+          },
+          "message": "The id a is used twice.",
+          "fix": "Give every element a different id."
+        }
+      ]
+    },
+    {
+      "file": "version-attribute.svg",
+      "expect": [
+        {
+          "at": "version",
+          "message": "The attribute version is not allowed in an SVG.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ],
+      "note": "IC02 lists the allowed attributes; version is not among them (D154)"
+    },
+    {
+      "file": "class-attribute.svg",
+      "expect": [
+        {
+          "at": "class",
+          "message": "The attribute class is not allowed in an SVG.",
+          "fix": "Remove it, or export the SVG again with only the shapes, text and gradients it needs."
+        }
+      ]
+    },
+    {
+      "file": "not-svg-root.svg",
+      "expect": [
+        {
+          "at": "<html",
+          "message": "The root element is html; an SVG file must start with an svg element.",
+          "fix": "Make svg the root element."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: chart
+    title: Hours.
+    chart: assets/data/hours.csv

@@ -1,0 +1,186 @@
+/* Papeleria templates — the comic (M4.2, M4.3, W4).
+ *
+ * Only a comic links this sheet, after the kit's and the shared blocks', so a
+ * deck or a document never carries the reader's rules (D105). Without the
+ * reader the page is the published form, which is also what prints: the
+ * register, then each page's art followed by its transcript, stacked. The
+ * reader adds `comic-enhanced` to the body and builds the book; `comic-guided`,
+ * `comic-spread` and `comic-show-transcript` follow its state (CONTRACT §5).
+ * Values come from tokens.css; nothing here is a new colour or face, and
+ * nothing here moves: the page turn is the engine's, and the kit stops every
+ * transition under reduced motion. Own code, Apache-2.0, except the four
+ * rules marked as the engine's, which restate StPageFlip's (MIT).
+ */
+
+/* ---- The page as published ------------------------------------------------ */
+
+.comic-register,.comic-tools,main.comic{max-width:1400px;margin-left:auto;margin-right:auto;padding-left:24px;padding-right:24px}
+.comic-register{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;padding-top:16px;padding-bottom:12px;border-bottom:1px solid var(--color-rule)}
+.comic-title{font:700 1.2rem/1.3 var(--font-ui);letter-spacing:0;max-width:none;margin:0}
+.comic-format,.comic-status-label{font-size:var(--type-meta);line-height:1.5;color:var(--color-text-muted)}
+.comic-register .wordmark{margin-left:auto;font-size:1.6rem}
+
+/* The bar: Previous, the status, Next, then the view's tools, one row where it
+ * fits (UX §06). Its buttons do nothing without the reader, so they appear only
+ * once it has enhanced the page, as the deck's tools do (D69); the status line
+ * stays and says why. */
+.comic-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding-top:12px;padding-bottom:8px}
+.comic-tools .button{padding:9px 13px;min-height:44px}
+.comic-status{flex:1 1 12em;margin:0;font-size:.85rem;line-height:1.4;text-align:center}
+body.comic-body:not(.comic-enhanced) .comic-tools .button{display:none}
+body.comic-body:not(.comic-enhanced) .comic-status{text-align:left}
+/* How many panels the pages shown hold: a line of its own that keeps its
+ * height when empty, so the book never moves under a turn. */
+.comic-hint{flex-basis:100%;min-height:1.5em;margin:0;font-size:var(--type-meta);line-height:1.5;color:var(--color-text-muted)}
+
+main.comic{padding-bottom:48px}
+.comic-book{display:none}
+.comic-sheet{margin:24px 0 48px;scroll-margin-top:16px}
+.comic-sheet-title{font:700 1rem/1.4 var(--font-ui);letter-spacing:0;margin:0 0 12px}
+.comic-figure{margin:0}
+.comic-art{position:relative;width:100%}
+.comic-art picture{display:block}
+.comic-art img{display:block;width:100%;height:auto}
+
+/* A page's credit and rights, and the comic's credits on its last page: meta size (UX §06). */
+.comic-credit{display:flex;flex-wrap:wrap;gap:0 16px;margin:8px 0 0;font-size:var(--type-meta);line-height:1.5;color:var(--color-text-muted)}
+.comic-credits{display:flex;flex-wrap:wrap;gap:4px 24px;margin:16px 0 0;font-size:var(--type-meta);line-height:1.5}
+.comic-credits div{display:flex;gap:6px}
+.comic-credits dt{font-weight:700}
+.comic-credits dd{margin:0}
+
+/* The transcript: body text in the ground-colour box the deck uses for notes (UX §06). */
+.comic-transcript{margin-top:16px;padding:24px;background:var(--color-ground);border:1px solid var(--color-rule)}
+.comic-transcript-title{font:700 .9rem/1.4 var(--font-ui);letter-spacing:.02em;margin:0 0 12px}
+.comic-transcript-list{margin:0;padding-left:24px}
+.comic-transcript-text{margin:0;overflow-wrap:break-word}
+.comic-detail{margin-top:8px}
+.comic-detail-link{margin:8px 0 0}
+.comic-detail-text p{font-size:var(--type-small);line-height:1.6}
+.comic-detail-text h4{font-size:1rem;margin:12px 0 6px}
+.comic-detail-figure{margin:8px 0 0}
+
+/* ---- Panels ------------------------------------------------------------------ */
+
+/* A panel is a control over its box; the art shows nothing at rest (UX §06).
+ * Without the reader a button panel does nothing, so the transcript list
+ * below the art carries every panel, links included. */
+body.comic-body:not(.comic-enhanced) .comic-panel{display:none}
+.comic-panel{position:absolute;display:block;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:var(--color-text);text-decoration:none;cursor:pointer;font:inherit}
+.comic-panel-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* Hover reveals the panel: a 2 px ink outline offset by 2 px of paper, so it
+ * reads on any art; keyboard focus draws the kit's ring over the same paper. */
+.comic-panel:hover{outline:2px solid var(--color-text);outline-offset:2px;box-shadow:0 0 0 2px var(--color-surface)}
+.comic-panel:focus-visible{outline:var(--focus-outline);outline-offset:4px;box-shadow:0 0 0 4px var(--color-surface)}
+/* A detail's hint, and a link panel's label, show on hover and focus only.
+ * Hidden by clipping rather than removed, so a link's external indication
+ * stays in its name. */
+.comic-panel-hint{position:absolute;right:4px;bottom:4px;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.comic-panel:hover .comic-panel-hint,.comic-panel:focus-visible .comic-panel-hint{width:auto;height:auto;overflow:visible;clip:auto;padding:2px 8px;background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-text);font:700 var(--type-meta)/1.5 var(--font-ui)}
+
+/* ---- The enhanced page ------------------------------------------------------- */
+
+/* A fragment names a page or a panel; the reader shows it in the book, so the
+ * browser's own jump to the element lands at the top instead (D105). */
+body.comic-enhanced .comic-sheet,body.comic-enhanced .comic-figure,body.comic-enhanced .comic-panel{scroll-margin-top:1000vh}
+
+/* The reader sizes the book to what the viewport has left under the bar. */
+body.comic-enhanced .comic-book{display:block;position:relative;width:100%;margin:0 0 8px}
+body.comic-enhanced .comic-figure{background:var(--color-ground)}
+/* The art keeps its proportions inside the page the engine draws; the reader sets its size. */
+body.comic-enhanced .comic-figure .comic-art{position:absolute;inset:0;margin:auto}
+body.comic-enhanced .comic-figure .comic-art img{width:100%;height:100%}
+/* A 1 px rule stands for the spine (UX §06). */
+body.comic-spread .comic-figure.--right::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--color-rule);z-index:1}
+
+/* Under the book, the pages shown: their credits, and their transcripts while
+ * Transcript is pressed. A page's heading is read, not shown, until then. */
+body.comic-enhanced .comic-sheet{margin:0 0 16px}
+body.comic-enhanced:not(.comic-show-transcript) .comic-transcript{display:none}
+body.comic-enhanced:not(.comic-show-transcript) .comic-sheet-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+body.comic-enhanced .comic-credit{margin-top:0}
+
+/* ---- The engine's own rules ------------------------------------------------------ */
+
+/* StPageFlip 2.0.7 (MIT; vendor/page-flip/LICENSE) adds these rules in a style
+ * element as it loads. The editor's preview allows a page its own stylesheets
+ * only (IC06), so they are restated here as the engine states them, and a
+ * preview lays the book out as a published comic does (D109). Its rule for
+ * `.sft__wrapper` names no element (upstream misspells stf__wrapper) and its
+ * canvas rule serves a mode the reader never uses; both are left out. */
+.stf__parent{position:relative;display:block;box-sizing:border-box;transform:translateZ(0);touch-action:pan-y}
+.stf__block{position:absolute;width:100%;height:100%;box-sizing:border-box;perspective:2000px}
+.stf__item{display:none;position:absolute;transform-style:preserve-3d}
+.stf__outerShadow,.stf__innerShadow,.stf__hardShadow,.stf__hardInnerShadow{position:absolute;left:0;top:0}
+
+/* ---- Guided view --------------------------------------------------------------- */
+
+/* The lens covers the book and shows the page image panned and zoomed to the
+ * panel; the book under it is out of reach until page view returns. */
+.comic-lens{display:none}
+body.comic-guided .comic-lens{display:block;position:absolute;inset:0;overflow:hidden;background:var(--color-ground);z-index:10;touch-action:pan-y}
+body.comic-guided .papeleria-engine{visibility:hidden}
+.comic-lens-art{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;user-select:none;-webkit-user-select:none;pointer-events:none}
+.comic-lens-panel,.comic-lens-page{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;background:transparent;color:var(--color-text);text-decoration:none;cursor:pointer;font:inherit}
+.comic-lens-page{cursor:default}
+.comic-lens-panel:focus-visible,.comic-lens-page:focus-visible{outline:var(--focus-outline);outline-offset:-7px;box-shadow:inset 0 0 0 7px var(--color-surface)}
+.comic-lens-panel .comic-panel-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.comic-lens-panel .comic-panel-hint{right:12px;bottom:12px}
+.comic-lens-panel:hover .comic-panel-hint,.comic-lens-panel:focus-visible .comic-panel-hint{width:auto;height:auto;overflow:visible;clip:auto;padding:2px 8px;background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-text);font:700 var(--type-meta)/1.5 var(--font-ui)}
+
+/* ---- The detail dialog ----------------------------------------------------------- */
+
+.comic-dialog{width:calc(100% - 32px);max-width:720px;max-height:calc(100% - 32px);padding:0;border:0;background:var(--color-surface);color:var(--color-text)}
+/* Ink at 80% over the page (UX §06). */
+.comic-dialog::backdrop{background:rgba(17,17,15,.8)}
+.comic-dialog-body{display:flex;flex-direction:column;gap:16px;padding:20px 24px 24px}
+.comic-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.comic-dialog-title{font:700 1.1rem/1.3 var(--font-ui);letter-spacing:0;margin:0}
+.comic-dialog-content .comic-detail{margin:0}
+/* In the dialog a text detail's headings stand a level higher, under its h2
+ * (W5R-19), and keep the look they have under the transcript's h3. */
+.comic-dialog .comic-detail-text h3{font-size:1rem;line-height:inherit;letter-spacing:inherit;margin:12px 0 6px}
+.comic-dialog .comic-detail-text h4{font-size:.83em;margin:1.67em 0}
+.comic-dialog .comic-detail-text h5{font-size:.67em;margin:2.33em 0}
+.comic-dialog-transcript{margin:0;font-size:var(--type-small);line-height:1.6;overflow-wrap:break-word}
+/* A zoom: the original art cropped to the box, which pinch, the wheel, a drag
+ * and a double tap move; the reader draws it, nothing animates. */
+.comic-zoom{position:relative;height:min(60vh,520px);overflow:hidden;background:var(--color-ground);border:1px solid var(--color-rule);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.comic-zoom:active{cursor:grabbing}
+.comic-zoom-art{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;pointer-events:none}
+.comic-zoom:focus-visible{outline:var(--focus-outline);outline-offset:-7px}
+
+@media(max-width:640px){
+  .comic-register,.comic-tools,main.comic{padding-left:16px;padding-right:16px}
+  .comic-register .wordmark{font-size:1.3rem}
+  .comic-tools .button{padding:9px 11px}
+  .comic-dialog-body{padding:16px}
+}
+
+@media(forced-colors:active){
+  /* Pages and the zoom keep a border (UX §06). */
+  .comic-art,.comic-zoom{outline:1px solid CanvasText}
+  .comic-panel:hover,.comic-panel:focus-visible,.comic-lens-panel:focus-visible,.comic-lens-page:focus-visible{outline-color:Highlight}
+  .comic-dialog{border:1px solid CanvasText}
+}
+
+/* ---- Print (IC08) ------------------------------------------------------------------ */
+
+/* The reader steps aside before printing (D115); what prints is the page as
+ * published: each source page starts a sheet, its art kept whole and never
+ * taller than the sheet, its transcript after it, running on to the next
+ * sheets before the next page's art. */
+@media print{
+  .comic-tools,.comic-book,.comic-lens,.comic-dialog,.comic-panel,.comic-hint{display:none!important}
+  /* The wordmark's negative letter-spacing trails its last letter past its box: 1 mm keeps it off the margin. */
+  .comic-register{padding:0 1mm 4mm 0}
+  main.comic{padding:0;max-width:none}
+  .comic-sheet,.comic-sheet[hidden]{display:block!important;margin:0}
+  .comic-sheet+.comic-sheet{break-before:page}
+  .comic-sheet-title{position:static!important;width:auto!important;height:auto!important;margin:4mm 0 3mm!important;overflow:visible!important;clip:auto!important;white-space:normal!important;font-size:12pt}
+  .comic-figure{break-inside:avoid}
+  .comic-art{width:auto!important;height:auto!important}
+  .comic-art img{width:auto;max-width:100%;max-height:200mm;margin:0 auto}
+  .comic-transcript,body.comic-enhanced .comic-transcript{display:block!important;margin-top:5mm;padding:0;border:0;background:none}
+  .comic-transcript-item{break-inside:avoid}
+}

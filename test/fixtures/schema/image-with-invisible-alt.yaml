@@ -1,0 +1,8 @@
+# The alt text is one zero-width space: not whitespace, and still nothing to read.
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: image
+    title: S
+    image: {src: assets/images/photo.jpg, alt: "\u200B"}

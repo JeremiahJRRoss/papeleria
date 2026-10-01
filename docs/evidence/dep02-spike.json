@@ -1,0 +1,123 @@
+{
+  "gate": "DEP02",
+  "ranOn": "2026-09-22",
+  "environment": {
+    "node": "v22.22.2",
+    "platform": "linux/x64",
+    "chromium": "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+  },
+  "bundleBytes": 2178325,
+  "checks": [
+    {
+      "name": "production browser bundle builds",
+      "passed": true,
+      "detail": "2178325 bytes, 0 esbuild warning(s)"
+    },
+    {
+      "name": "editor mounts in YAML and JSON without page errors",
+      "passed": true,
+      "detail": "mounted; 0 page error(s)"
+    },
+    {
+      "name": "yaml: completion offers properties from the shared $defs",
+      "passed": true,
+      "detail": "1 option(s) in 131 ms; shared: status; all: status"
+    },
+    {
+      "name": "yaml: hover resolves help text through a $ref",
+      "passed": true,
+      "detail": "hover text: Which of the three templates builds this piece: deck for slides, comic for pages of art with panels, document for a prin"
+    },
+    {
+      "name": "json: completion offers properties from the shared $defs",
+      "passed": true,
+      "detail": "1 option(s) in 78 ms; shared: status; all: status"
+    },
+    {
+      "name": "json: hover resolves help text through a $ref",
+      "passed": true,
+      "detail": "hover text: Which of the three templates builds this piece: deck for slides, comic for pages of art with panels, document for a prin"
+    },
+    {
+      "name": "yaml: malformed input does not throw and still yields positioned output",
+      "passed": true,
+      "detail": "1 adapter diagnostic(s) on malformed input"
+    },
+    {
+      "name": "json: the adapter reports schema violations with positions, so they can be suppressed in favour of the server report",
+      "passed": true,
+      "detail": "24-25 Expected given value `slides` in `template` to be one of `[\"deck\",\"comic\",\"document\"]` | 43-44 A value is required in `title` | 43-44 Value in `title` should match `\\S`, but received ``"
+    },
+    {
+      "name": "json: value completion offers the whole enum behind the $ref",
+      "passed": true,
+      "detail": "offered 4 of 4: draft, review, published, withheld"
+    },
+    {
+      "name": "yaml: value completion filters the enum behind the $ref",
+      "passed": true,
+      "detail": "typing \"d\" offered: draft"
+    },
+    {
+      "name": "note: YAML value completion with nothing typed",
+      "passed": true,
+      "detail": "does not activate on an empty value after the colon; M2.2 should trigger it explicitly (Ctrl-Space is already the documented shortcut) rather than assume it appears"
+    },
+    {
+      "name": "json: hover reaches a prefixItems tuple through two levels of $ref",
+      "passed": true,
+      "detail": "hover: The part of the image to keep in view when a layout crops it, as x and y percentages of the image. The default, the middle, is [50, 50].\narray\n"
+    },
+    {
+      "name": "json: hover inside a tuple slot returns that slot's own help",
+      "passed": true,
+      "detail": "hover: number\n"
+    },
+    {
+      "name": "json: completion inside a nested $ref object offers that object's properties",
+      "passed": true,
+      "detail": "offered 7 of 7: src, alt, decorative, caption, credit, rights, focal_point"
+    },
+    {
+      "name": "yaml: completion still works on incomplete input",
+      "passed": true,
+      "detail": "offered: status"
+    },
+    {
+      "name": "the adapter's own validation is excluded, because its engine misreads 2020-12",
+      "passed": true,
+      "detail": "available engines: Draft, Draft04, Draft06, Draft07; Draft04 and Draft07 reject a valid 2020-12 tuple ([50, 50] for a prefixItems pair) with \"No value may be specified in `#/focal_point`\". Completion and hover are kept; the schema linters are not wired in, so the Ajv 2020-12 report stays the only validator."
+    },
+    {
+      "name": "draft-engine evidence",
+      "passed": true,
+      "detail": "{\"Draft04\":{\"rejectsAValidTuple\":true,\"onValid\":[\"No value may be specified in `#/focal_point`\"],\"onInvalid\":[\"No value may be specified in `#/focal_point`\"]},\"Draft07\":{\"rejectsAValidTuple\":true,\"onValid\":[\"No value may be specified in `#/focal_point`\"],\"onInvalid\":[\"No value may be specified in `#/focal_point`\"]},\"availableDrafts\":[\"Draft\",\"Draft04\",\"Draft06\",\"Draft07\"]}"
+    },
+    {
+      "name": "edit and paste latency stay within an interactive budget",
+      "passed": true,
+      "detail": "median edit 16.7 ms, max edit 17 ms over 20; 500-line paste 17 ms"
+    },
+    {
+      "name": "measurements",
+      "passed": true,
+      "detail": "{\"editCount\":20,\"editMedianMs\":16.7,\"editMaxMs\":17,\"pasteMs\":17}"
+    }
+  ],
+  "passed": true,
+  "pageErrors": {
+    "duringMalformedInput": [
+      {
+        "phase": "malformed-input",
+        "text": "parsed json with extra tokens: {text: {\n  \"schema\": 1,\n  \"template\": \"deck\",\n  \"title\": \"A deck\",\n  \"cover\": {\"\"}\n}, data: Object, reminding: \n}}"
+      }
+    ],
+    "incompleteDocument": [
+      {
+        "phase": "boot",
+        "text": "parsed json with extra tokens: {text: {\n  \"schema\": 1,\n  \"template\": \"deck\",\n  \"title\": \"A deck\",\n  \"st\"\n}, data: Object, reminding: }}"
+      }
+    ],
+    "unexpected": []
+  }
+}

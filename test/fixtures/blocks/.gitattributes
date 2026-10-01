@@ -1,0 +1,2 @@
+# Snapshot bytes are compared exactly; no checkout may rewrite a line ending.
+* -text

@@ -1,0 +1,6 @@
+schema: 1
+template: deck
+title: !upper craft with care
+slides:
+  - layout: statement
+    title: !!binary T25lIGlkZWEu

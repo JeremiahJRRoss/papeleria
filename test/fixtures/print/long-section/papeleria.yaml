@@ -1,0 +1,20 @@
+# IC08 release fixture: a section three printed pages long, then a section
+# that starts a new sheet. Every sentence names its paragraph and its place,
+# so the printed text shows anything lost, cut or out of order.
+schema: 1
+template: document
+title: A section three pages long.
+language: en
+status: draft
+doc_type: Print fixture
+metadata:
+  - { label: Fixture, value: Long section }
+sections:
+  - heading: The long section
+    blocks:
+      - text: assets/text/long.md
+  - heading: After the long section
+    new_page: true
+    blocks:
+      - text: This section starts a new sheet after the long one ends.
+source_note: A test fixture for IC08.

@@ -1,0 +1,7 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: image
+    title: The pier.
+    image: assets/images/pier.jpg

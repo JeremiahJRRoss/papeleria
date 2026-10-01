@@ -1,0 +1,9 @@
+{
+  "id": "chart-quarters",
+  "type": "bar",
+  "x": "quarter",
+  "y": "hours",
+  "series": "phase",
+  "summary": "Build took the most hours every quarter; delivery had none in the third.",
+  "locale": "en"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "chart-sessions",
+  "type": "line",
+  "x": "session",
+  "y": "minutes",
+  "summary": "Sessions grew longer, peaking at the fifth.",
+  "locale": "en"
+}

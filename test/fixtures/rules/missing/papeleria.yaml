@@ -1,0 +1,23 @@
+# R02 fixture (M1.3, W5E): files the manifest names that are not there, each
+# reported at the token that names it, with the fix. assets/text/ exists;
+# assets/images/ and assets/data/ do not.
+schema: 1
+template: deck
+title: Missing files
+
+slides:
+  - layout: cover
+    title: A missing text file
+    notes: assets/text/missing.md
+
+  - layout: image
+    title: A missing image
+    image: {src: assets/images/absent.png, alt: A picture that is not there.}
+
+  - layout: chart
+    title: A missing CSV
+    chart: {type: bar, data: assets/data/absent.csv, x: phase, y: hours, summary: Nothing to read.}
+
+  - layout: closing
+    title: A folder where a file should be
+    notes: assets/text/folder.md

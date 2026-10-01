@@ -1,0 +1,1 @@
+Both supplied standards require claims to preserve evidence and limitations. Do not invent clients, testimonials, outcome metrics, pricing, launch dates, or approved-status badges. A “verified” label is not interchangeable with a guarantee.

@@ -1,0 +1,39 @@
+# M3.1 and M3.2 (W3B): every block kind in a document, over two logical sheets,
+# with metadata, credits, a footer and a source note. The first heading's slug
+# would be `document`, the page's own id, so it takes `document-2`; the second
+# "Numbers" takes `numbers-2`. Author strings carry markup that must stay text.
+# The photograph, the poster and the video are made when the test runs.
+schema: 1
+template: document
+title: The *takeaway* <b>stays</b> text.
+language: en
+status: review
+doc_type: Field report & <notes>
+metadata:
+  - { label: Audience, value: "Studio leads & \"friends\"" }
+  - { label: Period, value: Q3 2026 }
+credits:
+  - { role: Author, name: Test fixture }
+footer: Internal <draft>
+sections:
+  - heading: Document
+    new_page: true
+    blocks:
+      - text: assets/text/intro.md
+      - image: { src: assets/images/photo.png, alt: A test photograph., caption: A *caption*., credit: Test credit, rights: Test rights }
+      - logo: { src: assets/images/logos/client.svg, alt: Client & partner }
+      - quote: { text: A considered label. A clear handoff., attribution: Brand <principle> }
+      - quote: { text: A quote without attribution. }
+      - note: { text: A plain note with **bold** words. }
+      - note: { text: A warning note., tone: warning }
+      - callout: { text: A folder of text becomes a finished piece. }
+  - heading: Numbers & <tails>
+    blocks:
+      - chart: { type: bar, data: assets/data/numbers.csv, x: name, y: value, summary: Beta is the largest., caption: Values by name., source: Test data }
+      - table: { data: assets/data/numbers.csv }
+  - heading: Numbers & <tails>
+    new_page: true
+    blocks:
+      - video: { src: assets/video/loop.mp4, poster: assets/images/poster.png, alt: A loop of the harbour at dawn., caption: The loop., credit: Test video, rights: Test rights }
+      - table: { data: assets/data/numbers.csv, columns: [{ field: name, label: Name }], caption: Names only., source: Test data }
+source_note: assets/text/source.md

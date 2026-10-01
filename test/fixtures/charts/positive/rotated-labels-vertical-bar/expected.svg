@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="chart chart-bar chart-vertical" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="chart-stages-title">
+<title id="chart-stages-title">Production artwork took the most hours.</title>
+<g font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" font-variant="tabular-nums" fill="#1d1d1a">
+<g class="chart-axes">
+<line x1="130.68" y1="210.5" x2="632" y2="210.5" stroke="#d8d8d1" stroke-width="1"/>
+</g>
+<g class="chart-marks">
+<rect x="160.46" y="162.61" width="24" height="48.21" fill="#1d1d1a"/>
+<rect x="244.01" y="126.45" width="24" height="84.37" fill="#1d1d1a"/>
+<rect x="327.57" y="24" width="24" height="186.82" fill="#1d1d1a"/>
+<rect x="411.12" y="174.66" width="24" height="36.16" fill="#1d1d1a"/>
+<rect x="494.67" y="192.74" width="24" height="18.08" fill="#1d1d1a"/>
+<rect x="578.22" y="198.76" width="24" height="12.05" fill="#1d1d1a"/>
+</g>
+<g class="chart-labels">
+<text x="172.46" y="158.61" text-anchor="middle">8</text>
+<text x="256.01" y="122.45" text-anchor="middle">14</text>
+<text x="339.57" y="20" text-anchor="middle">31</text>
+<text x="423.12" y="170.66" text-anchor="middle">6</text>
+<text x="506.67" y="188.74" text-anchor="middle">3</text>
+<text x="590.22" y="194.76" text-anchor="middle">2</text>
+<text transform="translate(172.46,216.82) rotate(-45)" dy="0.35em" text-anchor="end">&#x2068;Discovery and research&#x2069;</text>
+<text transform="translate(256.01,216.82) rotate(-45)" dy="0.35em" text-anchor="end">&#x2068;Concept development&#x2069;</text>
+<text transform="translate(339.57,216.82) rotate(-45)" dy="0.35em" text-anchor="end">&#x2068;Production artwork&#x2069;</text>
+<text transform="translate(423.12,216.82) rotate(-45)" dy="0.35em" text-anchor="end">&#x2068;Quality assurance review&#x2069;</text>
+<text transform="translate(506.67,216.82) rotate(-45)" dy="0.35em" text-anchor="end">&#x2068;Printer handoff&#x2069;</text>
+<text transform="translate(590.22,216.82) rotate(-45)" dy="0.35em" text-anchor="end">&#x2068;Post-launch follow-up&#x2069;</text>
+</g>
+</g>
+</svg>

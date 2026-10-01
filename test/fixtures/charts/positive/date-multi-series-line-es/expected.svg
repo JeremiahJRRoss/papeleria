@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="chart chart-line" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="chart-semanas-title">
+<title id="chart-semanas-title">Las horas de revisión subieron cada mes y las de construcción bajaron.</title>
+<g font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" font-variant="tabular-nums" fill="#1d1d1a">
+<g class="chart-legend">
+<line x1="9" y1="14" x2="31" y2="14" stroke="#1d1d1a" stroke-width="2" stroke-linecap="round"/>
+<text x="38" y="14" dy="0.35em">&#x2068;Review&#x2069;</text>
+<line x1="106" y1="14" x2="128" y2="14" stroke="#5f5f57" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 6"/>
+<text x="135" y="14" dy="0.35em">&#x2068;Build&#x2069;</text>
+</g>
+<g class="chart-axes">
+<line x1="33.5" y1="330.5" x2="543.5" y2="330.5" stroke="#d8d8d1" stroke-width="1"/>
+<line x1="33.5" y1="288.5" x2="543.5" y2="288.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="247.5" x2="543.5" y2="247.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="205.5" x2="543.5" y2="205.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="164.5" x2="543.5" y2="164.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="123.5" x2="543.5" y2="123.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="81.5" x2="543.5" y2="81.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="40.5" x2="543.5" y2="40.5" stroke="#efefeb" stroke-width="1"/>
+</g>
+<g class="chart-marks">
+<path d="M33.5,288.61L260.17,164.43L543.5,40.25" fill="none" stroke="#1d1d1a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M33.5,143.73L260.17,185.13L543.5,267.91" fill="none" stroke="#5f5f57" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="10 6"/>
+<circle cx="33.5" cy="288.61" r="4" fill="#1d1d1a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="260.17" cy="164.43" r="4" fill="#1d1d1a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="543.5" cy="40.25" r="4" fill="#1d1d1a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="33.5" cy="143.73" r="4" fill="#5f5f57" stroke="#ffffff" stroke-width="2"/>
+<circle cx="260.17" cy="185.13" r="4" fill="#5f5f57" stroke="#ffffff" stroke-width="2"/>
+<circle cx="543.5" cy="267.91" r="4" fill="#5f5f57" stroke="#ffffff" stroke-width="2"/>
+</g>
+<g class="chart-labels">
+<text x="25.5" y="330" dy="0.35em" text-anchor="end" fill="#5f5f57">0</text>
+<text x="25.5" y="288.61" dy="0.35em" text-anchor="end" fill="#5f5f57">2</text>
+<text x="25.5" y="247.21" dy="0.35em" text-anchor="end" fill="#5f5f57">4</text>
+<text x="25.5" y="205.82" dy="0.35em" text-anchor="end" fill="#5f5f57">6</text>
+<text x="25.5" y="164.43" dy="0.35em" text-anchor="end" fill="#5f5f57">8</text>
+<text x="25.5" y="123.04" dy="0.35em" text-anchor="end" fill="#5f5f57">10</text>
+<text x="25.5" y="81.64" dy="0.35em" text-anchor="end" fill="#5f5f57">12</text>
+<text x="25.5" y="40.25" dy="0.35em" text-anchor="end" fill="#5f5f57">14</text>
+<text x="42" y="336" dy="0.71em" text-anchor="middle" fill="#5f5f57">6 jul 2026</text>
+<text x="260.17" y="336" dy="0.71em" text-anchor="middle" fill="#5f5f57">3 ago</text>
+<text x="543.5" y="336" dy="0.71em" text-anchor="middle" fill="#5f5f57">7 sep</text>
+<text x="553.5" y="40.25" dy="0.35em">&#x2068;Review&#x2069;<tspan dx="6" fill="#5f5f57">14</tspan></text>
+<text x="553.5" y="267.91" dy="0.35em">&#x2068;Build&#x2069;<tspan dx="6" fill="#5f5f57">3</tspan></text>
+</g>
+</g>
+</svg>

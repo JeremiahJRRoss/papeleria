@@ -1,0 +1,471 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://papeleria.ross.moda/schema/1/deck/schema.json",
+  "title": "Papeleria deck manifest",
+  "description": "A slide deck in the kit's slide system, schema version 1: a register line, an edition, an optional client logo and at least one slide. Each slide has a layout; the layout decides which fields the slide takes. The build refuses a manifest with an unknown field, so a misspelled field is reported at its line.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "$ref": "../shared/schema-defs.json#/$defs/schema_version",
+      "description": "The manifest format this piece is written for. Write 1. A missing, non-integer or smaller value is a manifest error; a larger one needs a newer Papeleria."
+    },
+    "template": {
+      "type": "string",
+      "const": "deck",
+      "description": "Which template builds this piece. This schema describes the deck template, so the value is deck."
+    },
+    "title": {
+      "$ref": "../shared/schema-defs.json#/$defs/title",
+      "description": "The deck's cover title, also used as the page title with any line break read as a space. The line at the top of every slide is `register`, not this. Inline Markdown."
+    },
+    "language": {
+      "$ref": "../shared/schema-defs.json#/$defs/language",
+      "description": "en (the default) or es. Sets the page language and chooses English or Spanish control labels. The editor itself stays English."
+    },
+    "status": {
+      "$ref": "../shared/schema-defs.json#/$defs/status",
+      "description": "draft (the default), review, published or withheld. It is shown on the piece. published turns an unfilled [placeholder] into an error; withheld builds a private preview and writes nothing to dist/."
+    },
+    "wordmark": {
+      "$ref": "../shared/schema-defs.json#/$defs/wordmark",
+      "description": "The wordmark text for this piece. Leave it out to use the theme's, papeleria unless the owner has set another."
+    },
+    "credits": {
+      "$ref": "../shared/schema-defs.json#/$defs/credits",
+      "description": "The credits for the deck, shown on the cover slide in meta size above the footer."
+    },
+    "register": {
+      "$ref": "../shared/schema-defs.json#/$defs/non_empty_string",
+      "description": "The line at the top left of every slide, such as Brand overview / Review edition."
+    },
+    "edition": {
+      "$ref": "../shared/schema-defs.json#/$defs/non_empty_string",
+      "description": "The default footer text of every slide, such as Version 1.1.0 / 2026-09-05. A slide's own footer replaces it."
+    },
+    "logo": {
+      "$ref": "../shared/schema-defs.json#/$defs/logo_block",
+      "description": "A client logo shown in the register in place of the wordmark text. Leave it out to show the wordmark."
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/slide"
+      },
+      "minItems": 1,
+      "maxItems": 1000,
+      "description": "The slides, in order: at least one and at most 1,000. Slide N can be linked to as #slide-N."
+    }
+  },
+  "required": [
+    "schema",
+    "template",
+    "title",
+    "slides"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "layout": {
+      "type": "string",
+      "enum": [
+        "cover",
+        "statement",
+        "closing",
+        "two",
+        "three",
+        "four",
+        "chart",
+        "image",
+        "attributes",
+        "palette",
+        "type",
+        "wordmark"
+      ],
+      "description": "The slide's layout. cover and closing open and close the deck on the dark plate; statement holds one idea; two, three and four hold that many columns; chart holds one chart or one table; image holds one picture; attributes holds labelled items; palette holds colour swatches; type and wordmark show the theme's own samples."
+    },
+    "slide": {
+      "type": "object",
+      "description": "One slide. Every layout takes a title and, optionally, a lead, a footer and speaker notes. What else the slide takes depends on its layout.",
+      "properties": {
+        "layout": {
+          "$ref": "#/$defs/layout",
+          "description": "Which of the twelve layouts this slide uses."
+        },
+        "title": {
+          "$ref": "../shared/schema-defs.json#/$defs/inline_markdown",
+          "description": "The slide title, in the display face. Inline Markdown: end a line with two spaces or a backslash to break the title there."
+        },
+        "lead": {
+          "$ref": "../shared/schema-defs.json#/$defs/inline_markdown",
+          "description": "A short line under the title. Inline Markdown."
+        },
+        "footer": {
+          "$ref": "../shared/schema-defs.json#/$defs/non_empty_string",
+          "description": "The footer text on the left of this slide. It defaults to the deck's edition; the slide number, as N / total, is added on the right."
+        },
+        "notes": {
+          "$ref": "../shared/schema-defs.json#/$defs/notes",
+          "description": "Speaker notes for this slide, written here or loaded from a Markdown file under assets/text/. They show only when notes are turned on."
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "../shared/schema-defs.json#/$defs/column"
+          },
+          "description": "The columns of a two, three or four slide, exactly that many, each with a heading and text. Every other layout takes none."
+        },
+        "chart": {
+          "$ref": "../shared/schema-defs.json#/$defs/chart_block",
+          "description": "The chart on a chart slide, drawn from a CSV file. A chart slide takes one chart or one table, never both."
+        },
+        "table": {
+          "$ref": "../shared/schema-defs.json#/$defs/table_block",
+          "description": "The table on a chart slide, in place of a chart."
+        },
+        "image": {
+          "$ref": "../shared/schema-defs.json#/$defs/image_block",
+          "description": "The picture on an image slide. It fills the slide and is cropped to its focal point."
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "../shared/schema-defs.json#/$defs/item"
+          },
+          "minItems": 1,
+          "description": "The labelled lines of an attributes slide, each with a label and its text. Other layouts take none."
+        },
+        "swatches": {
+          "type": "array",
+          "items": {
+            "$ref": "../shared/schema-defs.json#/$defs/swatch"
+          },
+          "minItems": 1,
+          "description": "The colours of a palette slide, each with a name, a #rgb or #rrggbb value and an optional use. Other layouts take none."
+        }
+      },
+      "required": [
+        "layout",
+        "title"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$comment": "ERD LAYOUT: a two slide takes exactly 2 columns (C08, R15).",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "two"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "required": [
+              "columns"
+            ],
+            "properties": {
+              "columns": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ERD LAYOUT: a three slide takes exactly 3 columns (C08, R15).",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "three"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "required": [
+              "columns"
+            ],
+            "properties": {
+              "columns": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ERD LAYOUT: a four slide takes exactly 4 columns (C08, R15).",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "four"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "required": [
+              "columns"
+            ],
+            "properties": {
+              "columns": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ERD LAYOUT: only two, three and four take columns (C08, R15). A misspelled layout matches no rule here, so it is reported once, as a layout error.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "enum": [
+                  "cover",
+                  "statement",
+                  "closing",
+                  "chart",
+                  "image",
+                  "attributes",
+                  "palette",
+                  "type",
+                  "wordmark"
+                ]
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "columns": false
+            }
+          }
+        },
+        {
+          "$comment": "C09: a chart slide takes exactly one of chart and table.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "chart"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "oneOf": [
+              {
+                "required": [
+                  "chart"
+                ]
+              },
+              {
+                "required": [
+                  "table"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "$comment": "Only a chart slide takes a chart or a table.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "enum": [
+                  "cover",
+                  "statement",
+                  "closing",
+                  "two",
+                  "three",
+                  "four",
+                  "image",
+                  "attributes",
+                  "palette",
+                  "type",
+                  "wordmark"
+                ]
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "chart": false,
+              "table": false
+            }
+          }
+        },
+        {
+          "$comment": "An image slide takes one image.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "image"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "required": [
+              "image"
+            ]
+          }
+        },
+        {
+          "$comment": "Only an image slide takes an image.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "enum": [
+                  "cover",
+                  "statement",
+                  "closing",
+                  "two",
+                  "three",
+                  "four",
+                  "chart",
+                  "attributes",
+                  "palette",
+                  "type",
+                  "wordmark"
+                ]
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "image": false
+            }
+          }
+        },
+        {
+          "$comment": "An attributes slide takes items.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "attributes"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "required": [
+              "items"
+            ]
+          }
+        },
+        {
+          "$comment": "Only an attributes slide takes items.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "enum": [
+                  "cover",
+                  "statement",
+                  "closing",
+                  "two",
+                  "three",
+                  "four",
+                  "chart",
+                  "image",
+                  "palette",
+                  "type",
+                  "wordmark"
+                ]
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": false
+            }
+          }
+        },
+        {
+          "$comment": "A palette slide takes swatches.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "const": "palette"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "required": [
+              "swatches"
+            ]
+          }
+        },
+        {
+          "$comment": "Only a palette slide takes swatches.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "enum": [
+                  "cover",
+                  "statement",
+                  "closing",
+                  "two",
+                  "three",
+                  "four",
+                  "chart",
+                  "image",
+                  "attributes",
+                  "type",
+                  "wordmark"
+                ]
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "swatches": false
+            }
+          }
+        }
+      ]
+    }
+  }
+}

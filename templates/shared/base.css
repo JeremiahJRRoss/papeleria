@@ -1,0 +1,148 @@
+/* Papeleria templates — shared block and output styles (M1.11).
+ *
+ * What theme/css/site.css and slides.css do not style: figures, charts,
+ * images and tables on slides, captions, the slide status and credits, the
+ * external-link mark, the focus ring on dark plates, and the deck tools before
+ * the deck script has run. Values come from tokens.css; nothing here is a new
+ * colour or face. Own code, Apache-2.0.
+ */
+
+/* ---- Deck page ------------------------------------------------------------ */
+
+/* The six tools do nothing without the deck script, so they appear only once
+ * it has enhanced the page (D69); the status line stays and says why. */
+body.deck-page:not(.deck-enhanced) .deck-tools .button{display:none}
+
+/* The wordmark or logo keeps to the right even when a deck has no register. */
+.slide-register .wordmark,.slide-register .slide-logo{margin-left:auto}
+.slide-register picture{display:contents}
+.slide-logo{display:block;height:32px;width:auto;max-width:40%;object-fit:contain;object-position:right center}
+
+/* Status prints with every slide (D61, UX §11). */
+.slide-status{text-align:center}
+
+/* The counter, always the footer's last span, stays whole and takes its own
+ * width, so on a phone the footer text and the status wrap between words
+ * instead of breaking "01 / 16" or a date apart (D73). */
+.slide-footer>span:last-child{flex-shrink:0;white-space:nowrap}
+
+/* Cover credits sit above the footer in meta size (UX §05). */
+.slide-credits{display:flex;flex-wrap:wrap;gap:4px 24px;margin:0 0 18px;font-size:var(--type-meta);line-height:1.5}
+.slide-credits div{display:flex;gap:6px}
+.slide-credits dt{font-weight:700}
+.slide-credits dd{margin:0}
+
+/* An attributes item: its label on a line of its own. The markup keeps the
+ * reference's <p><strong>label</strong>text</p>; as a block the label is read
+ * apart from its text, where inline the two ran into one word (D69). */
+.slide-attributes strong{display:block}
+
+/* The focus ring on the dark plates (UX §01). */
+.slide-layout-cover .slide-canvas :focus-visible,.slide-layout-closing .slide-canvas :focus-visible,.slide-layout-statement .slide-canvas :focus-visible{outline-color:var(--semantic-focus-reverse)}
+
+/* ---- Figures ---------------------------------------------------------------- */
+
+.slide-figure,.chart-figure,.table-figure{margin:0}
+.figure-caption{margin-top:12px;font-size:var(--type-meta);line-height:1.5;color:var(--color-text-muted)}
+.figure-caption p{margin:0 0 4px}
+.figure-caption p:last-child{margin-bottom:0}
+.figure-text{color:var(--color-text)}
+.table-figure .figure-caption{margin:0 0 8px}
+
+/* An image on a slide fills the content width, cropped to its focal point. */
+.image-figure img{display:block;width:100%;height:auto}
+.slide-layout-image .image-figure img{aspect-ratio:16/9;max-height:62vh;object-fit:cover}
+
+/* A chart scales to its figure and never scrolls (D64): a drawing that came
+ * back wider than asked is shown smaller, never cut off. The height is capped
+ * so a slide keeps its title in view; the drawing stays centred. */
+.chart-frame svg{display:block;width:100%;height:auto;max-height:min(60vh,540px)}
+.chart-summary{font-size:var(--type-small);line-height:1.6}
+
+/* Tables: numbers align on the right in tabular figures. */
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.slide-content .table-wrap{margin:0}
+
+/* The external-link mark (D151). */
+.link-external-mark{display:inline-block;margin-left:.15em;text-decoration:none}
+
+@media(forced-colors:active){
+  .chart text{fill:CanvasText}
+  .chart-axes line{stroke:CanvasText}
+}
+
+@media print{
+  .chart-frame svg{max-height:95mm}
+  .slide-layout-image .image-figure img{max-height:110mm}
+  .table-wrap{overflow:visible}
+}
+
+/* ---- Document page (M3.1, W3B) ------------------------------------------ */
+
+/* A section heading links to its own address (D94): it reads as a heading,
+ * and shows it is a link on hover and focus, with the kit's focus ring. */
+.doc-anchor{color:inherit;text-decoration:none}
+.doc-anchor:hover,.doc-anchor:focus-visible{text-decoration:underline;text-decoration-thickness:2px}
+
+/* The footer's last span is the status (D94), kept whole as the deck's counter is (D73). */
+.template-footer>.doc-status{flex-shrink:0}
+
+/* Long headings, words and addresses wrap inside the sheet rather than run off it (IC08). */
+.doc-content h1,.doc-content h2,.doc-content h3,.doc-content h4,.doc-content p,.doc-content li,.doc-content dd,.doc-content figcaption{overflow-wrap:break-word}
+
+/* A block keeps its own type size: the sheet sets every paragraph at .91rem,
+ * which would otherwise shrink a quote and grow a note or the source note. */
+.document-body blockquote p,.document-body blockquote li,.document-body .source-note p,.document-body .source-note li{font-size:inherit;line-height:inherit}
+.document-body .note p,.document-body .note li{font-size:inherit}
+.document-body .source-note p{margin-bottom:8px}
+
+/* A note's label is its first strong, a block (site.css); bold in the note's text stays inline. */
+.note p strong,.note li strong{display:inline;margin:0}
+
+/* Quote: the kit's blockquote (Poppins 500, 1.5rem, cyan rail, D90) inside a
+ * figure whose caption is the attribution, in small type under the rail. */
+.quote-figure{margin:32px 0}
+.quote-figure blockquote{margin:0}
+.quote-attribution{margin-top:12px;padding-left:27px;font-size:var(--type-small);line-height:1.6;color:var(--color-text-muted)}
+
+/* Blocks in a section take the sheet's margins. */
+.document-body .doc-figure,.document-body .chart-figure,.document-body .table-figure,.document-body .video-figure,.document-body .logo-block{margin:24px 0}
+
+/* An image fills the text measure, with a 1 px rule border in documents (UX §09). */
+.doc-figure img{border:1px solid var(--color-rule)}
+
+/* A logo in a section is 48 px tall, never stretched (UX §09). */
+.logo-block img{display:block;height:48px;width:auto;max-width:100%}
+
+/* Video (IC04): the player fills the measure at its poster's proportions; the
+ * alternative is visible text beneath it. The print copy of the poster is
+ * shown in print only. */
+.video-figure video{display:block;width:100%;height:auto;background:var(--color-ground)}
+.video-print-poster{display:none}
+.video-alt{margin:0 0 4px;color:var(--color-text)}
+
+@media print{
+  /* The skip link is fixed in place, so a browser would print it on every
+   * page, over the text there (found in the first report PDF). */
+  .skip-link{display:none!important}
+  /* A heading link prints as a heading. */
+  .doc-anchor{text-decoration:none}
+  /* The footer closing a sheet never prints alone on a page: what comes
+   * before it goes over with it (found in the tall-image and every-block
+   * fixtures, whose footers each took a page of their own). */
+  .document-body .template-footer{break-before:avoid}
+  /* A figure, quote or callout that fits on a page is kept whole; one taller
+   * than a page still flows on, never cut (IC08). Notes and rows: print.css.
+   * A table is not held whole: it flows from where it starts, a row at a time,
+   * its header repeated on every page (IC08). */
+  .document-body figure:not(.table-figure),.document-body blockquote,.document-body .doc-callout{break-inside:avoid}
+  /* An image is never taller than a printed page, so it is never cut (IC08). */
+  .document-body .image-figure img{width:auto;max-width:100%;max-height:200mm;margin:0 auto}
+  /* A video prints as its poster, with its alternative beneath (IC04). */
+  .video-figure video{display:none}
+  .video-figure .video-print-poster{display:block;width:auto;max-width:100%;max-height:120mm;height:auto}
+  /* Table cells wrap rather than scroll or clip (IC08): a long address breaks
+   * anywhere, and each column keeps at least 5em so a short one is never
+   * squeezed to one letter beside a long one (found in the long-table fixture). */
+  .document-body th,.document-body td{overflow-wrap:anywhere;min-width:5em}
+}

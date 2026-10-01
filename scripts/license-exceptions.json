@@ -1,0 +1,31 @@
+{
+  "$comment": [
+    "Package-specific licence exceptions for scripts/license-check.mjs (D21, D27, D29, D30).",
+    "An exception says a licence is acceptable for one package at one exact version in one scope. What the licence IS, and what establishes it, lives in scripts/license-evidence.json: policy and evidence are separate decisions with separate owners.",
+    "Every entry names an exact version. A range or wildcard is refused, because an exception is a reviewer's reading of one published artefact and cannot travel to a version nobody read.",
+    "status is required and must be 'provisional' or 'approved'. A missing or unrecognised status is a hard error, never an implied approval. An approved entry must also name its approvalReference, approver and approvalDate.",
+    "Copyleft (GPL, AGPL, LGPL outside the libvips list in the script, SSPL, EUPL) is refused in every scope and cannot be excepted; the checker rejects such an entry outright.",
+    "No exception applies in published-piece scope (D21): what a published piece carries passes its allowlist or fails, and the checker rejects an entry for that scope outright.",
+    "PSF-2.0, Python-2.0 and 0BSD are no longer listed here: D29 approved them in the author-runtime allowlist, which is the right home for a licence acceptable as a class rather than per package. Their evidence records remain in license-evidence.json."
+  ],
+  "authorization": {
+    "source": "Repository owner instruction to the implementing session, 2026-09-22, reproduced in execution/issues/001-author-runtime-licences.md",
+    "scope": "Project licence policy for this repository only.",
+    "notIncluded": "This is not independent legal review and does not establish completed LGPL compliance. The native distribution obligations remain open in scripts/native-reviews.json (D34, D36)."
+  },
+  "exceptions": [
+    {
+      "package": "railroad-diagrams",
+      "version": "1.0.0",
+      "scope": "author-runtime",
+      "license": "CC0-1.0",
+      "status": "approved",
+      "rationale": "Reached through codemirror-json-schema 0.8.1 -> json-schema-library -> smtp-address-parser -> nearley. CC0-1.0 is a public-domain dedication and imposes no distribution condition. Approved for this package only: CC0 is deliberately NOT added to the author-runtime allowlist, because a public-domain dedication is worth looking at each time rather than accepting as a class.",
+      "reviewOwner": "Release owner (D18)",
+      "approvalReference": "D30; owner instruction 2026-09-22; execution/issues/001-author-runtime-licences.md",
+      "approver": "JR (Jeremiah Ross), repository owner",
+      "approvalDate": "2026-09-22",
+      "dependsOn": "DEP02 at M2.2. If codemirror-json-schema is dropped, confirm this package is gone from every path before removing this entry."
+    }
+  ]
+}

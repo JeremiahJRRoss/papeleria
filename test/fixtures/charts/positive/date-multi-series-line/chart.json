@@ -1,0 +1,10 @@
+{
+  "id": "chart-weeks",
+  "type": "line",
+  "x": "week",
+  "y": "hours",
+  "series": "phase",
+  "summary": "Review hours rose each month while build hours fell.",
+  "locale": "en",
+  "dataName": "hours-by-week.csv"
+}

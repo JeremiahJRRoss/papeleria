@@ -1,0 +1,8 @@
+schema: 1
+template: deck
+title: Fixture.
+credits:
+  - {role: Author}
+slides:
+  - layout: statement
+    title: S

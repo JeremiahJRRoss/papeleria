@@ -1,0 +1,11 @@
+# The schema patterns accept these paths; the path rules refuse them, and say so with the schema's own errors (W5R-33).
+schema: 1
+template: deck
+title: Fixture.
+author: Studio
+logo: {src: assets/images/logos/old./mark.svg, alt: Studio.}
+slides:
+  - layout: image
+    title: S
+    image: {src: assets/images/con.png, alt: A pier.}
+    notes: assets/text/aux.md

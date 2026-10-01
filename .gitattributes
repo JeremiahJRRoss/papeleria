@@ -1,0 +1,23 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Binary by name, not by git's guess (W5R-28): never converted, diffed or merged as text.
+# The fonts the budget counts, the images the samples, examples and golden baselines
+# compare byte for byte, the images and videos an author may add (IC02), and the
+# AVIF and WebP derivatives the build writes.
+*.woff2 binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.mp4 binary
+*.webm binary
+
+# The desktop installers (installers/). Windows runs its scripts with CRLF line
+# endings, and the macOS and Ubuntu scripts must keep LF on every checkout, a Windows one
+# included, so that a zip of any checkout installs.
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.sh text eol=lf
+*.command text eol=lf

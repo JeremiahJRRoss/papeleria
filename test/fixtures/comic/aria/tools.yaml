@@ -1,0 +1,8 @@
+- button "Previous" [disabled]
+- status: Page 1 of 5
+- button "Next"
+- button "Guided view"
+- button "Transcript"
+- button "Full screen"
+- paragraph: 5 panels · explore transcripts and available details
+- status

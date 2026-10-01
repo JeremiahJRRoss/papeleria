@@ -1,0 +1,8 @@
+schema: 1
+template: document
+title: Fixture.
+sections:
+  - heading: Hours
+    blocks:
+      - text: assets/text/../secret.md
+      - text: See assets/text/notes.md for the long version.

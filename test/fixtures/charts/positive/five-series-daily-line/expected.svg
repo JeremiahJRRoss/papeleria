@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="chart chart-line" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="chart-daily-title">
+<title id="chart-daily-title">Daily hours by studio for September.</title>
+<g font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12.5" font-variant="tabular-nums" fill="#1d1d1a">
+<g class="chart-legend">
+<line x1="9" y1="14" x2="31" y2="14" stroke="#1d1d1a" stroke-width="2" stroke-linecap="round"/>
+<text x="38" y="14" dy="0.35em">&#x2068;Review&#x2069;</text>
+<line x1="106" y1="14" x2="128" y2="14" stroke="#5f5f57" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 6"/>
+<text x="135" y="14" dy="0.35em">&#x2068;Build&#x2069;</text>
+<line x1="186.75" y1="14" x2="208.75" y2="14" stroke="#eb3a96" stroke-width="2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
+<text x="215.75" y="14" dy="0.35em">&#x2068;Delivery&#x2069;</text>
+<line x1="289.25" y1="14" x2="311.25" y2="14" stroke="#32bce9" stroke-width="2" stroke-linecap="round" stroke-dasharray="10 5 0.1 5"/>
+<text x="318.25" y="14" dy="0.35em">&#x2068;Research&#x2069;</text>
+<line x1="400.25" y1="14" x2="422.25" y2="14" stroke="#f5ee2f" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="429.25" y="14" dy="0.35em">&#x2068;Admin&#x2069;</text>
+</g>
+<g class="chart-axes">
+<line x1="33.5" y1="330.5" x2="529.5" y2="330.5" stroke="#d8d8d1" stroke-width="1"/>
+<line x1="33.5" y1="272.5" x2="529.5" y2="272.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="214.5" x2="529.5" y2="214.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="156.5" x2="529.5" y2="156.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="98.5" x2="529.5" y2="98.5" stroke="#efefeb" stroke-width="1"/>
+<line x1="33.5" y1="40.5" x2="529.5" y2="40.5" stroke="#efefeb" stroke-width="1"/>
+</g>
+<g class="chart-marks">
+<line x1="535.5" y1="214.1" x2="536.5" y2="234.51" stroke="#d8d8d1" stroke-width="1"/>
+<line x1="535.5" y1="202.51" x2="536.5" y2="218.51" stroke="#d8d8d1" stroke-width="1"/>
+<path d="M33.5,248.87L50.6,237.28L67.71,225.69L84.81,214.1L101.91,214.1L119.02,214.1L136.12,202.51L153.22,202.51L170.33,202.51L187.43,214.1L204.53,214.1L221.64,225.69L238.74,237.28L255.84,237.28L272.95,248.87L290.05,260.46L307.16,272.05L324.26,272.05L341.36,283.64L358.47,283.64L375.57,283.64L392.67,283.64L409.78,272.05L426.88,272.05L443.98,260.46L461.09,248.87L478.19,237.28L495.29,225.69L512.4,214.1L529.5,214.1" fill="none" stroke="#1d1d1a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M33.5,179.33L50.6,179.33L67.71,179.33L84.81,190.92L101.91,190.92L119.02,202.51L136.12,214.1L153.22,225.69L170.33,237.28L187.43,248.87L204.53,260.46L221.64,260.46L238.74,272.05L255.84,272.05L272.95,272.05L290.05,283.64L307.16,272.05L324.26,272.05L341.36,272.05L358.47,260.46L375.57,248.87L392.67,237.28L409.78,237.28L426.88,225.69L443.98,214.1L461.09,202.51L478.19,202.51L495.29,202.51L512.4,190.92L529.5,202.51" fill="none" stroke="#5f5f57" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="10 6"/>
+<path d="M33.5,167.74L50.6,167.74L67.71,179.33L84.81,190.92L101.91,202.51L119.02,202.51L136.12,214.1L153.22,214.1L170.33,214.1L187.43,214.1L204.53,214.1L221.64,202.51L238.74,202.51L255.84,190.92L272.95,179.33L290.05,167.74L307.16,156.15L324.26,144.56L341.36,132.97L358.47,121.38L375.57,121.38L392.67,109.79L409.78,109.79L426.88,109.79L443.98,109.79L461.09,109.79L478.19,109.79L495.29,121.38L512.4,132.97L529.5,132.97" fill="none" stroke="#eb3a96" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="0.1 5"/>
+<path d="M33.5,179.33L50.6,179.33L67.71,190.92L84.81,190.92L101.91,190.92L119.02,179.33L136.12,179.33L153.22,167.74L170.33,167.74L187.43,156.15L204.53,144.56L221.64,132.97L238.74,121.38L255.84,121.38L272.95,109.79L290.05,109.79L307.16,109.79L324.26,109.79L341.36,109.79L358.47,109.79L375.57,121.38L392.67,132.97L409.78,132.97L426.88,144.56L443.98,156.15L461.09,167.74L478.19,179.33L495.29,190.92L512.4,202.51L529.5,202.51" fill="none" stroke="#32bce9" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="10 5 0.1 5"/>
+<path d="M33.5,132.97L50.6,121.38L67.71,109.79L84.81,98.2L101.91,86.61L119.02,75.02L136.12,63.43L153.22,63.43L170.33,51.84L187.43,40.25L204.53,40.25L221.64,40.25L238.74,40.25L255.84,40.25L272.95,40.25L290.05,51.84L307.16,63.43L324.26,63.43L341.36,75.02L358.47,86.61L375.57,98.2L392.67,98.2L409.78,109.79L426.88,109.79L443.98,109.79L461.09,109.79L478.19,109.79L495.29,109.79L512.4,98.2L529.5,98.2" fill="none" stroke="#f5ee2f" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4 6"/>
+</g>
+<g class="chart-labels">
+<text x="25.5" y="330" dy="0.35em" text-anchor="end" fill="#5f5f57">0</text>
+<text x="25.5" y="272.05" dy="0.35em" text-anchor="end" fill="#5f5f57">5</text>
+<text x="25.5" y="214.1" dy="0.35em" text-anchor="end" fill="#5f5f57">10</text>
+<text x="25.5" y="156.15" dy="0.35em" text-anchor="end" fill="#5f5f57">15</text>
+<text x="25.5" y="98.2" dy="0.35em" text-anchor="end" fill="#5f5f57">20</text>
+<text x="25.5" y="40.25" dy="0.35em" text-anchor="end" fill="#5f5f57">25</text>
+<text x="119.02" y="336" dy="0.71em" text-anchor="middle" fill="#5f5f57">Sep 6, 2026</text>
+<text x="238.74" y="336" dy="0.71em" text-anchor="middle" fill="#5f5f57">Sep 13</text>
+<text x="358.47" y="336" dy="0.71em" text-anchor="middle" fill="#5f5f57">Sep 20</text>
+<text x="478.19" y="336" dy="0.71em" text-anchor="middle" fill="#5f5f57">Sep 27</text>
+<text x="539.5" y="234.51" dy="0.35em">&#x2068;Review&#x2069;<tspan dx="6" fill="#5f5f57">10</tspan></text>
+<text x="539.5" y="202.51" dy="0.35em">&#x2068;Build&#x2069;<tspan dx="6" fill="#5f5f57">11</tspan></text>
+<text x="539.5" y="132.97" dy="0.35em">&#x2068;Delivery&#x2069;<tspan dx="6" fill="#5f5f57">17</tspan></text>
+<text x="539.5" y="218.51" dy="0.35em">&#x2068;Research&#x2069;<tspan dx="6" fill="#5f5f57">11</tspan></text>
+<text x="539.5" y="98.2" dy="0.35em">&#x2068;Admin&#x2069;<tspan dx="6" fill="#5f5f57">20</tspan></text>
+</g>
+</g>
+</svg>

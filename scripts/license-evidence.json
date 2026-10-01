@@ -1,0 +1,54 @@
+{
+  "$comment": [
+    "Licence evidence records for scripts/license-check.mjs (D31).",
+    "An evidence record answers 'what is this package's licence, and what establishes it'. It is independent of policy: a record keeps being verified after its licence moves into an allowlist, which is how approving PSF-2.0 in author-runtime scope did not quietly retire the argparse check.",
+    "'file' is relative to the package's own directory, so a package installed at a nested path is resolved where it actually sits. 'identifies' supplies the licence when package.json declares none. 'required' defaults to true: a required record that cannot be resolved on the current platform blocks a release but not an ordinary development check.",
+    "verifiedBy records who read the file. That is the implementing session's verification, and it is separate from the owner's policy authorization recorded in license-exceptions.json."
+  ],
+  "evidence": [
+    {
+      "package": "valid-url",
+      "version": "1.0.9",
+      "file": "LICENSE",
+      "sha256": "c48a681e53bfcd0a2b3ee2ea476e6d031fe7563f9eaa68f763bce0e3fb279a46",
+      "identifies": "MIT",
+      "required": true,
+      "verifiedBy": "Claude Opus 5 autonomous session for accountable maintainer JR",
+      "verifiedOn": "2026-09-22",
+      "note": "package.json declares no licence at all. The shipped LICENSE file is the verbatim MIT text, copyright 2013 Odysseas Tsatalos and oDesk Corporation. The identification rests entirely on that file, which is why the hash is pinned: MIT is then allowed by the ordinary author-runtime allowlist, with no package exception needed. A package with no declaration and no evidence record still fails."
+    },
+    {
+      "package": "argparse",
+      "version": "3.0.2",
+      "file": "LICENSE",
+      "sha256": "ab745c5061d1dea43a3885e5b4b6befc7e983954954775c5736debeefcdfd89b",
+      "identifies": "PSF-2.0",
+      "required": true,
+      "verifiedBy": "Claude Opus 5 autonomous session for accountable maintainer JR",
+      "verifiedOn": "2026-09-22",
+      "note": "Declares PSF-2.0 and ships the Python Software Foundation Licence Version 2 text. D29 approved PSF-2.0 in author-runtime scope, so no exception applies any more; this record keeps the declaration tied to the text that backs it."
+    },
+    {
+      "package": "argparse",
+      "version": "2.0.1",
+      "file": "LICENSE",
+      "sha256": "de4d1f2d2ad5ad0cfd1657a106476b31cb5db5ef9d1ff842b237c0c81f0c8a23",
+      "identifies": "Python-2.0",
+      "required": true,
+      "verifiedBy": "Claude Opus 5 autonomous session for accountable maintainer JR",
+      "verifiedOn": "2026-09-22",
+      "note": "Declares Python-2.0, approved in author-runtime scope by D29. Reached only through codemirror-json-schema, at two nested paths; the record resolves against each installation separately."
+    },
+    {
+      "package": "tslib",
+      "version": "2.8.1",
+      "file": "LICENSE.txt",
+      "sha256": "210b19e543130388c68654b7497e967119ce17145f66ab7d85688fbd70f08751",
+      "identifies": "0BSD",
+      "required": true,
+      "verifiedBy": "Claude Opus 5 autonomous session for accountable maintainer JR",
+      "verifiedOn": "2026-09-22",
+      "note": "Declares 0BSD, approved in author-runtime scope by D29."
+    }
+  ]
+}

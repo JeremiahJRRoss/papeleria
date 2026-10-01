@@ -1,0 +1,22 @@
+# The vendored page-turn engine, StPageFlip 2.0.7 (docs/DECISIONS.md D11, D100).
+# Written by scripts/vendor-page-flip.mjs from its pins and verified offline by
+# `npm run vendor:page-flip`. Edit the pins in the script, never this file.
+upstream_repository: https://github.com/Nodlik/StPageFlip
+upstream_tag: v2.0.7
+upstream_commit: ab30ecc1d9f6d98de1a99b8e296469382f41c120
+npm_package: page-flip
+npm_version: 2.0.7
+npm_git_head: ab30ecc1d9f6d98de1a99b8e296469382f41c120
+npm_tarball: https://registry.npmjs.org/page-flip/-/page-flip-2.0.7.tgz
+npm_tarball_bytes: 9181182
+npm_integrity: sha512-96lQFUUz7r/LZzEUZJ3yBIMEKU9+m8HMFDzTvTdD6P7Ag/wXINjp9n0W7b4wanwnDbQETo4uNUoL3zMqpFxwGA==
+file: page-flip.browser.js
+file_member: package/dist/js/page-flip.browser.js
+file_bytes: 44058
+file_sha256: bbaca0bbef57a22bb66a3fc69d67baf9a17fb9a9c89ec9ed35e2b91abe4bd1e7
+license: LICENSE
+license_member: package/LICENSE
+license_spdx: MIT
+license_bytes: 1063
+license_sha256: 88d7b609a3be5efa2abe8648ddc35d5489579db5e06299545760df45c2c32d66
+patches: none

@@ -1,0 +1,9 @@
+{
+  "$comment": "Deliberately wrong expectations. The checker must reject this file, which is how the test proves the case runner is not vacuous. Never fix these values.",
+  "cases": [
+    {"def": "non_empty_string", "value": "   ", "valid": true, "note": "wrong on purpose"},
+    {"def": "block", "value": {}, "valid": true, "note": "wrong on purpose"},
+    {"def": "detail", "value": {"zoom": true, "text": "both"}, "valid": true, "note": "wrong on purpose"},
+    {"def": "no_such_definition", "value": 1, "valid": true, "note": "unknown definition"}
+  ]
+}

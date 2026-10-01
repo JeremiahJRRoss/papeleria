@@ -1,0 +1,7 @@
+schema: 1
+template: deck
+title: Fixture.
+slides:
+  - layout: statement
+    title: S
+    video: {src: assets/video/loop.mp4, poster: assets/images/poster.png, alt: A loop.}

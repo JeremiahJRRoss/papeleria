@@ -1,0 +1,8 @@
+# The text alternative is the blank Braille pattern, a character with no dots.
+schema: 1
+template: document
+title: Fixture.
+sections:
+  - heading: Hours
+    blocks:
+      - video: {src: assets/video/loop.mp4, poster: assets/images/poster.png, alt: "\u2800"}

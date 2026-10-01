@@ -1,0 +1,955 @@
+{
+  "description": "M1.1 loader cases (IC01). Each finding's location is written as marker text: the expected line and column are those of the marker's first character in that file (or of its n-th occurrence, or of the end of the file), computed by the test independently of the parser. One assertion routine runs every case against its YAML and JSON file, which is the format-parity check. A value given as {\"yaml\": ..., \"json\": ...} differs by format; a plain value applies to both.",
+  "cases": [
+    {
+      "name": "valid",
+      "files": [
+        "valid.yaml",
+        "valid.json"
+      ],
+      "usable": true,
+      "findings": []
+    },
+    {
+      "name": "duplicate key at the top level",
+      "files": [
+        "duplicate-key.yaml",
+        "duplicate-key.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": {
+            "yaml": "title: Second",
+            "json": "\"title\": \"Second\""
+          },
+          "message": {
+            "yaml": "The field \"title\" appears twice in the same mapping.",
+            "json": "The field \"title\" appears twice in the same object."
+          },
+          "fix": {
+            "yaml": "Keep one \"title\" and delete or rename the other.",
+            "json": "Keep one \"title\" and delete or rename the other."
+          },
+          "detail": {
+            "yaml": "The first \"title\" is at line 3.",
+            "json": "The first \"title\" is at line 4."
+          },
+          "related": {
+            "yaml": "title: First",
+            "json": "\"title\": \"First\""
+          }
+        }
+      ]
+    },
+    {
+      "name": "duplicate key inside a slide",
+      "files": [
+        "duplicate-nested.yaml",
+        "duplicate-nested.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": {
+            "yaml": "layout: cover",
+            "json": "\"layout\": \"cover\""
+          },
+          "message": {
+            "yaml": "The field \"layout\" appears twice in the same mapping.",
+            "json": "The field \"layout\" appears twice in the same object."
+          },
+          "fix": {
+            "yaml": "Keep one \"layout\" and delete or rename the other.",
+            "json": "Keep one \"layout\" and delete or rename the other."
+          },
+          "detail": {
+            "yaml": "The first \"layout\" is at line 5.",
+            "json": "The first \"layout\" is at line 6."
+          },
+          "related": {
+            "yaml": "layout: statement",
+            "json": "\"layout\": \"statement\""
+          }
+        }
+      ]
+    },
+    {
+      "name": "duplicate key written with an escape",
+      "files": [
+        "duplicate-escaped.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"ti\\u0074le\"",
+          "message": "The field \"title\" appears twice in the same object.",
+          "fix": "Keep one \"title\" and delete or rename the other.",
+          "detail": "The first \"title\" is at line 4.",
+          "related": "\"title\": \"Craft"
+        }
+      ],
+      "note": "Keys are compared after unescaping, so \\u0074 is the same t."
+    },
+    {
+      "name": "root is a list",
+      "files": [
+        "root-list.yaml",
+        "root-list.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": {
+            "yaml": "- schema",
+            "json": "["
+          },
+          "message": {
+            "yaml": "The manifest must be a mapping of fields, one per line, such as schema: 1.",
+            "json": "The manifest must be one JSON object of fields."
+          },
+          "fix": {
+            "yaml": "Write each field as name: value at the start of a line.",
+            "json": "Wrap the fields in { }."
+          }
+        }
+      ]
+    },
+    {
+      "name": "root is a scalar",
+      "files": [
+        "root-scalar.yaml",
+        "root-scalar.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": {
+            "yaml": "just a sentence",
+            "json": "\"just a sentence\""
+          },
+          "message": {
+            "yaml": "The manifest must be a mapping of fields, one per line, such as schema: 1.",
+            "json": "The manifest must be one JSON object of fields."
+          },
+          "fix": {
+            "yaml": "Write each field as name: value at the start of a line.",
+            "json": "Wrap the fields in { }."
+          }
+        }
+      ]
+    },
+    {
+      "name": "empty manifest",
+      "files": [
+        "empty.yaml",
+        "empty.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": null,
+          "message": "The manifest is empty.",
+          "fix": "Start the manifest with schema: 1, template: and title:."
+        }
+      ],
+      "note": "An empty file has no token to point at, so the line is null rather than an invented line 1."
+    },
+    {
+      "name": "schema missing",
+      "files": [
+        "schema-missing.yaml",
+        "schema-missing.json"
+      ],
+      "usable": true,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": {
+            "yaml": "template: deck",
+            "json": "{"
+          },
+          "message": "The manifest has no schema field.",
+          "fix": "Add schema: 1 as the first field of the manifest.",
+          "detail": "Container location: the manifest that starts here has no schema."
+        }
+      ],
+      "note": "A missing field maps to its container: the root mapping, which in YAML starts at its first key."
+    },
+    {
+      "name": "schema written as text",
+      "files": [
+        "schema-string.yaml",
+        "schema-string.json"
+      ],
+      "usable": true,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"1\"",
+          "message": "schema must be the whole number 1, not \"1\".",
+          "fix": "Set schema: 1."
+        }
+      ]
+    },
+    {
+      "name": "schema older than 1",
+      "files": [
+        "schema-older.yaml",
+        "schema-older.json"
+      ],
+      "usable": true,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "0",
+          "message": "schema: 0 is not a manifest version; this release reads schema 1.",
+          "fix": "Set schema: 1."
+        }
+      ]
+    },
+    {
+      "name": "schema with a fraction",
+      "files": [
+        "schema-fraction.yaml",
+        "schema-fraction.json"
+      ],
+      "usable": true,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "1.5",
+          "message": "schema must be the whole number 1, not 1.5.",
+          "fix": "Set schema: 1."
+        }
+      ]
+    },
+    {
+      "name": "schema newer than the tool",
+      "files": [
+        "schema-newer.yaml",
+        "schema-newer.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R17",
+          "severity": "error",
+          "at": "2",
+          "message": "The manifest's schema 2 is newer than this version of Papeleria, which reads schema 1.",
+          "fix": "Update Papeleria, or set schema: 1 if the file was written by hand."
+        }
+      ],
+      "note": "R17 only: the unknown field a newer format may carry is never reported as R09."
+    },
+    {
+      "name": "schema 1.0 is the number 1",
+      "files": [
+        "schema-one-point-zero.yaml",
+        "schema-one-point-zero.json"
+      ],
+      "usable": true,
+      "findings": []
+    },
+    {
+      "name": "schema 2.0 is the number 2, newer than the tool",
+      "files": [
+        "schema-two-point-zero.yaml",
+        "schema-two-point-zero.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R17",
+          "severity": "error",
+          "message": "The manifest's schema 2 is newer than this version of Papeleria, which reads schema 1.",
+          "fix": "Update Papeleria, or set schema: 1 if the file was written by hand.",
+          "at": "2.0"
+        }
+      ],
+      "note": "Judged by value, as JSON Schema integer and Ajv judge it (D164(b))."
+    },
+    {
+      "name": "schema 1e0 is the number 1",
+      "files": [
+        "schema-exponent.yaml",
+        "schema-exponent.json"
+      ],
+      "usable": true,
+      "findings": []
+    },
+    {
+      "name": "schema 1e400 is past a double: not a manifest version",
+      "files": [
+        "schema-overflow.yaml",
+        "schema-overflow.json"
+      ],
+      "usable": true,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "1e400",
+          "message": "schema must be the whole number 1, not Infinity.",
+          "fix": "Set schema: 1."
+        }
+      ]
+    },
+    {
+      "name": "YAML: schema .inf is not a manifest version",
+      "files": [
+        "schema-infinity.yaml"
+      ],
+      "usable": true,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": ".inf",
+          "message": "schema must be the whole number 1, not Infinity.",
+          "fix": "Set schema: 1."
+        }
+      ]
+    },
+    {
+      "name": "YAML: schema .nan is not a manifest version",
+      "files": [
+        "schema-nan.yaml"
+      ],
+      "usable": true,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": ".nan",
+          "message": "schema must be the whole number 1, not NaN.",
+          "fix": "Set schema: 1."
+        }
+      ]
+    },
+    {
+      "name": "JSON: Infinity",
+      "files": [
+        "json-infinity.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "Infinity",
+          "message": "JSON has no NaN, Infinity or undefined.",
+          "fix": "Write a finite number, or null."
+        }
+      ]
+    },
+    {
+      "name": "nesting depth 32 is accepted",
+      "files": [
+        "depth-32.yaml",
+        "depth-32.json"
+      ],
+      "usable": true,
+      "findings": []
+    },
+    {
+      "name": "nesting depth 33 is refused at the collection that crosses the limit",
+      "files": [
+        "depth-33.yaml",
+        "depth-33.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": {
+            "marker": "[",
+            "occurrence": 32
+          },
+          "message": "The manifest nests more than 32 levels deep.",
+          "fix": {
+            "yaml": "Flatten the structure; the limit is 32 nested lists and mappings, counting the top level.",
+            "json": "Flatten the structure; the limit is 32 nested arrays and objects, counting the top level."
+          },
+          "detail": "Input limit: nesting depth 32 (IC01)."
+        }
+      ]
+    },
+    {
+      "name": "YAML: unclosed quotation mark",
+      "files": [
+        "yaml-unclosed-quote.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"Craft",
+          "message": "This quoted value is never closed.",
+          "fix": "Close the value with the same quotation mark it opens with.",
+          "detail": "The parser reached line 5 still inside the quotes."
+        }
+      ]
+    },
+    {
+      "name": "YAML: a double-quoted value whose last quotation mark is escaped is never closed",
+      "files": [
+        "yaml-escaped-quote-at-line-end.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"Files",
+          "message": "This quoted value is never closed.",
+          "fix": "Close the value with the same quotation mark it opens with.",
+          "detail": "The \\\" at the end of line 3 is an escaped quotation mark, part of the text, so it does not close the value."
+        }
+      ],
+      "note": "The parser cuts the value at the line end and its composer checks only the last character, so without this check the title would silently become Files live in C:\\docs\"."
+    },
+    {
+      "name": "YAML: a single-quoted value that ends in a doubled quotation mark is never closed",
+      "files": [
+        "yaml-doubled-single-quote-at-line-end.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'Rosa",
+          "message": "This quoted value is never closed.",
+          "fix": "Close the value with the same quotation mark it opens with.",
+          "detail": "The '' at the end of line 3 is an escaped quotation mark, part of the text, so it does not close the value."
+        }
+      ],
+      "note": "'' is one quotation mark inside a single-quoted value; without this check the title would silently become Rosa'."
+    },
+    {
+      "name": "YAML: tab indentation",
+      "files": [
+        "yaml-tab-indent.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\t- layout",
+          "message": "The YAML cannot be read here: Tabs are not allowed as indentation",
+          "fix": "Indent with spaces, not tabs."
+        }
+      ]
+    },
+    {
+      "name": "YAML: unquoted colon inside a value",
+      "files": [
+        "yaml-compact-mapping.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "Context:",
+          "message": "The YAML cannot be read here: Nested mappings are not allowed in compact mappings",
+          "fix": "Check the indentation, and quote a value that contains a colon followed by a space."
+        }
+      ]
+    },
+    {
+      "name": "YAML: reserved first character",
+      "files": [
+        "yaml-reserved-start.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "@studio",
+          "message": "The YAML cannot be read here: Plain value cannot start with reserved character @",
+          "fix": "Quote a value that starts with @ or a backtick."
+        }
+      ]
+    },
+    {
+      "name": "YAML: a flow list closed at its parent's indentation is accepted",
+      "files": [
+        "yaml-flow-end-indent.yaml"
+      ],
+      "usable": true,
+      "findings": []
+    },
+    {
+      "name": "YAML: anchor and alias",
+      "files": [
+        "yaml-anchor-alias.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "&shared",
+          "message": "The anchor &shared is not supported in a manifest.",
+          "fix": "Remove the anchor and write the value out in full where it is used."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "*shared",
+          "message": "The alias *shared is not supported in a manifest.",
+          "fix": "Replace the alias with the value it stands for."
+        }
+      ]
+    },
+    {
+      "name": "YAML: merge key",
+      "files": [
+        "yaml-merge-key.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "<<:",
+          "message": "Merge keys (<<) are not supported in a manifest.",
+          "fix": "Write the merged fields out in full in this mapping."
+        }
+      ]
+    },
+    {
+      "name": "YAML: custom and YAML 1.1 tags",
+      "files": [
+        "yaml-custom-tag.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "!upper",
+          "message": "The tag !upper is not supported in a manifest.",
+          "fix": "Remove the tag. Quote the value if it must stay text."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "!!binary",
+          "message": "The tag !!binary is not supported in a manifest.",
+          "fix": "Remove the tag. Quote the value if it must stay text."
+        }
+      ]
+    },
+    {
+      "name": "YAML: %TAG directive and its handle",
+      "files": [
+        "yaml-tag-directive.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "%TAG",
+          "message": "Custom tag handles are not supported in a manifest.",
+          "fix": "Remove the %TAG line and any tags that use it."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "!e!title",
+          "message": "The tag !e!title is not supported in a manifest.",
+          "fix": "Remove the tag. Quote the value if it must stay text."
+        }
+      ]
+    },
+    {
+      "name": "YAML: core-schema tag accepted",
+      "files": [
+        "yaml-core-tag.yaml"
+      ],
+      "usable": true,
+      "findings": []
+    },
+    {
+      "name": "YAML: keys that are not text",
+      "files": [
+        "yaml-non-string-keys.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "1: one",
+          "message": "A mapping key must be text.",
+          "fix": "Write the field name as text, such as title:, and quote it if it looks like a number, true or null."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "true: yes",
+          "message": "A mapping key must be text.",
+          "fix": "Write the field name as text, such as title:, and quote it if it looks like a number, true or null."
+        },
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "[a, b]",
+          "message": "A mapping key must be text.",
+          "fix": "Write the field name as text, such as title:, and quote it if it looks like a number, true or null."
+        }
+      ]
+    },
+    {
+      "name": "YAML: null key",
+      "files": [
+        "yaml-null-key.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "~: nothing",
+          "message": "A mapping key must be text.",
+          "fix": "Write the field name as text, such as title:, and quote it if it looks like a number, true or null."
+        }
+      ]
+    },
+    {
+      "name": "YAML: two documents",
+      "files": [
+        "yaml-two-documents.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "---",
+          "message": "The manifest contains more than one YAML document.",
+          "fix": "Keep one document: remove this --- line and anything after it that is not part of the manifest."
+        }
+      ]
+    },
+    {
+      "name": "YAML: document end markers around the one document are accepted",
+      "files": [
+        "yaml-document-end-markers.yaml"
+      ],
+      "usable": true,
+      "findings": [],
+      "note": "YAML 1.2 allows any number of ... lines before and after a document (l-yaml-stream); the parser gives each stray one an empty document of its own, which is not a second document."
+    },
+    {
+      "name": "YAML: a second document after a document end marker",
+      "files": [
+        "yaml-second-document-after-end.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "...",
+          "message": "The manifest contains more than one YAML document.",
+          "fix": "Keep one document: remove this ... line and anything after it that is not part of the manifest."
+        }
+      ],
+      "note": "With no --- line, the second document starts after the ... that ends the first, so that is the marker named."
+    },
+    {
+      "name": "YAML: %YAML 1.1 refused",
+      "files": [
+        "yaml-version-1-1.yaml"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "%YAML",
+          "message": "The manifest declares %YAML 1.1; only YAML 1.2 is accepted.",
+          "fix": "Remove the %YAML line, or change it to %YAML 1.2."
+        }
+      ]
+    },
+    {
+      "name": "YAML: %YAML 1.2 accepted",
+      "files": [
+        "yaml-version-1-2.yaml"
+      ],
+      "usable": true,
+      "findings": []
+    },
+    {
+      "name": "JSON: trailing comma in an object",
+      "files": [
+        "json-trailing-comma-object.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": {
+            "marker": "}",
+            "occurrence": 1
+          },
+          "message": "JSON does not allow a comma before }.",
+          "fix": "Remove the trailing comma."
+        }
+      ]
+    },
+    {
+      "name": "JSON: trailing comma in an array",
+      "files": [
+        "json-trailing-comma-array.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "]",
+          "message": "JSON does not allow a comma before ].",
+          "fix": "Remove the trailing comma."
+        }
+      ]
+    },
+    {
+      "name": "JSON: line comment",
+      "files": [
+        "json-line-comment.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "//",
+          "message": "JSON does not allow comments.",
+          "fix": "Remove the comment, or write the manifest as papeleria.yaml, which allows comments after #."
+        }
+      ]
+    },
+    {
+      "name": "JSON: block comment",
+      "files": [
+        "json-block-comment.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "/*",
+          "message": "JSON does not allow comments.",
+          "fix": "Remove the comment, or write the manifest as papeleria.yaml, which allows comments after #."
+        }
+      ]
+    },
+    {
+      "name": "JSON: single quotes",
+      "files": [
+        "json-single-quotes.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "'template'",
+          "message": "JSON strings and keys use double quotes.",
+          "fix": "Replace the single quotes with double quotes."
+        }
+      ]
+    },
+    {
+      "name": "JSON: leading zero",
+      "files": [
+        "json-leading-zero.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "01",
+          "message": "This is not a valid JSON number.",
+          "fix": "Remove leading zeros, and write decimals with a digit on both sides of the point."
+        }
+      ]
+    },
+    {
+      "name": "JSON: NaN",
+      "files": [
+        "json-nan.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "NaN",
+          "message": "JSON has no NaN, Infinity or undefined.",
+          "fix": "Write a finite number, or null."
+        }
+      ]
+    },
+    {
+      "name": "JSON: plus sign",
+      "files": [
+        "json-plus-number.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "+1",
+          "message": "A JSON number cannot start with +.",
+          "fix": "Remove the plus sign."
+        }
+      ]
+    },
+    {
+      "name": "JSON: string broken by a line end",
+      "files": [
+        "json-unterminated-string.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"deck,",
+          "message": "This string is not closed before the end of its line.",
+          "fix": "Close the string with a double quotation mark; write \\n for a line break inside the text."
+        }
+      ]
+    },
+    {
+      "name": "JSON: raw tab inside a string",
+      "files": [
+        "json-tab-in-string.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\twith",
+          "message": "A JSON string cannot contain a raw line break, tab or other control character.",
+          "fix": "Write \\n for a line break and \\t for a tab inside the quotes."
+        }
+      ]
+    },
+    {
+      "name": "JSON: invalid escape",
+      "files": [
+        "json-bad-escape.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\\q",
+          "message": "The escape \\q is not valid JSON.",
+          "fix": "Use one of \\\" \\\\ \\/ \\b \\f \\n \\r \\t or \\u followed by four hexadecimal digits."
+        }
+      ]
+    },
+    {
+      "name": "JSON: missing colon",
+      "files": [
+        "json-missing-colon.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"deck\"",
+          "message": "Unexpected \" where JSON expects a colon after the key.",
+          "fix": "Check for a missing comma, colon, quotation mark or bracket just before this position."
+        }
+      ]
+    },
+    {
+      "name": "JSON: missing comma",
+      "files": [
+        "json-missing-comma.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "\"template\"",
+          "message": "Unexpected \" where JSON expects a comma or }.",
+          "fix": "Check for a missing comma, colon, quotation mark or bracket just before this position."
+        }
+      ]
+    },
+    {
+      "name": "JSON: text after the value",
+      "files": [
+        "json-text-after.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": "extra",
+          "message": "Text continues after the end of the JSON value.",
+          "fix": "Remove everything after the closing brace of the manifest."
+        }
+      ]
+    },
+    {
+      "name": "JSON: file ends inside an array",
+      "files": [
+        "json-unclosed.json"
+      ],
+      "usable": false,
+      "findings": [
+        {
+          "rule": "R09",
+          "severity": "error",
+          "at": {
+            "end": true
+          },
+          "message": "The JSON ends before a value.",
+          "fix": "Complete the manifest; a bracket, brace or value is missing at the end."
+        }
+      ]
+    }
+  ]
+}

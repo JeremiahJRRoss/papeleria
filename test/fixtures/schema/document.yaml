@@ -1,0 +1,27 @@
+# Valid: every block kind, including video, which only a document section takes (C07, C16 positives).
+schema: 1
+template: document
+title: Review took the most hours.
+language: en
+status: published
+doc_type: Project report
+metadata:
+  - {label: Audience, value: Studio leads}
+sections:
+  - heading: Executive summary
+    blocks:
+      - text: assets/text/summary.md
+      - text: Inline **Markdown** works too.
+  - heading: Hours by phase
+    new_page: true
+    blocks:
+      - chart: {type: bar, data: assets/data/hours.csv, x: phase, y: hours, summary: Review took the most hours.}
+      - table: {data: assets/data/hours.csv}
+      - image: {src: assets/images/photo.jpg, alt: A pier.}
+      - video: {src: assets/video/loop.mp4, poster: assets/images/poster.png, alt: Water moving under the pier., caption: A loop., credit: Studio, rights: Studio footage}
+      - quote: {text: A considered label., attribution: Brand principle}
+      - note: {text: Sample data., tone: warning}
+      - callout: {text: A folder becomes a piece.}
+      - logo: {src: assets/images/logos/client.svg, alt: Client}
+source_note: "Basis: sample timesheets."
+footer: Studio report
