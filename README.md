@@ -1,4 +1,4 @@
-# Papeleria
+# Papelería Community
 
 Papelería is an application for creating and publishing interactive HTML5 presentations, digital publications, and learning content. Its scope includes interactive slide presentations, infographics, comic panels, magazine and ebook layouts, and integration with Learning Management Systems through Learning Tools Interoperability (LTI). It is designed to run on Linux, macOS, and Windows.
 
